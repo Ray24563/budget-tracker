@@ -1,1 +1,28 @@
 @import "tailwindcss";
+
+body{
+  background: #050508;
+  background: linear-gradient(90deg,rgba(5, 5, 8, 1) 0%, rgba(13, 11, 20, 1) 50%, rgba(19, 16, 42, 1) 100%);
+}
+
+@font-face {
+  font-family: 'Outfit';
+  src: url('./assets/fonts/Outfit-VariableFont_wght.ttf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
+}
+
+.outfit-font{
+  font-family: Outfit;
+}
+
+@font-face {
+  font-family: 'Syne';
+  src: url('./assets/fonts/Syne-VariableFont_wght.ttf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
+}
+
+.syne-heading{
+  font-family: Syne;
+}
