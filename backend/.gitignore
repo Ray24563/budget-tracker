@@ -1,0 +1,19 @@
+# Virtual Environment
+venv/
+
+# Environment Variables
+.env
+
+# Database (your actual data)
+budget_tracker.db
+
+# Seed Script (contains password setup)
+seed.py
+
+# Python Cache
+__pycache__/
+*.py[cod]
+
+# OS Stuff
+.DS_Store
+Thumbs.db
