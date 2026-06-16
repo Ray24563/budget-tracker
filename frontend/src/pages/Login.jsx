@@ -73,7 +73,7 @@ function Login({ onLoginSuccess }) {
             </button>
             {/* Error Message */}
             {error && (
-              <p className="text-red-500 text-sm mb-4">{error}</p>
+              <p className="text-red-500 text-sm mb-4 mt-3">{error}</p>
             )}
           </div>
         </div>
