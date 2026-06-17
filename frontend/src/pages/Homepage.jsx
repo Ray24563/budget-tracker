@@ -3,10 +3,20 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faArrowRightFromBracket} from '@fortawesome/free-solid-svg-icons'
 import FadeIn from '../components/FadeIn'
 import DayTime from '../components/DayTime.jsx'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import LogOut from '../modals/LogOut.jsx'
+import { faArrowRightArrowLeft } from '@fortawesome/free-solid-svg-icons'
+import { faClipboardList } from '@fortawesome/free-solid-svg-icons'
+import { faChartLine } from '@fortawesome/free-solid-svg-icons'
+import { faArrowTrendUp } from '@fortawesome/free-solid-svg-icons'
+import { faArrowTrendDown } from '@fortawesome/free-solid-svg-icons'
 
 function Homepage ({handleLogout}){
   const [logoutModal, setLogoutModal] = useState(false);
+
+  useEffect(() => {
+    document.title = "Dashboard"
+  },[])
 
   return(
     <>
@@ -29,7 +39,24 @@ function Homepage ({handleLogout}){
     <main className='mx-10 mt-15'>
       <FadeIn>
         <section id='section_1' className="animate-fadeIn">
-          <h1 className='text-white syne-heading font-bold text-3xl'><DayTime/></h1>
+          <h1 className='text-white syne-heading font-bold text-3xl'>
+            <DayTime/>
+          </h1>
+
+          <div>
+            <h2 className='text-[#6b5f8a] syne-heading mt-7 mb-3'>Primary Actions</h2>
+            <div id='primary_actions' className='flex gap-x-5 mb-10 '>
+              <button className='income-button-background py-5 ps-7 pe-40 rounded-xl'><FontAwesomeIcon icon={faArrowTrendUp} className='me-3'/>Add Income</button>
+              <button className='expenses-button-background py-5 ps-7 pe-40 rounded-xl'><FontAwesomeIcon icon={faArrowTrendDown} className='me-3'/>Add Expense</button>
+            </div>
+
+            <h2 className='text-[#6b5f8a] syne-heading mb-3'>Other Actions</h2>
+            <div id='other_actions' className='flex gap-x-5'>
+              <button className='bg-transparent border border-[#3b2d6a] text-[#c4b8e0] py-5 ps-7 pe-40 rounded-xl hover:bg-[#1c1640] hover:border-[#4c2f8f] cursor-pointer transition-all duration-500'><FontAwesomeIcon icon={faArrowRightArrowLeft} className='me-3'/>Transfer Money</button>
+              <button className='bg-transparent border border-[#3b2d6a] text-[#c4b8e0] py-5 ps-7 pe-25 rounded-xl hover:bg-[#1c1640] hover:border-[#4c2f8f] cursor-pointer transition-all duration-500'><FontAwesomeIcon icon={faChartLine} className='me-3'/>Future Income & Expenses</button>
+              <button className='bg-transparent border border-[#3b2d6a] text-[#c4b8e0] py-5 ps-7 pe-40 rounded-xl hover:bg-[#1c1640] hover:border-[#4c2f8f] cursor-pointer transition-all duration-500'><FontAwesomeIcon icon={faClipboardList} className='me-2'/> Utang Jazz</button>
+            </div>
+          </div>
         </section>
       </FadeIn>
      
@@ -39,27 +66,10 @@ function Homepage ({handleLogout}){
       <div className="fixed inset-0 z-50 backdrop-blur-md bg-black/20 flex flex-col items-center justify-center animate-backdropIn"
           onClick={() => setLogoutModal(false)}
       >
-        <div className='bg-[#261d52] p-15 rounded-lg border border-[#e2d9f3] animate-modalIn'>
-          <h1 className='text-2xl mb-10 text-[#e2d9f3] font-bold'>
-            Are you sure you want to Logout?
-          </h1>
-
-          <div className='flex justify-center gap-x-7 syne-heading text-lg'>
-            <button 
-              className='bg-[#e2d9f3] px-8 py-1 rounded-full cursor-pointer hover:scale-105 transition-transform duration-500'
-              onClick={handleLogout}
-            >
-              Yes
-            </button>
-
-            <button 
-              className='bg-[#7c6e9c] px-3 rounded-full cursor-pointer hover:scale-105 transition-transform duration-500'
-              onClick={() => setLogoutModal(false)}
-            >
-              No, Go Back
-            </button>
-          </div>
-        </div>
+        <LogOut 
+          handleLogout={handleLogout}  
+          setLogoutModal={setLogoutModal}
+        />
       </div>
     }
     </>
