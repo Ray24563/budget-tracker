@@ -1,15 +1,10 @@
 import Logo from '../assets/images/logo.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faRightFromBracket} from '@fortawesome/free-solid-svg-icons'
+import {faCreditCard, faRightFromBracket, faArrowRightArrowLeft, faClipboardList, faChartLine, faArrowTrendUp, faArrowTrendDown, faWallet, faM, faCircleQuestion} from '@fortawesome/free-solid-svg-icons'
 import FadeIn from '../components/FadeIn'
 import DayTime from '../components/DayTime.jsx'
 import { useState, useEffect } from 'react'
 import LogOut from '../modals/LogOut.jsx'
-import { faArrowRightArrowLeft } from '@fortawesome/free-solid-svg-icons'
-import { faClipboardList } from '@fortawesome/free-solid-svg-icons'
-import { faChartLine } from '@fortawesome/free-solid-svg-icons'
-import { faArrowTrendUp } from '@fortawesome/free-solid-svg-icons'
-import { faArrowTrendDown } from '@fortawesome/free-solid-svg-icons'
 
 function Homepage ({handleLogout}){
   const [logoutModal, setLogoutModal] = useState(false);
@@ -57,6 +52,57 @@ function Homepage ({handleLogout}){
               <button className='bg-transparent border border-[#3b2d6a] text-[#c4b8e0] py-5 ps-7 pe-40 rounded-xl hover:bg-[#1c1640] hover:border-[#4c2f8f] cursor-pointer transition-all duration-500'><FontAwesomeIcon icon={faClipboardList} className='me-2'/> Utang Jazz</button>
             </div>
           </div>
+        </section>
+      </FadeIn>
+
+       <FadeIn>
+        <h2 className='text-[#6b5f8a] syne-heading mt-7 mb-3'>Savings</h2>
+        <section className='grid grid-cols-4 gap-x-3 mb-20'>
+
+          <div className='savings-bg-color border-l-5 border-l-[#c084fc] rounded-lg px-10 py-5 text-[#6b5f8a]'>
+            <h1 className='#a78bca mb-3'><FontAwesomeIcon icon={faWallet} className='me-3 text-[#c084fc]'/>Wallet</h1>
+
+            <div>
+              <div className='flex justify-between'>
+                <p className='syne-heading'>Main</p>
+                <p className='text-[#c4b8e0] font-bold text-xl'>₱ 388.00</p>
+              </div>
+              <hr className='mt-3 mb-3'/>
+              <div className='flex justify-between'>
+                <p className='syne-heading'>Secondary</p>
+                <p className='text-[#c4b8e0] font-bold text-xl'>₱ 3, 000.00</p>
+              </div>
+            </div>
+          </div>
+
+          <div className='savings-bg-color border-l-5 border-l-[#00D3B8] rounded-lg px-10 py-5 text-[#6b5f8a]'>
+            <h1 className='#a78bca mb-3'><FontAwesomeIcon icon={faM} className='me-3 text-[#00D3B8]'/>Maya</h1>
+
+            <div>
+              <div className='flex justify-between'>
+                <p className='syne-heading'>Wallet</p>
+                <p className='text-[#c4b8e0] font-bold text-xl'>₱ 388.00</p>
+              </div>
+              <hr className='mt-3 mb-3'/>
+              <div className='flex justify-between'>
+                <p className='syne-heading'>Savings</p>
+                <p className='text-[#c4b8e0] font-bold text-xl'>₱ 3, 000.00</p>
+              </div>
+            </div>
+          </div>
+
+          <div className='savings-bg-color border-l-5 border-l-[#B11116] rounded-lg px-10 py-5 text-[#6b5f8a]'>
+            <h1 className='#a78bca mb-3'><FontAwesomeIcon icon={faCreditCard} className='me-3 text-[#B11116]'/>BPI</h1>
+
+            <h1 className='text-[#c4b8e0] font-bold text-xl'>₱ 3, 000.00</h1>
+          </div>
+
+          <div className='savings-bg-color border-l-5 border-l-[#00D4C6] rounded-lg px-10 py-5 text-[#6b5f8a]'>
+            <h1 className='#a78bca mb-3'><FontAwesomeIcon icon={faCircleQuestion} className='me-3 text-[#00D4C6]'/>GoTyme</h1>
+
+            <h1 className='text-[#c4b8e0] font-bold text-xl'>₱ 0</h1>
+          </div>
+
         </section>
       </FadeIn>
 
