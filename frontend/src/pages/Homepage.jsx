@@ -5,13 +5,58 @@ import FadeIn from '../components/FadeIn'
 import DayTime from '../components/DayTime.jsx'
 import { useState, useEffect } from 'react'
 import LogOut from '../modals/LogOut.jsx'
+import AddIncome from '../modals/AddIncome.jsx'
+import AddExpense from '../modals/AddExpense.jsx'
+import { getSummary } from '../api/summary.js'
+
+const DEFAULT_SUMMARY = {
+  savings_breakdown: [
+    { savings: "Main Wallet", total_income: 0, total_expenses: 0, balance: 0 },
+    { savings: "Secondary Wallet", total_income: 0, total_expenses: 0, balance: 0 },
+    { savings: "Maya Wallet", total_income: 0, total_expenses: 0, balance: 0 },
+    { savings: "Maya Savings", total_income: 0, total_expenses: 0, balance: 0 },
+    { savings: "BPI", total_income: 0, total_expenses: 0, balance: 0 },
+    { savings: "GoTyme", total_income: 0, total_expenses: 0, balance: 0 },
+  ],
+  overall_total_income: 0,
+  overall_total_expenses: 0,
+  overall_balance: 0
+};
 
 function Homepage ({handleLogout}){
   const [logoutModal, setLogoutModal] = useState(false);
+  const [addIncomeModal, setAddIncomeModal] = useState(false);
+  const [addExpenseModal, setAddExpenseModal] = useState(false);
+  const [summary, setSummary] = useState(DEFAULT_SUMMARY);
+  const [loading, setLoading] = useState(true);
+
+  const fetchSummary = async () => {
+    try {
+      const data = await getSummary();
+      setSummary(data);
+    } catch (err) {
+      console.error("Failed to fetch summary");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchSummary();
 
   useEffect(() => {
     document.title = "Dashboard"
-  },[])
+  }, []);
+
+  const getSavings = (name) =>
+    summary.savings_breakdown.find((item) => item.savings === name);
+
+  // Get each savings individually
+  const option1 = getSavings("Main Wallet");
+  const option2 = getSavings("Secondary Wallet");
+  const option3 = getSavings("Maya Wallet");
+  const option4 = getSavings("Maya Savings");
+  const option5 = getSavings("BPI");
+  const option6 = getSavings("GoTyme");
 
   return(
     <>
@@ -22,7 +67,7 @@ function Homepage ({handleLogout}){
       </div>
 
       <div className='flex gap-x-5'>
-        <div className='bg-[#e2d9f3] font-medium rounded-full px-6 py-2 text-[#13102a]'>P 1,000</div>
+        <div className='bg-[#e2d9f3] font-medium rounded-full px-6 py-2 text-[#13102a]'>₱{summary.overall_balance.toLocaleString()}</div>
         <FontAwesomeIcon 
           className='text-3xl mt-1 text-[#e2d9f3] cursor-pointer hover:scale-110 transition-transform duration-500' 
           icon={faRightFromBracket} 
@@ -41,8 +86,18 @@ function Homepage ({handleLogout}){
           <div>
             <h2 className='text-[#6b5f8a] syne-heading mt-7 mb-3'>Primary Actions</h2>
             <div id='primary_actions' className='flex gap-x-5 mb-10 '>
-              <button className='income-button-background py-5 ps-7 pe-40 rounded-xl'><FontAwesomeIcon icon={faArrowTrendUp} className='me-3'/>Add Income</button>
-              <button className='expenses-button-background py-5 ps-7 pe-40 rounded-xl'><FontAwesomeIcon icon={faArrowTrendDown} className='me-3'/>Add Expense</button>
+              <button 
+                className='income-button-background py-5 ps-7 pe-40 rounded-xl'
+                onClick={() => setAddIncomeModal(true)}
+              >
+                  <FontAwesomeIcon icon={faArrowTrendUp} className='me-3'/>Add Income
+                </button>
+              <button 
+                className='expenses-button-background py-5 ps-7 pe-40 rounded-xl'
+                onClick={() => setAddExpenseModal(true)}
+              >
+                <FontAwesomeIcon icon={faArrowTrendDown} className='me-3'/>Add Expense
+              </button>
             </div>
 
             <h2 className='text-[#6b5f8a] syne-heading mb-3'>Other Actions</h2>
@@ -65,12 +120,12 @@ function Homepage ({handleLogout}){
             <div>
               <div className='flex justify-between'>
                 <p className='syne-heading'>Main</p>
-                <p className='text-[#c4b8e0] font-bold text-xl'>₱ 388.00</p>
+                <p className='text-[#c4b8e0] font-bold text-xl'>₱ {option1?.balance.toLocaleString() ?? 0}</p>
               </div>
               <hr className='mt-3 mb-3'/>
               <div className='flex justify-between'>
                 <p className='syne-heading'>Secondary</p>
-                <p className='text-[#c4b8e0] font-bold text-xl'>₱ 3, 000.00</p>
+                <p className='text-[#c4b8e0] font-bold text-xl'>₱ {option2?.balance.toLocaleString() ?? 0}</p>
               </div>
             </div>
           </div>
@@ -81,12 +136,12 @@ function Homepage ({handleLogout}){
             <div>
               <div className='flex justify-between'>
                 <p className='syne-heading'>Wallet</p>
-                <p className='text-[#c4b8e0] font-bold text-xl'>₱ 388.00</p>
+                <p className='text-[#c4b8e0] font-bold text-xl'>₱ {option3?.balance.toLocaleString() ?? 0}</p>
               </div>
               <hr className='mt-3 mb-3'/>
               <div className='flex justify-between'>
                 <p className='syne-heading'>Savings</p>
-                <p className='text-[#c4b8e0] font-bold text-xl'>₱ 3, 000.00</p>
+                <p className='text-[#c4b8e0] font-bold text-xl'>₱ {option4?.balance.toLocaleString() ?? 0}</p>
               </div>
             </div>
           </div>
@@ -94,13 +149,13 @@ function Homepage ({handleLogout}){
           <div className='savings-bg-color border-l-5 border-l-[#B11116] rounded-lg px-10 py-5 text-[#6b5f8a]'>
             <h1 className='#a78bca mb-3'><FontAwesomeIcon icon={faCreditCard} className='me-3 text-[#B11116]'/>BPI</h1>
 
-            <h1 className='text-[#c4b8e0] font-bold text-xl'>₱ 3, 000.00</h1>
+            <h1 className='text-[#c4b8e0] font-bold text-xl'>₱ {option5?.balance.toLocaleString() ?? 0}</h1>
           </div>
 
           <div className='savings-bg-color border-l-5 border-l-[#00D4C6] rounded-lg px-10 py-5 text-[#6b5f8a]'>
             <h1 className='#a78bca mb-3'><FontAwesomeIcon icon={faCircleQuestion} className='me-3 text-[#00D4C6]'/>GoTyme</h1>
 
-            <h1 className='text-[#c4b8e0] font-bold text-xl'>₱ 0</h1>
+            <h1 className='text-[#c4b8e0] font-bold text-xl'>₱ {option6?.balance.toLocaleString() ?? 0}</h1>
           </div>
 
         </section>
@@ -145,6 +200,24 @@ function Homepage ({handleLogout}){
         <LogOut 
           handleLogout={handleLogout}  
           setLogoutModal={setLogoutModal}
+        />
+      </div>
+    }
+
+    {addIncomeModal &&
+      <div className="fixed inset-0 z-50 backdrop-blur-md bg-black/20 flex flex-col items-center justify-center animate-backdropIn">
+        <AddIncome 
+          setAddIncomeModal={setAddIncomeModal}
+          onSuccess={fetchSummary}
+        />
+      </div>
+    }
+
+    {addExpenseModal &&
+      <div className="fixed inset-0 z-50 backdrop-blur-md bg-black/20 flex flex-col items-center justify-center animate-backdropIn">
+        <AddExpense 
+          setAddExpenseModal={setAddExpenseModal}
+          onSuccess={fetchSummary}
         />
       </div>
     }

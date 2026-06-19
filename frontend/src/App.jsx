@@ -1,7 +1,10 @@
 import { useState } from 'react'
 import './App.css'
+import { BrowserRouter, Routes, Route, Navigate, Link } from "react-router-dom";
 import Login from './pages/Login'
 import Homepage from './pages/Homepage';
+import IncomePage from './pages/IncomePage';
+import ExpensePage from './pages/ExpensesPage';
 
 function App() {
   // Check if a token already exists (user already logged in)
@@ -26,7 +29,15 @@ function App() {
 
   return (
     <>
-      <Homepage handleLogout={handleLogout}/>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Homepage handleLogout={handleLogout}/>}/>
+          <Route path="/income" element={<IncomePage/>}/>
+          <Route path="/expense" element={<ExpensePage/>}/>
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
+      </BrowserRouter>
+      
     </>
   )
 }
