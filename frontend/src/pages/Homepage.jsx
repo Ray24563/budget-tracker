@@ -77,7 +77,7 @@ function Homepage ({handleLogout}){
     <>
     <header className='mx-10 mt-10 mb-7 flex justify-between'>
       <div className='flex gap-x-5'>
-        <button onClick={togglePanel} className={`toggle-button`}>☰</button>
+        <button onClick={togglePanel} className='toggle-button hover:scale-120 transition-transform duration-500'>☰</button>
         <img src={Logo} className='w-20'/>
         <h1 className="text-white syne-heading font-bold mt-2 text-xl">WhyHub</h1>
       </div>
@@ -94,13 +94,13 @@ function Homepage ({handleLogout}){
         <h2 className='text-[#6b5f8a] text-sm syne-heading mt-5 mb-3'>Primary Actions</h2>
           <div id='primary_actions'>
             <button 
-              className='income-button-background py-3 ps-5 pe-20 rounded-md mb-5'
+              className='income-button-background py-3 ps-5 w-full text-left rounded-md mb-5'
               onClick={() => (setAddIncomeModal(true), setIsPanelOpen(false))}
             >
                 <FontAwesomeIcon icon={faArrowTrendUp} className='me-3'/>Add Income
               </button>
             <button 
-              className='expenses-button-background py-3 ps-5 pe-18 rounded-md'
+              className='expenses-button-background py-3 ps-5 w-full text-left rounded-md'
               onClick={() => (setAddExpenseModal(true), setIsPanelOpen(false))}
             >
               <FontAwesomeIcon icon={faArrowTrendDown} className='me-3'/>Add Expense
@@ -112,21 +112,21 @@ function Homepage ({handleLogout}){
           <h2 className='text-[#6b5f8a] syne-heading mb-3 text-sm'>Navigations</h2>
             <div id='other_actions'>
               <button 
-                className='bg-transparent border border-[#3b2d6a] text-[#c4b8e0] py-3 ps-5 pe-21 rounded-md mb-5 hover:bg-[#1c1640] hover:border-[#4c2f8f] cursor-pointer transition-all duration-500'
+                className='bg-transparent border border-[#3b2d6a] text-[#c4b8e0] py-3 ps-5 w-full rounded-md mb-5 hover:bg-[#1c1640] hover:border-[#4c2f8f] cursor-pointer transition-all duration-500 text-left'
                 onClick={navigateToIncomePage}
               >
                 <FontAwesomeIcon icon={faListCheck} className='me-3'/>Income List
               </button>
 
               <button 
-                className='bg-transparent border border-[#3b2d6a] text-[#c4b8e0] py-3 ps-5 pe-18 rounded-md mb-5 hover:bg-[#1c1640] hover:border-[#4c2f8f] cursor-pointer transition-all duration-500'
+                className='bg-transparent border border-[#3b2d6a] text-[#c4b8e0] py-3 ps-5 w-full text-left rounded-md mb-5 hover:bg-[#1c1640] hover:border-[#4c2f8f] cursor-pointer transition-all duration-500'
                 onClick={navigateToExpensePage}
               >
                 <FontAwesomeIcon icon={faListOl} className='me-3'/>Expenses List
               </button>
               
               <button 
-                className='bg-transparent border border-[#3b2d6a] text-[#c4b8e0] py-3 ps-5 pe-29 rounded-md mb-5 hover:bg-[#1c1640] hover:border-[#4c2f8f] cursor-pointer transition-all duration-500'
+                className='bg-transparent border border-[#3b2d6a] text-[#c4b8e0] py-3 ps-5 w-full text-left rounded-md mb-5 hover:bg-[#1c1640] hover:border-[#4c2f8f] cursor-pointer transition-all duration-500'
                 onClick={() => (setLogoutModal(true), setIsPanelOpen(false))}
               >
                 <FontAwesomeIcon icon={faRightFromBracket} className='me-3'/>Logout
@@ -137,11 +137,11 @@ function Homepage ({handleLogout}){
         <div className='mt-5'>
           <h2 className='text-[#6b5f8a] syne-heading mb-3 text-sm'>Other Actions</h2>
             <div id='other_actions'>
-              <button className='bg-transparent border border-[#3b2d6a] text-[#c4b8e0] py-3 ps-5 pe-15 rounded-md mb-5 hover:bg-[#1c1640] hover:border-[#4c2f8f] cursor-pointer transition-all duration-500'><FontAwesomeIcon icon={faArrowRightArrowLeft} className='me-3'/>Transfer Money</button>
+              <button className='bg-transparent border border-[#3b2d6a] text-[#c4b8e0] py-3 ps-5 w-full text-left rounded-md mb-5 hover:bg-[#1c1640] hover:border-[#4c2f8f] cursor-pointer transition-all duration-500'><FontAwesomeIcon icon={faArrowRightArrowLeft} className='me-3'/>Transfer Money</button>
 
-              <button className='bg-transparent border border-[#3b2d6a] text-[#c4b8e0] py-3 ps-5 pe-29 rounded-md mb-5 hover:bg-[#1c1640] hover:border-[#4c2f8f] cursor-pointer transition-all duration-500'><FontAwesomeIcon icon={faChartLine} className='me-3'/>Future</button>
+              <button className='bg-transparent border border-[#3b2d6a] text-[#c4b8e0] py-3 ps-5 w-full text-left rounded-md mb-5 hover:bg-[#1c1640] hover:border-[#4c2f8f] cursor-pointer transition-all duration-500'><FontAwesomeIcon icon={faChartLine} className='me-3'/>Future</button>
 
-              <button className='bg-transparent border border-[#3b2d6a] text-[#c4b8e0] py-3 ps-5 pe-22 rounded-md mb-5 hover:bg-[#1c1640] hover:border-[#4c2f8f] cursor-pointer transition-all duration-500'><FontAwesomeIcon icon={faClipboardList} className='me-2'/> Utang Jazz</button>
+              <button className='bg-transparent border border-[#3b2d6a] text-[#c4b8e0] py-3 ps-5 w-full text-left rounded-md mb-5 hover:bg-[#1c1640] hover:border-[#4c2f8f] cursor-pointer transition-all duration-500'><FontAwesomeIcon icon={faClipboardList} className='me-2'/> Utang Jazz</button>
             </div>
           </div>
       </div>

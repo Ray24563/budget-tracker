@@ -110,11 +110,6 @@ input[type=number]::-webkit-inner-spin-button {
   font-size: 24px;
   cursor: pointer;
   border-radius: 5px;
-  transition: background 0.3s ease;
-}
-
-.toggle-button:hover {
-  background: #1C1C24;
 }
 
 .side-panel {
@@ -136,4 +131,24 @@ input[type=number]::-webkit-inner-spin-button {
 
 .side-panel.open {
   transform: translateX(0);
+}
+
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+/* track (the background) */
+::-webkit-scrollbar-track {
+  background: #0d0b14;
+}
+
+/* thumb (the draggable part) */
+::-webkit-scrollbar-thumb {
+  background: #3b2d6a;
+  border-radius: 999px;
+}
+
+/* thumb on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #6d28d9;
 }
