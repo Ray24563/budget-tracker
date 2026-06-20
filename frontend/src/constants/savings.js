@@ -9,11 +9,12 @@ export const SAVINGS_OPTIONS = [
 ];
 
 export const EXPENSE_CATEGORIES = [
-  "Transpo",
+  "Transportation",
   "Food & Drinks",
   "Order",
   "Electricity",
   "Water",
   "Gift",
+  "Loan",
   "Others"
 ];

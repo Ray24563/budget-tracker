@@ -3,6 +3,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import {useState} from 'react'
 import { addIncome } from "../api/income";
 import { SAVINGS_OPTIONS } from "../constants/savings";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowTrendUp } from "@fortawesome/free-solid-svg-icons";
 
 function AddIncome({ setAddIncomeModal, onSuccess }) {
   const [date, setDate] = useState(new Date());
@@ -53,7 +55,7 @@ function AddIncome({ setAddIncomeModal, onSuccess }) {
       <div className='add-income-modal w-auto p-10 rounded-lg animate-modalIn'>
          <h1 
           className='syne-heading text-[#e2d9f3] font-bold text-3xl mb-5'
-          onClick={() => setAddIncomeModal(false)}>Add Income</h1>
+          ><FontAwesomeIcon icon={faArrowTrendUp} className='me-3'/> Add Income</h1>
 
          <form>
           <div className='mb-5 flex gap-x-5'>
