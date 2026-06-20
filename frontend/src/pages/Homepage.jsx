@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faCreditCard, faRightFromBracket, faArrowRightArrowLeft, faClipboardList, faChartLine, faArrowTrendUp, faArrowTrendDown, faWallet, faM, faCircleQuestion} from '@fortawesome/free-solid-svg-icons'
 import FadeIn from '../components/FadeIn'
 import DayTime from '../components/DayTime.jsx'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import LogOut from '../modals/LogOut.jsx'
 import AddIncome from '../modals/AddIncome.jsx'
 import AddExpense from '../modals/AddExpense.jsx'
@@ -30,7 +30,7 @@ function Homepage ({handleLogout}){
   const [summary, setSummary] = useState(DEFAULT_SUMMARY);
   const [loading, setLoading] = useState(true);
 
-  const fetchSummary = async () => {
+  const fetchSummary = useCallback(async () => {
     try {
       const data = await getSummary();
       setSummary(data);
@@ -39,13 +39,12 @@ function Homepage ({handleLogout}){
     } finally {
       setLoading(false);
     }
-  };
-
-  fetchSummary();
+  }, []);
 
   useEffect(() => {
-    document.title = "Dashboard"
-  }, []);
+    document.title = "Dashboard";
+    fetchSummary();
+  }, [fetchSummary]); // ← depends on fetchSummary
 
   const getSavings = (name) =>
     summary.savings_breakdown.find((item) => item.savings === name);

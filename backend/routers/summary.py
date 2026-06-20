@@ -8,12 +8,12 @@ router = APIRouter()
 
 # The six savings options
 SAVINGS_OPTIONS = [
-    "Option1",
-    "Option2",
-    "Option3",
-    "Option4",
-    "Option5",
-    "Option6"
+    "Main Wallet",
+    "Secondary Wallet",
+    "Maya Wallet",
+    "Maya Savings",
+    "BPI",
+    "GoTyme"
 ]
 
 @router.get("/summary", response_model=SummaryResponse)

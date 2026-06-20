@@ -11,7 +11,12 @@ export const addExpense = async (data) => {
     body: JSON.stringify(data)
   });
 
-  if (!response.ok) throw new Error(response.status);
+  // If failed, extract FastAPI's error message
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.detail || response.status);
+  }
+
   return response.json();
 };
 

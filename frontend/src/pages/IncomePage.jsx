@@ -79,7 +79,7 @@ export default function IncomePage() {
 
       {/* Modal */}
       {showModal && (
-        <AddIncomeModal
+        <AddIncome
           onClose={() => setShowModal(false)}
           onSuccess={fetchIncome}
         />

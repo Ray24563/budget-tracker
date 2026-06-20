@@ -4,7 +4,7 @@ import {useState} from 'react'
 import { addIncome } from "../api/income";
 import { SAVINGS_OPTIONS } from "../constants/savings";
 
-function AddIncome({ onClose, onSuccess, fetchSummary }) {
+function AddIncome({ setAddIncomeModal, onSuccess }) {
   const [date, setDate] = useState(new Date());
   const [source, setSource] = useState("");
   const [savings, setSavings] = useState(SAVINGS_OPTIONS[0]);
@@ -12,7 +12,7 @@ function AddIncome({ onClose, onSuccess, fetchSummary }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-    const handleSubmit = async () => {
+  const handleSubmit = async () => {
     setError("");
 
     // Basic validation
@@ -38,10 +38,11 @@ function AddIncome({ onClose, onSuccess, fetchSummary }) {
       });
 
       onSuccess(); // refresh the list
-      onClose();   // close the modal
+      setAddIncomeModal(false)
 
     } catch (err) {
       setError("Something went wrong. Please try again.");
+      console.log("Error:", err.message);
     } finally {
       setLoading(false);
     }
@@ -104,13 +105,20 @@ function AddIncome({ onClose, onSuccess, fetchSummary }) {
 
            {error && <p className="text-red-400 text-sm mb-4">{error}</p>}
 
-          <div className='flex justify-center'>
+          <div className='flex justify-center gap-x-5'>
             <button 
-              className="px-3 py-2 income-button-background ms-3 rounded-sm cursor-pointer syne-heading mt-7"
+              className="px-3 py-2 income-button-background rounded-sm cursor-pointer syne-heading mt-7"
               onClick={handleSubmit}
               disabled={loading}
             >
                 Submit
+            </button>
+
+            <button 
+              className="px-4 py-2 income-button-background rounded-sm cursor-pointer syne-heading mt-7"
+              onClick={() => setAddIncomeModal(false)}
+            >
+                Close
             </button>
           </div>
          </form>

@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy import desc
 from typing import List
 from database import get_db
-from models import Expense
+from models import Expense, Income
 from schemas import ExpenseCreate, ExpenseResponse
 
 router = APIRouter()
@@ -12,7 +12,27 @@ router = APIRouter()
 @router.post("/expenses", response_model=ExpenseResponse)
 def add_expense(request: ExpenseCreate, db: Session = Depends(get_db)):
 
-    # Create a new Expense record from the request data
+    # Step 1: Calculate current balance for the chosen savings
+    income_records = db.query(Income)\
+                       .filter(Income.savings == request.savings)\
+                       .all()
+    total_income = sum(record.amount for record in income_records)
+
+    expense_records = db.query(Expense)\
+                        .filter(Expense.savings == request.savings)\
+                        .all()
+    total_expenses = sum(record.amount for record in expense_records)
+
+    current_balance = total_income - total_expenses
+
+    # Step 2: Check if balance is sufficient
+    if request.amount > current_balance:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Insufficient balance. Current balance for {request.savings} is ₱{current_balance:,.2f}"
+        )
+
+    # Step 3: Balance is sufficient — save the expense
     new_expense = Expense(
         date=request.date,
         category=request.category,
@@ -21,9 +41,9 @@ def add_expense(request: ExpenseCreate, db: Session = Depends(get_db)):
         amount=request.amount
     )
 
-    db.add(new_expense)         # stage the insert
-    db.commit()                 # save to SQLite
-    db.refresh(new_expense)     # refresh to get auto-assigned id
+    db.add(new_expense)
+    db.commit()
+    db.refresh(new_expense)
 
     return new_expense
 

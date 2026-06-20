@@ -4,7 +4,7 @@ import {useState} from 'react'
 import { addExpense } from "../api/expenses";
 import { SAVINGS_OPTIONS, EXPENSE_CATEGORIES } from "../constants/savings";
 
-function AddExpense({setAddExpenseModal, fetchSummary}) {
+function AddExpense({setAddExpenseModal, onSuccess}) {
   const [date, setDate] = useState(new Date());
   const [category, setCategory] = useState(EXPENSE_CATEGORIES[0]);
   const [source, setSource] = useState("");
@@ -14,39 +14,38 @@ function AddExpense({setAddExpenseModal, fetchSummary}) {
   const [error, setError] = useState("");
 
   const handleSubmit = async () => {
-    setError("");
+  setError("");
 
-    if (!source || !amount) {
-      setError("Please fill in all fields.");
-      return;
-    }
+  if (!source || !amount) {
+    setError("Please fill in all fields.");
+    return;
+  }
 
-    if (isNaN(amount) || Number(amount) <= 0) {
-      setError("Please enter a valid amount.");
-      return;
-    }
+  if (isNaN(amount) || Number(amount) <= 0) {
+    setError("Please enter a valid amount.");
+    return;
+  }
 
-    setLoading(true);
+  setLoading(true);
 
-    try {
-      await addExpense({
-        date: date.toISOString().split("T")[0],
-        category,
-        source,
-        savings,
-        amount: Number(amount)
-      });
+  try {
+    await addExpense({
+      date: date.toISOString().split("T")[0],
+      category,
+      source,
+      savings,
+      amount: Number(amount)
+    });
 
-      onSuccess();
-      onClose();
+    onSuccess();
+    setAddExpenseModal(false)
 
-    } catch (err) {
-      setError("Something went wrong. Please try again.");
-    } finally {
-      setLoading(false);
-    }
-  };
-
+  } catch (err) {
+    setError(err.message);
+  } finally {
+    setLoading(false);
+  }
+};
   return (
     <>
       <div className='add-income-modal w-auto p-10 rounded-lg animate-modalIn'>
@@ -114,7 +113,7 @@ function AddExpense({setAddExpenseModal, fetchSummary}) {
             />
           </div>
 
-          {error && <p className="text-red-400 text-sm mb-4">{error}</p>}
+          {error && <p className="text-red-400 text-sm mt-3 syne-heading">{error}</p>}
 
           <div className='flex justify-center'>
             <button 
