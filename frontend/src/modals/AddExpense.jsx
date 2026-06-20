@@ -104,7 +104,7 @@ function AddExpense({setAddExpenseModal, onSuccess}) {
           </div>
           
           <div>
-            <label className='text-[#e2d9f3] syne-heading mb-2 block'>Value</label>
+            <label className='text-[#e2d9f3] syne-heading mb-2 block'>Amount</label>
             <input 
               type="number" placeholder="Enter source of income" 
               className="border rounded-lg ps-5 pe-10 py-2.5 text-[#e2d9f3] bg-[#0a0818] border-[#2e2460] w-full required"
@@ -115,13 +115,20 @@ function AddExpense({setAddExpenseModal, onSuccess}) {
 
           {error && <p className="text-red-400 text-sm mt-3 syne-heading">{error}</p>}
 
-          <div className='flex justify-center'>
+          <div className='flex justify-center gap-x-3'>
             <button 
-              className="px-3 py-2 income-button-background ms-3 rounded-sm cursor-pointer syne-heading mt-7"
+              className="px-3 py-2 income-button-background rounded-sm cursor-pointer syne-heading mt-7"
               onClick={handleSubmit}
               disabled={loading}
             >
               Submit
+            </button>
+
+            <button 
+              className="px-4 py-2 text-[#7c6e9c] hover:text-[#a78bca] transition-colors duration-500 rounded-sm cursor-pointer syne-heading mt-7"
+              onClick={() => setAddExpenseModal(false)}
+            >
+                Close
             </button>
           </div>
          </form>

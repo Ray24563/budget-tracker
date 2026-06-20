@@ -107,7 +107,7 @@ function AddIncome({ setAddIncomeModal, onSuccess }) {
 
            {error && <p className="text-red-400 text-sm mb-4">{error}</p>}
 
-          <div className='flex justify-center gap-x-5'>
+          <div className='flex justify-center gap-x-3'>
             <button 
               className="px-3 py-2 income-button-background rounded-sm cursor-pointer syne-heading mt-7"
               onClick={handleSubmit}
@@ -117,7 +117,7 @@ function AddIncome({ setAddIncomeModal, onSuccess }) {
             </button>
 
             <button 
-              className="px-4 py-2 income-button-background rounded-sm cursor-pointer syne-heading mt-7"
+              className="px-4 py-2 text-[#7c6e9c] hover:text-[#a78bca] transition-colors duration-500 rounded-sm cursor-pointer syne-heading mt-7"
               onClick={() => setAddIncomeModal(false)}
             >
                 Close

@@ -1,6 +1,6 @@
 import Logo from '../assets/images/logo.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faCreditCard, faRightFromBracket, faArrowRightArrowLeft, faClipboardList, faChartLine, faArrowTrendUp, faArrowTrendDown, faWallet, faM, faCircleQuestion} from '@fortawesome/free-solid-svg-icons'
+import {faCreditCard, faRightFromBracket, faArrowRightArrowLeft, faClipboardList, faChartLine, faArrowTrendUp, faArrowTrendDown, faWallet, faM, faCircleQuestion, faListCheck, faListOl} from '@fortawesome/free-solid-svg-icons'
 import FadeIn from '../components/FadeIn'
 import DayTime from '../components/DayTime.jsx'
 import { useState, useEffect, useCallback } from 'react'
@@ -8,6 +8,7 @@ import LogOut from '../modals/LogOut.jsx'
 import AddIncome from '../modals/AddIncome.jsx'
 import AddExpense from '../modals/AddExpense.jsx'
 import { getSummary } from '../api/summary.js'
+import { useNavigate } from 'react-router-dom'
 
 const DEFAULT_SUMMARY = {
   savings_breakdown: [
@@ -29,6 +30,7 @@ function Homepage ({handleLogout}){
   const [addExpenseModal, setAddExpenseModal] = useState(false);
   const [summary, setSummary] = useState(DEFAULT_SUMMARY);
   const [loading, setLoading] = useState(true);
+  const [isPanelOpen, setIsPanelOpen] = useState(false);
 
   const fetchSummary = useCallback(async () => {
     try {
@@ -57,60 +59,107 @@ function Homepage ({handleLogout}){
   const option5 = getSavings("BPI");
   const option6 = getSavings("GoTyme");
 
+  const navigate = useNavigate();
+
+  const navigateToIncomePage = () => {
+    navigate('/income')
+  };
+  
+  const navigateToExpensePage = () => {
+    navigate('/expense')
+  };
+
+  const togglePanel = () => {
+    setIsPanelOpen(!isPanelOpen);
+  }
+
   return(
     <>
     <header className='mx-10 mt-10 mb-7 flex justify-between'>
       <div className='flex gap-x-5'>
+        <button onClick={togglePanel} className={`toggle-button`}>☰</button>
         <img src={Logo} className='w-20'/>
         <h1 className="text-white syne-heading font-bold mt-2 text-xl">WhyHub</h1>
       </div>
-
-      <div className='flex gap-x-5'>
-        <div className='bg-[#e2d9f3] font-medium rounded-full px-6 py-2 text-[#13102a]'>₱{summary.overall_balance.toLocaleString()}</div>
-        <FontAwesomeIcon 
-          className='text-3xl mt-1 text-[#e2d9f3] cursor-pointer hover:scale-110 transition-transform duration-500' 
-          icon={faRightFromBracket} 
-          onClick={()=> setLogoutModal(true)}
-        />
-      </div>
     </header>
+
+    <div className={`side-panel ${isPanelOpen ? "open" : ""}`}>
+      <div className="text-right">
+        <button onClick={togglePanel} className="text-[#c4b8e0] font-bold text-2xl cursor-pointer hover:scale-120 transition-transform duration-500">
+          ✕
+        </button>
+      </div>
+
+      <div>
+        <h2 className='text-[#6b5f8a] text-sm syne-heading mt-5 mb-3'>Primary Actions</h2>
+          <div id='primary_actions'>
+            <button 
+              className='income-button-background py-3 ps-5 pe-20 rounded-md mb-5'
+              onClick={() => (setAddIncomeModal(true), setIsPanelOpen(false))}
+            >
+                <FontAwesomeIcon icon={faArrowTrendUp} className='me-3'/>Add Income
+              </button>
+            <button 
+              className='expenses-button-background py-3 ps-5 pe-18 rounded-md'
+              onClick={() => (setAddExpenseModal(true), setIsPanelOpen(false))}
+            >
+              <FontAwesomeIcon icon={faArrowTrendDown} className='me-3'/>Add Expense
+            </button>
+          </div>
+        </div>
+
+        <div className='mt-10'>
+          <h2 className='text-[#6b5f8a] syne-heading mb-3 text-sm'>Navigations</h2>
+            <div id='other_actions'>
+              <button 
+                className='bg-transparent border border-[#3b2d6a] text-[#c4b8e0] py-3 ps-5 pe-21 rounded-md mb-5 hover:bg-[#1c1640] hover:border-[#4c2f8f] cursor-pointer transition-all duration-500'
+                onClick={navigateToIncomePage}
+              >
+                <FontAwesomeIcon icon={faListCheck} className='me-3'/>Income List
+              </button>
+
+              <button 
+                className='bg-transparent border border-[#3b2d6a] text-[#c4b8e0] py-3 ps-5 pe-18 rounded-md mb-5 hover:bg-[#1c1640] hover:border-[#4c2f8f] cursor-pointer transition-all duration-500'
+                onClick={navigateToExpensePage}
+              >
+                <FontAwesomeIcon icon={faListOl} className='me-3'/>Expenses List
+              </button>
+              
+              <button 
+                className='bg-transparent border border-[#3b2d6a] text-[#c4b8e0] py-3 ps-5 pe-29 rounded-md mb-5 hover:bg-[#1c1640] hover:border-[#4c2f8f] cursor-pointer transition-all duration-500'
+                onClick={() => (setLogoutModal(true), setIsPanelOpen(false))}
+              >
+                <FontAwesomeIcon icon={faRightFromBracket} className='me-3'/>Logout
+              </button>
+            </div>
+          </div>
+
+        <div className='mt-5'>
+          <h2 className='text-[#6b5f8a] syne-heading mb-3 text-sm'>Other Actions</h2>
+            <div id='other_actions'>
+              <button className='bg-transparent border border-[#3b2d6a] text-[#c4b8e0] py-3 ps-5 pe-15 rounded-md mb-5 hover:bg-[#1c1640] hover:border-[#4c2f8f] cursor-pointer transition-all duration-500'><FontAwesomeIcon icon={faArrowRightArrowLeft} className='me-3'/>Transfer Money</button>
+
+              <button className='bg-transparent border border-[#3b2d6a] text-[#c4b8e0] py-3 ps-5 pe-29 rounded-md mb-5 hover:bg-[#1c1640] hover:border-[#4c2f8f] cursor-pointer transition-all duration-500'><FontAwesomeIcon icon={faChartLine} className='me-3'/>Future</button>
+
+              <button className='bg-transparent border border-[#3b2d6a] text-[#c4b8e0] py-3 ps-5 pe-22 rounded-md mb-5 hover:bg-[#1c1640] hover:border-[#4c2f8f] cursor-pointer transition-all duration-500'><FontAwesomeIcon icon={faClipboardList} className='me-2'/> Utang Jazz</button>
+            </div>
+          </div>
+      </div>
 
     <main className='mx-10 mt-15'>
       <FadeIn>
-        <section id='section_1' className="animate-fadeIn mb-20">
+        <section id='section_1' className="animate-fadeIn mb-10">
           <h1 className='text-white syne-heading font-bold text-3xl'>
             <DayTime/>
           </h1>
-
-          <div>
-            <h2 className='text-[#6b5f8a] syne-heading mt-7 mb-3'>Primary Actions</h2>
-            <div id='primary_actions' className='flex gap-x-5 mb-10 '>
-              <button 
-                className='income-button-background py-5 ps-7 pe-40 rounded-xl'
-                onClick={() => setAddIncomeModal(true)}
-              >
-                  <FontAwesomeIcon icon={faArrowTrendUp} className='me-3'/>Add Income
-                </button>
-              <button 
-                className='expenses-button-background py-5 ps-7 pe-40 rounded-xl'
-                onClick={() => setAddExpenseModal(true)}
-              >
-                <FontAwesomeIcon icon={faArrowTrendDown} className='me-3'/>Add Expense
-              </button>
-            </div>
-
-            <h2 className='text-[#6b5f8a] syne-heading mb-3'>Other Actions</h2>
-            <div id='other_actions' className='flex gap-x-5'>
-              <button className='bg-transparent border border-[#3b2d6a] text-[#c4b8e0] py-5 ps-7 pe-40 rounded-xl hover:bg-[#1c1640] hover:border-[#4c2f8f] cursor-pointer transition-all duration-500'><FontAwesomeIcon icon={faArrowRightArrowLeft} className='me-3'/>Transfer Money</button>
-              <button className='bg-transparent border border-[#3b2d6a] text-[#c4b8e0] py-5 ps-7 pe-25 rounded-xl hover:bg-[#1c1640] hover:border-[#4c2f8f] cursor-pointer transition-all duration-500'><FontAwesomeIcon icon={faChartLine} className='me-3'/>Future Income & Expenses</button>
-              <button className='bg-transparent border border-[#3b2d6a] text-[#c4b8e0] py-5 ps-7 pe-40 rounded-xl hover:bg-[#1c1640] hover:border-[#4c2f8f] cursor-pointer transition-all duration-500'><FontAwesomeIcon icon={faClipboardList} className='me-2'/> Utang Jazz</button>
-            </div>
-          </div>
         </section>
       </FadeIn>
 
        <FadeIn>
-        <h2 className='text-[#6b5f8a] syne-heading mt-7 mb-3'>Savings</h2>
+        <div className='flex justify-between mb-5'>
+          <h2 className='text-[#6b5f8a] syne-heading mt-2'>Savings</h2>
+          <h1 className='text-[#c4b8e0] font-bold text-xl'>₱ {summary.overall_balance.toLocaleString()}</h1>
+        </div>
         <section className='grid grid-cols-4 gap-x-3 mb-20'>
 
           <div className='savings-bg-color border-l-5 border-l-[#c084fc] rounded-lg px-10 py-5 text-[#6b5f8a]'>
