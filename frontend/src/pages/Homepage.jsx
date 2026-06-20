@@ -9,6 +9,8 @@ import AddIncome from '../modals/AddIncome.jsx'
 import AddExpense from '../modals/AddExpense.jsx'
 import { getSummary } from '../api/summary.js'
 import { useNavigate } from 'react-router-dom'
+import MonthlyGraph from '../components/MonthlyGraph.jsx'
+import IncomeVsExpenses from '../components/IncomeVsExpenses.jsx'
 
 const DEFAULT_SUMMARY = {
   savings_breakdown: [
@@ -211,14 +213,21 @@ function Homepage ({handleLogout}){
 
       <FadeIn>
         <h2 className='text-[#6b5f8a] syne-heading mt-7 mb-3'>Dashboard</h2>
-        <section className='grid grid-cols-[1.8fr_1fr] gap-x-3 mb-20'>
+        <section className='grid grid-cols-[1.8fr_1fr] gap-x-5 mb-20'>
 
-          <div className='bg-[#1c1640] border border-[#2e2460] rounded-lg px-10 py-5 text-[#6b5f8a]'>
-            Dito ang Expenses Bar Graph for the Month.
+          <div className='bg-[#1c1640] border border-[#2e2460] rounded-lg px-7 pt-10 text-[#6b5f8a]'>
+            <MonthlyGraph/>
+
+            <p 
+              className='text-sm text-right mt-5 underline cursor-pointer hover:text-[#c4b8e0] transition-colors duration-500'
+              onClick={navigateToExpensePage}
+            >
+                See All →
+            </p>
           </div>
 
-          <div className='bg-[#1c1640] border border-[#2e2460] rounded-lg px-10 py-5 text-[#6b5f8a]'>
-            Dito ang Expenses vs Income Total For Month
+          <div className='bg-[#1c1640] border border-[#2e2460] rounded-lg text-[#6b5f8a] pt-7 pb-5 px-10'>
+            <IncomeVsExpenses/>
           </div>
 
         </section>
@@ -240,6 +249,10 @@ function Homepage ({handleLogout}){
       </FadeIn>
      
     </main>
+
+    <footer className='mt-20 px-10 py-4 text-[#6b5f8a] syne-heading border-t border-t-[#2e2460] text-sm text-center'>
+      <p className='opacity-60'>Built for personal use by Bari. --- <span className='text-[#c4b8e0] font-bold'>WhyHub &#169; 2026</span></p>
+    </footer>
 
     {logoutModal &&
       <div className="fixed inset-0 z-50 backdrop-blur-md bg-black/20 flex flex-col items-center justify-center animate-backdropIn"

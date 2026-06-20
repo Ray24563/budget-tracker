@@ -1,12 +1,43 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from sqlalchemy import desc
+from sqlalchemy import desc, extract
 from typing import List
 from database import get_db
 from models import Expense, Income
 from schemas import ExpenseCreate, ExpenseResponse
 
 router = APIRouter()
+
+@router.get("/expenses/monthly/{year}")
+def get_monthly_expenses(year: int, db: Session = Depends(get_db)):
+
+    # All 12 months template — ensures missing months show as 0
+    monthly_data = {month: 0 for month in range(1, 13)}
+
+    # Query expenses filtered by year
+    expenses = db.query(Expense)\
+                 .filter(extract("year", Expense.date) == year)\
+                 .all()
+
+    # Sum expenses per month
+    for expense in expenses:
+        month = expense.date.month
+        monthly_data[month] += expense.amount
+
+    # Format into a list recharts can read
+    month_names = [
+        "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+        "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+    ]
+
+    return [
+        {
+            "month": month_names[month - 1],
+            "total": round(monthly_data[month], 2)
+        }
+        for month in range(1, 13)
+    ]
+
 
 # ─── Add Expense ──────────────────────────────────────────
 @router.post("/expenses", response_model=ExpenseResponse)
