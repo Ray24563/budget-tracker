@@ -11,6 +11,8 @@ import { getSummary } from '../api/summary.js'
 import { useNavigate } from 'react-router-dom'
 import MonthlyGraph from '../components/MonthlyGraph.jsx'
 import IncomeVsExpenses from '../components/IncomeVsExpenses.jsx'
+import RecentIncome from '../components/RecentIncome.jsx'
+import RecentExpenses from '../components/RecentExpenses.jsx'
 
 const DEFAULT_SUMMARY = {
   savings_breakdown: [
@@ -48,7 +50,7 @@ function Homepage ({handleLogout}){
   useEffect(() => {
     document.title = "Dashboard";
     fetchSummary();
-  }, [fetchSummary]); // ← depends on fetchSummary
+  }, [fetchSummary]);
 
   const getSavings = (name) =>
     summary.savings_breakdown.find((item) => item.savings === name);
@@ -235,14 +237,32 @@ function Homepage ({handleLogout}){
 
       <FadeIn>
         <h2 className='text-[#6b5f8a] syne-heading mt-7 mb-3'>Recent Transaction</h2>
-        <section className='grid grid-cols-2 gap-x-3'>
+        <section className='grid grid-cols-2 gap-x-5'>
 
-          <div className='bg-[#1c1640] border border-[#2e2460] rounded-lg px-10 py-5 text-[#6b5f8a]'>
-            Recent Income
+          <div className='bg-[#1c1640] border border-[#2e2460] rounded-lg px-10 py-7 text-[#6b5f8a]'>
+            <div className='flex justify-between'>
+              <p className='text-[#c4b8e0] mb-5 font-bold text-xl syne-heading'>Recent Incomes</p>
+              <p 
+                className='text-sm underline cursor-pointer hover:text-[#c4b8e0] transition-colors duration-500'
+                onClick={navigateToIncomePage}
+              >
+                  See All →
+              </p>
+            </div>
+            <RecentIncome/>
           </div>
 
-          <div className='bg-[#1c1640] border border-[#2e2460] rounded-lg px-10 py-5 text-[#6b5f8a]'>
-            Recent Expenses
+          <div className='bg-[#1c1640] border border-[#2e2460] rounded-lg px-10 py-7 text-[#6b5f8a]'>
+            <div className='flex justify-between'>
+              <p className='text-[#c4b8e0] mb-5 font-bold text-xl syne-heading'>Recent Expenses</p>
+              <p 
+                className='text-sm underline cursor-pointer hover:text-[#c4b8e0] transition-colors duration-500'
+                onClick={navigateToExpensePage}
+              >
+                  See All →
+              </p>
+            </div>
+            <RecentExpenses/>
           </div>
 
         </section>
