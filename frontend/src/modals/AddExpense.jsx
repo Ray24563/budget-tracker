@@ -46,6 +46,9 @@ function AddExpense({setAddExpenseModal, onSuccess}) {
     setLoading(false);
   }
 };
+
+  const isFormEmpty = !amount || !source.trim() || !amount;
+
   return (
     <>
       <div className='add-income-modal w-auto p-10 rounded-lg animate-modalIn'>
@@ -117,9 +120,9 @@ function AddExpense({setAddExpenseModal, onSuccess}) {
 
           <div className='flex justify-center gap-x-3'>
             <button 
-              className="px-3 py-2 income-button-background rounded-sm cursor-pointer syne-heading mt-7"
+              className="px-3 py-2 income-button-background rounded-sm cursor-pointer syne-heading mt-7 disabled:pointer-events-none disabled:opacity-50"
               onClick={handleSubmit}
-              disabled={loading}
+              disabled={loading || isFormEmpty}
             >
               Submit
             </button>
