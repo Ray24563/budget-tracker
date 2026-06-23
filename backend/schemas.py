@@ -85,3 +85,52 @@ class SummaryResponse(BaseModel):
     overall_total_income: float
     overall_total_expenses: float
     overall_balance: float
+
+# ─── Future Income ────────────────────────────────────────
+class FutureIncomeCreate(BaseModel):
+    date: date
+    source: str
+    savings: str
+    amount: float
+
+class FutureIncomeResponse(BaseModel):
+    id: int
+    date: date
+    source: str
+    savings: str
+    amount: float
+
+    class Config:
+        from_attributes = True
+
+# ─── Future Expense ───────────────────────────────────────
+class FutureExpenseCreate(BaseModel):
+    date: date
+    category: str
+    source: str
+    savings: str
+    amount: float
+
+class FutureExpenseResponse(BaseModel):
+    id: int
+    date: date
+    category: str
+    source: str
+    savings: str
+    amount: float
+
+    class Config:
+        from_attributes = True
+
+# ─── Future Summary ───────────────────────────────────────
+class FutureSavingsBalance(BaseModel):
+    savings: str
+    future_income: float
+    future_expenses: float
+    projected_balance: float
+
+class FutureSummaryResponse(BaseModel):
+    savings_breakdown: List[FutureSavingsBalance]
+    overall_future_income: float
+    overall_future_expenses: float
+    overall_projected_balance: float

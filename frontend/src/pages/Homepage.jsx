@@ -14,6 +14,7 @@ import IncomeVsExpenses from '../components/IncomeVsExpenses.jsx'
 import RecentIncome from '../components/RecentIncome.jsx'
 import RecentExpenses from '../components/RecentExpenses.jsx'
 import TransferMoney from '../modals/TransferMoney.jsx'
+import FuturePage from './FuturePage.jsx'
 
 const DEFAULT_SUMMARY = {
   savings_breakdown: [
@@ -77,6 +78,10 @@ function Homepage ({handleLogout}){
 
   const navigateToTransferMoneyPage = () => {
     navigate('/money_transfer_history')
+  }
+
+  const navigateToFuturePage = () => {
+    navigate('/future')
   }
 
   const togglePanel = () => {
@@ -160,7 +165,12 @@ function Homepage ({handleLogout}){
                 <FontAwesomeIcon icon={faArrowRightArrowLeft} className='me-3'/>Transfer Money
               </button>
 
-              <button className='bg-transparent border border-[#3b2d6a] text-[#c4b8e0] py-3 ps-5 w-full text-left rounded-md mb-5 hover:bg-[#1c1640] hover:border-[#4c2f8f] cursor-pointer transition-all duration-500'><FontAwesomeIcon icon={faChartLine} className='me-3'/>Future</button>
+              <button 
+                className='bg-transparent border border-[#3b2d6a] text-[#c4b8e0] py-3 ps-5 w-full text-left rounded-md mb-5 hover:bg-[#1c1640] hover:border-[#4c2f8f] cursor-pointer transition-all duration-500'
+                onClick={navigateToFuturePage}
+              >
+                  <FontAwesomeIcon icon={faChartLine} className='me-3'/>Future
+                </button>
 
               <button className='bg-transparent border border-[#3b2d6a] text-[#c4b8e0] py-3 ps-5 w-full text-left rounded-md mb-5 hover:bg-[#1c1640] hover:border-[#4c2f8f] cursor-pointer transition-all duration-500'><FontAwesomeIcon icon={faClipboardList} className='me-2'/> Utang Jazz</button>
             </div>

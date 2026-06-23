@@ -26,6 +26,7 @@ class Expense(Base):
     savings = Column(String, nullable=False)
     amount = Column(Float, nullable=False)
 
+# Money Transfer Table
 class Transfer(Base):
     __tablename__ = "transfers"
     id = Column(Integer, primary_key=True, index=True)
@@ -34,3 +35,24 @@ class Transfer(Base):
     to_savings = Column(String, nullable=False)
     amount = Column(Float, nullable=False)
     description = Column(String, nullable=True)
+
+# Future Income Table
+class FutureIncome(Base):
+    __tablename__ = "future_income"
+
+    id = Column(Integer, primary_key=True, index=True)
+    date = Column(Date, nullable=False)
+    source = Column(String, nullable=False)
+    savings = Column(String, nullable=False)
+    amount = Column(Float, nullable=False)
+
+# Future Expenses Table
+class FutureExpense(Base):
+    __tablename__ = "future_expenses"
+
+    id = Column(Integer, primary_key=True, index=True)
+    date = Column(Date, nullable=False)
+    category = Column(String, nullable=False)
+    source = Column(String, nullable=False)
+    savings = Column(String, nullable=False)
+    amount = Column(Float, nullable=False)
