@@ -1,6 +1,6 @@
 import Logo from '../assets/images/logo.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faCreditCard, faRightFromBracket, faArrowRightArrowLeft, faClipboardList, faChartLine, faArrowTrendUp, faArrowTrendDown, faWallet, faM, faCircleQuestion, faListCheck, faListOl} from '@fortawesome/free-solid-svg-icons'
+import {faCreditCard, faRightFromBracket, faArrowRightArrowLeft, faClipboardList, faChartLine, faArrowTrendUp, faArrowTrendDown, faWallet, faM, faCircleQuestion, faListCheck, faListOl, faArrowRotateLeft} from '@fortawesome/free-solid-svg-icons'
 import FadeIn from '../components/FadeIn'
 import DayTime from '../components/DayTime.jsx'
 import { useState, useEffect, useCallback } from 'react'
@@ -13,6 +13,7 @@ import MonthlyGraph from '../components/MonthlyGraph.jsx'
 import IncomeVsExpenses from '../components/IncomeVsExpenses.jsx'
 import RecentIncome from '../components/RecentIncome.jsx'
 import RecentExpenses from '../components/RecentExpenses.jsx'
+import TransferMoney from '../modals/TransferMoney.jsx'
 
 const DEFAULT_SUMMARY = {
   savings_breakdown: [
@@ -32,6 +33,7 @@ function Homepage ({handleLogout}){
   const [logoutModal, setLogoutModal] = useState(false);
   const [addIncomeModal, setAddIncomeModal] = useState(false);
   const [addExpenseModal, setAddExpenseModal] = useState(false);
+  const [transMoneyModal, setTransMoneyModal] = useState(false);
   const [summary, setSummary] = useState(DEFAULT_SUMMARY);
   const [loading, setLoading] = useState(true);
   const [isPanelOpen, setIsPanelOpen] = useState(false);
@@ -72,6 +74,10 @@ function Homepage ({handleLogout}){
   const navigateToExpensePage = () => {
     navigate('/expense')
   };
+
+  const navigateToTransferMoneyPage = () => {
+    navigate('/money_transfer_history')
+  }
 
   const togglePanel = () => {
     setIsPanelOpen(!isPanelOpen);
@@ -128,6 +134,13 @@ function Homepage ({handleLogout}){
               >
                 <FontAwesomeIcon icon={faListOl} className='me-3'/>Expenses List
               </button>
+
+              <button 
+                className='bg-transparent border border-[#3b2d6a] text-[#c4b8e0] py-3 ps-5 w-full text-left rounded-md mb-5 hover:bg-[#1c1640] hover:border-[#4c2f8f] cursor-pointer transition-all duration-500'
+                onClick={navigateToTransferMoneyPage}
+              >
+                <FontAwesomeIcon icon={faArrowRotateLeft} className='me-3'/>Money Transfer History
+              </button>
               
               <button 
                 className='bg-transparent border border-[#3b2d6a] text-[#c4b8e0] py-3 ps-5 w-full text-left rounded-md mb-5 hover:bg-[#1c1640] hover:border-[#4c2f8f] cursor-pointer transition-all duration-500'
@@ -141,7 +154,11 @@ function Homepage ({handleLogout}){
         <div className='mt-5'>
           <h2 className='text-[#6b5f8a] syne-heading mb-3 text-sm'>Other Actions</h2>
             <div id='other_actions'>
-              <button className='bg-transparent border border-[#3b2d6a] text-[#c4b8e0] py-3 ps-5 w-full text-left rounded-md mb-5 hover:bg-[#1c1640] hover:border-[#4c2f8f] cursor-pointer transition-all duration-500'><FontAwesomeIcon icon={faArrowRightArrowLeft} className='me-3'/>Transfer Money</button>
+              <button className='bg-transparent border border-[#3b2d6a] text-[#c4b8e0] py-3 ps-5 w-full text-left rounded-md mb-5 hover:bg-[rgb(28,22,64)] hover:border-[#4c2f8f] cursor-pointer transition-all duration-500'
+              onClick={() => (setTransMoneyModal(true), setIsPanelOpen(false))}
+              >
+                <FontAwesomeIcon icon={faArrowRightArrowLeft} className='me-3'/>Transfer Money
+              </button>
 
               <button className='bg-transparent border border-[#3b2d6a] text-[#c4b8e0] py-3 ps-5 w-full text-left rounded-md mb-5 hover:bg-[#1c1640] hover:border-[#4c2f8f] cursor-pointer transition-all duration-500'><FontAwesomeIcon icon={faChartLine} className='me-3'/>Future</button>
 
@@ -298,6 +315,15 @@ function Homepage ({handleLogout}){
       <div className="fixed inset-0 z-50 backdrop-blur-md bg-black/20 flex flex-col items-center justify-center animate-backdropIn">
         <AddExpense 
           setAddExpenseModal={setAddExpenseModal}
+          onSuccess={fetchSummary}
+        />
+      </div>
+    }
+
+    {transMoneyModal &&
+      <div className="fixed inset-0 z-50 backdrop-blur-md bg-black/20 flex flex-col items-center justify-center animate-backdropIn">
+        <TransferMoney 
+          setTransMoneyModal={setTransMoneyModal}
           onSuccess={fetchSummary}
         />
       </div>

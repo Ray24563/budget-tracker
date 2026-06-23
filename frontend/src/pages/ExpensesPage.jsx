@@ -8,10 +8,9 @@ import { useNavigate } from "react-router-dom";
 
 export default function ExpensePage() {
   const [expenseList, setExpenseList] = useState([]);
-  const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(true);
   const itemsPerPage = 7;
-  const currentPage = 1;
+  const [currentPage, setCurrentPage] = useState(1);
   const totalPages = Math.ceil(expenseList.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const currentItems = expenseList.slice(startIndex, startIndex + itemsPerPage);
@@ -73,7 +72,7 @@ export default function ExpensePage() {
                     </tr>
                   </thead>
                   <tbody>
-                    {currentItems.map((item) => ( // <-- changed from incomeList to currentItems
+                    {currentItems.map((item) => (
                       <tr
                         key={item.id}
                         className="border-b border-[#2e2460] hover:bg-[#261d52] transition-colors duration-200"
@@ -99,7 +98,7 @@ export default function ExpensePage() {
                   <button
                     onClick={() => setCurrentPage(p => p - 1)}
                     disabled={currentPage === 1}
-                    className="px-4 py-2 rounded-lg border border-[#3b2d6a] text-[#a78bca] disabled:opacity-30 hover:border-[#4c2f8f] hover:text-[#e2d9f3] transition-all duration-150 disabled:cursor-not-allowed"
+                    className="px-4 py-2 rounded-lg border border-[#3b2d6a] text-[#a78bca] disabled:opacity-30 hover:border-[#4c2f8f] hover:text-[#e2d9f3] transition-all duration-150 disabled:cursor-not-allowed cursor-pointer"
                   >
                     ← Prev
                   </button>
@@ -121,7 +120,7 @@ export default function ExpensePage() {
                   <button
                     onClick={() => setCurrentPage(p => p + 1)}
                     disabled={currentPage === totalPages}
-                    className="px-4 py-2 rounded-lg border border-[#3b2d6a] text-[#a78bca] disabled:opacity-30 hover:border-[#4c2f8f] hover:text-[#e2d9f3] transition-all duration-150 disabled:cursor-not-allowed"
+                    className="px-4 py-2 rounded-lg border border-[#3b2d6a] text-[#a78bca] disabled:opacity-30 hover:border-[#4c2f8f] hover:text-[#e2d9f3] transition-all duration-150 disabled:cursor-not-allowed cursor-pointer"
                   >
                     Next →
                   </button>

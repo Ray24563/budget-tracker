@@ -1,12 +1,12 @@
 from pydantic import BaseModel
 from datetime import date
-from typing import List
+from typing import List, Optional
 
-# This is what the frontend SENDS to your backend when logging in
+# frontend SENDS to backend when logging in
 class LoginRequest(BaseModel):
     password: str   # Must be a string (plain text, only lives briefly)
 
-# This is what your backend SENDS BACK after a successful login
+# backend SENDS BACK after a successful login
 class TokenResponse(BaseModel):
     access_token: str   # The JWT badge
     token_type: str     # Always "bearer" by convention
@@ -47,6 +47,25 @@ class ExpenseResponse(BaseModel):
     source: str
     savings: str
     amount: float
+
+    class Config:
+        from_attributes = True
+
+# ─── Transfer ────────────────────────────────────────────
+class TransferCreate(BaseModel):
+    date: date
+    from_savings: str
+    to_savings: str
+    amount: float
+    description: Optional[str] = None  # optional field
+
+class TransferResponse(BaseModel):
+    id: int
+    date: date
+    from_savings: str
+    to_savings: str
+    amount: float
+    description: Optional[str] = None
 
     class Config:
         from_attributes = True

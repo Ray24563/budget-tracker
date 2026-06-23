@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from sqlalchemy import extract
 from database import get_db
-from models import Income, Expense
+from models import Income, Expense, Transfer
 from schemas import SummaryResponse, SavingsBalance
 from datetime import datetime
 
@@ -25,25 +25,35 @@ def get_summary(db: Session = Depends(get_db)):
     overall_total_income = 0
     overall_total_expenses = 0
 
-    # Loop through each savings option
     for savings in SAVINGS_OPTIONS:
 
-        # Total income for this savings
+        # Total income
         income_records = db.query(Income)\
                            .filter(Income.savings == savings)\
                            .all()
-        total_income = sum(record.amount for record in income_records)
+        total_income = sum(r.amount for r in income_records)
 
-        # Total expenses for this savings
+        # Total expenses
         expense_records = db.query(Expense)\
                             .filter(Expense.savings == savings)\
                             .all()
-        total_expenses = sum(record.amount for record in expense_records)
+        total_expenses = sum(r.amount for r in expense_records)
 
-        # Balance = income - expenses
-        balance = total_income - total_expenses
+        # Outgoing transfers (deduct from balance)
+        outgoing = db.query(Transfer)\
+                     .filter(Transfer.from_savings == savings)\
+                     .all()
+        total_outgoing = sum(r.amount for r in outgoing)
 
-        # Add to breakdown list
+        # Incoming transfers (add to balance)
+        incoming = db.query(Transfer)\
+                     .filter(Transfer.to_savings == savings)\
+                     .all()
+        total_incoming = sum(r.amount for r in incoming)
+
+        # Final balance
+        balance = total_income - total_expenses - total_outgoing + total_incoming
+
         savings_breakdown.append(SavingsBalance(
             savings=savings,
             total_income=total_income,
@@ -51,7 +61,6 @@ def get_summary(db: Session = Depends(get_db)):
             balance=balance
         ))
 
-        # Add to overall totals
         overall_total_income += total_income
         overall_total_expenses += total_expenses
 

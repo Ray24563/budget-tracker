@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from database import engine, Base
-from routers import login, income, expenses, summary
+from routers import login, income, expenses, summary, transfer
 
 app = FastAPI()
 
@@ -19,3 +19,4 @@ app.include_router(login.router)
 app.include_router(income.router)
 app.include_router(expenses.router)
 app.include_router(summary.router)
+app.include_router(transfer.router)
