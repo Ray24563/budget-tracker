@@ -51,6 +51,8 @@ function Homepage ({handleLogout}){
     }
   }, []);
 
+  console.log(summary);
+
   useEffect(() => {
     document.title = "Dashboard";
     fetchSummary();
