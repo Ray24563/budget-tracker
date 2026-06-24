@@ -85,9 +85,9 @@ function LoanPage() {
                   <td className="py-4">
                     <button
                       onClick={() => (setSelectedID(item.id), setConfirmModal(true), setSelectedAmount(item.amount.toLocaleString()), setSelectedSource(item.source), setSelectedDate(item.date))}
-                      className="text-red-400 text-sm hover:underline py-3 px-10 cursor-pointer"
+                      className="text-[#c084fc] syne-heading text-sm hover:underline py-3 px-10 cursor-pointer font-bold"
                     >
-                      Delete
+                      Mark as Paid
                     </button>
                   </td>
                 </tr>
@@ -97,9 +97,9 @@ function LoanPage() {
           </table>
         )}
         <div className="flex justify-between mt-10">
-          <button className="income-button-background rounded-lg px-5 py-2" onClick={navigateToHomepage}>Back</button>
+          <button className="income-button-background rounded-lg px-7 py-1" onClick={navigateToHomepage}>Back</button>
 
-          <button className="text-[#c084fc] rounded-lg font-bold text-lg back-background px-5 py-2">
+          <button className="text-[#c084fc] rounded-lg font-bold text-lg back-background px-5 py-1">
             ₱ {totalLoans.toLocaleString()}
           </button>
         </div>
