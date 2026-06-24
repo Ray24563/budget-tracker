@@ -37,7 +37,7 @@ function AddExpense({setAddExpenseModal, onSuccess}) {
       amount: Number(amount)
     });
 
-    onSuccess();
+    window.location.reload();
     setAddExpenseModal(false)
 
   } catch (err) {
@@ -110,7 +110,7 @@ function AddExpense({setAddExpenseModal, onSuccess}) {
             <label className='text-[#e2d9f3] syne-heading mb-2 block'>Amount</label>
             <input 
               type="number" placeholder="Enter source of income" 
-              className="border rounded-lg ps-5 pe-10 py-2.5 text-[#e2d9f3] bg-[#0a0818] border-[#2e2460] w-full required"
+              className="border rounded-lg ps-5 pe-10 py-2.5 text-[#e2d9f3] bg-[#0a0818] border-[#2e2460] w-full"
               value={amount}
               onChange={(e) => setAmount(e.target.value)} 
             />

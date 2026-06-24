@@ -39,7 +39,7 @@ function AddIncome({ setAddIncomeModal, onSuccess }) {
         amount: Number(amount)
       });
 
-      onSuccess(); // refresh the list
+      window.location.reload();
       setAddIncomeModal(false)
 
     } catch (err) {
