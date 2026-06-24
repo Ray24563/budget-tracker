@@ -90,6 +90,14 @@ def get_all_expenses(db: Session = Depends(get_db)):
 
     return expenses
 
+@router.get("/expenses/category/{category}")
+def get_expenses_by_category(category: str, db: Session = Depends(get_db)):
+    expenses = db.query(Expense)\
+                 .filter(Expense.category == category)\
+                 .order_by(desc(Expense.date))\
+                 .all()
+    return expenses
+
 # ─── Delete Expense ───────────────────────────────────────
 @router.delete("/expenses/{expense_id}")
 def delete_expense(expense_id: int, db: Session = Depends(get_db)):

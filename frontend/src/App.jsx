@@ -7,6 +7,7 @@ import IncomePage from './pages/IncomePage';
 import ExpensePage from './pages/ExpensesPage';
 import TransferMoneyPage from './pages/TransferMoneyPage';
 import FuturePage from './pages/FuturePage';
+import LoanPage from './pages/LoanPage';
 
 function App() {
   // Check if a token already exists (user already logged in)
@@ -38,6 +39,7 @@ function App() {
           <Route path="/expense" element={<ExpensePage/>}/>
           <Route path="/money_transfer_history" element={<TransferMoneyPage/>}/>
           <Route path="/future" element={<FuturePage/>}/>
+          <Route path="/loans" element={<LoanPage/>}/>
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </BrowserRouter>

@@ -45,3 +45,15 @@ export const deleteExpense = async (id) => {
   if (!response.ok) throw new Error(response.status);
   return response.json();
 };
+
+export const getExpensesByCategory = async (category) => {
+  const response = await fetch(`${API_URL}/expenses/category/${category}`, {
+    method: "GET",
+    headers: {
+      "Authorization": `Bearer ${localStorage.getItem("token")}`
+    }
+  });
+
+  if (!response.ok) throw new Error(response.status);
+  return response.json();
+};
