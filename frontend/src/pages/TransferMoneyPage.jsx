@@ -44,7 +44,7 @@ function TransferMoneyPage () {
         { loading ? (
           <p className="text-[#e2d9f3]">Loading...</p>
         ) : transferData.length === 0 ? (
-          <p className="text-[#e2d9f3]">No History of Money Transfer</p>
+          <p className="text-[#e2d9f3] syne-heading text-md">No History of Money Transfer</p>
         ) : (
           <>
             <div className="animate-tableIn" key={currentPage}>

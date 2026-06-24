@@ -41,7 +41,7 @@ function RecentIncome(){
               <td className="text-[#e2d9f3] py-5 px-5">{item.date}</td>
               <td className="text-[#e2d9f3] py-5 px-5">{item.source}</td>
               <td className="text-[#e2d9f3] py-5 px-5">{item.savings}</td>
-              <td className="text-[#c084fc] font-bold py-5 px-5">+ ₱ {item.amount.toLocaleString()}</td>
+              <td className="text-green-400 font-bold py-5 px-5">+ ₱ {item.amount.toLocaleString()}</td>
             </tr>
           ))}
         </tbody>

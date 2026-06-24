@@ -41,7 +41,7 @@ function RecentExpenses () {
               <td className="text-[#e2d9f3] py-5 px-5">{item.date}</td>
               <td className="text-[#e2d9f3] py-5 px-5">{item.category}</td>
               <td className="text-[#e2d9f3] py-5 px-5">{item.savings}</td>
-              <td className="text-[#c084fc] font-bold p-5 px-5">- ₱ {item.amount.toLocaleString()}</td>
+              <td className="text-red-400 font-bold p-5 px-5">- ₱ {item.amount.toLocaleString()}</td>
             </tr>
           ))}
         </tbody>

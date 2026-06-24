@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy import desc
 from typing import List
 from database import get_db
-from models import FutureIncome, FutureExpense, Income, Expense
+from models import FutureIncome, FutureExpense, Income, Expense, Transfer
 from schemas import (
     FutureIncomeCreate, FutureIncomeResponse,
     FutureExpenseCreate, FutureExpenseResponse,
@@ -161,22 +161,53 @@ def get_future_summary(db: Session = Depends(get_db)):
     savings_breakdown = []
     overall_future_income = 0
     overall_future_expenses = 0
+    overall_actual_balance = 0
 
     for savings in SAVINGS_OPTIONS:
 
-        # Future income per savings
+        # ─── Actual Balance From Main Tables ─────────────
+        actual_income = db.query(Income)\
+                          .filter(Income.savings == savings)\
+                          .all()
+        total_actual_income = sum(r.amount for r in actual_income)
+
+        actual_expenses = db.query(Expense)\
+                            .filter(Expense.savings == savings)\
+                            .all()
+        total_actual_expenses = sum(r.amount for r in actual_expenses)
+
+        # Account for transfers
+        outgoing = db.query(Transfer)\
+                     .filter(Transfer.from_savings == savings)\
+                     .all()
+        total_outgoing = sum(r.amount for r in outgoing)
+
+        incoming = db.query(Transfer)\
+                     .filter(Transfer.to_savings == savings)\
+                     .all()
+        total_incoming = sum(r.amount for r in incoming)
+
+        actual_balance = (
+            total_actual_income
+            - total_actual_expenses
+            - total_outgoing
+            + total_incoming
+        )
+
+        # ─── Future Planned Transactions ─────────────────
         future_income_records = db.query(FutureIncome)\
                                   .filter(FutureIncome.savings == savings)\
                                   .all()
         future_income = sum(r.amount for r in future_income_records)
 
-        # Future expenses per savings
         future_expense_records = db.query(FutureExpense)\
                                    .filter(FutureExpense.savings == savings)\
                                    .all()
         future_expenses = sum(r.amount for r in future_expense_records)
 
-        projected_balance = future_income - future_expenses
+        # ─── Projected Balance ────────────────────────────
+        # Actual balance + future plans
+        projected_balance = actual_balance + future_income - future_expenses
 
         savings_breakdown.append(FutureSavingsBalance(
             savings=savings,
@@ -187,10 +218,11 @@ def get_future_summary(db: Session = Depends(get_db)):
 
         overall_future_income += future_income
         overall_future_expenses += future_expenses
+        overall_actual_balance += actual_balance
 
     return FutureSummaryResponse(
         savings_breakdown=savings_breakdown,
         overall_future_income=overall_future_income,
         overall_future_expenses=overall_future_expenses,
-        overall_projected_balance=overall_future_income - overall_future_expenses
+        overall_projected_balance=overall_actual_balance + overall_future_income - overall_future_expenses
     )
