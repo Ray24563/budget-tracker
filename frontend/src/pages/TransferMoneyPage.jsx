@@ -3,6 +3,7 @@ import { getAllTransfers } from "../api/transfer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRotateLeft } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
+import { DateFormatter } from "../utils/DateFormatter";
 
 function TransferMoneyPage () {
   const [loading, setLoading] = useState(false);
@@ -64,7 +65,7 @@ function TransferMoneyPage () {
                       key={item.id}
                       className="border-b border-[#2e2460] hover:bg-[#261d52] transition-colors duration-200"
                     >
-                      <td className="text-[#e2d9f3] py-5 px-10">{item.date}</td>
+                      <td className="text-[#e2d9f3] py-5 px-10">{DateFormatter(item.date)}</td>
                       <td className="text-[#e2d9f3] py-5 px-10">{item.description}</td>
                       <td className="text-[#e2d9f3] py-5 px-10">{item.from_savings}</td>
                       <td className="text-[#e2d9f3] py-5 px-10">{item.to_savings}</td>

@@ -3,6 +3,7 @@ import { getExpensesByCategory, deleteExpense } from "../api/expenses";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClipboardList } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
+import { DateFormatter } from "../utils/DateFormatter";
 
 function LoanPage() {
   const [loanList, setLoanList] = useState([]);
@@ -76,7 +77,7 @@ function LoanPage() {
                   key={item.id}
                   className="border-b border-[#2e2460] hover:bg-[#261d52] transition-colors duration-200"
                 >
-                  <td className="text-[#e2d9f3] py-3 px-10">{item.date}</td>
+                  <td className="text-[#e2d9f3] py-3 px-10">{DateFormatter(item.date)}</td>
                   <td className="text-[#e2d9f3] py-e px-10">{item.source}</td>
                   <td className="text-[#e2d9f3] py-e px-10">{item.savings}</td>
                   <td className="text-red-400 font-bold py-e px-10">

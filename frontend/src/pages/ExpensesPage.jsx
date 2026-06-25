@@ -5,6 +5,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowTrendDown, faTrash } from "@fortawesome/free-solid-svg-icons";
 import FadeIn from "../components/FadeIn";
 import { useNavigate } from "react-router-dom";
+import { DateFormatter } from "../utils/DateFormatter";
+import SaveAsPDFModalExpense from "../modals/SaveAsPDFModalExpense";
+import { saveAsPDFExpense } from "../utils/saveAsPDFExpense";
 
 export default function ExpensePage() {
   const [expenseList, setExpenseList] = useState([]);
@@ -15,6 +18,8 @@ export default function ExpensePage() {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const currentItems = expenseList.slice(startIndex, startIndex + itemsPerPage);
   const navigate = useNavigate()
+  const [selectedMonth, setSelectedMonth] = useState("all")
+  const [saveAsPDFModal, setSaveAsPDFModal] = useState(false);
 
   const fetchExpenses = async () => {
     setLoading(true);
@@ -40,6 +45,14 @@ export default function ExpensePage() {
       console.error("Failed to delete expense");
     }
   };
+
+  const availableMonths = [
+      ...new Set(expenseList.map((item) => item.date.slice(0, 7)))
+    ].sort().reverse(); // latest month first
+  
+    const handleExportPDF = () => {
+      saveAsPDFExpense(expenseList, selectedMonth);
+    };
 
   const navigateToHomepage = () =>{
     navigate('/')
@@ -77,7 +90,7 @@ export default function ExpensePage() {
                         key={item.id}
                         className="border-b border-[#2e2460] hover:bg-[#261d52] transition-colors duration-200"
                       >
-                        <td className="text-[#e2d9f3] py-5 px-10">{item.date}</td>
+                        <td className="text-[#e2d9f3] py-5 px-10">{DateFormatter(item.date)}</td>
                         <td className="text-[#e2d9f3] py-5 px-10">{item.source}</td>
                         <td className="text-[#e2d9f3] py-5 px-10">{item.category}</td>
                         <td className="text-[#e2d9f3] py-5 px-10">{item.savings}</td>
@@ -127,7 +140,12 @@ export default function ExpensePage() {
                 </div>
 
                 <div className="flex justify-center gap-x-5">
-                    <button className="pdf-background rounded-lg px-5 py-2 cursor-pointer">Save as PDF</button>
+                    <button 
+                      className="pdf-background rounded-lg px-5 py-2 cursor-pointer"
+                      onClick={() => setSaveAsPDFModal(true)}
+                    >
+                      Save as PDF
+                    </button>
                     <button className="back-background rounded-lg px-5 py-2" onClick={navigateToHomepage}>Back</button>
                 </div>
               </div>
@@ -135,6 +153,18 @@ export default function ExpensePage() {
           )}
         </main>
       </FadeIn>
+
+       {saveAsPDFModal &&
+        <div className="fixed inset-0 z-50 backdrop-blur-md bg-black/20 flex flex-col items-center justify-center animate-backdropIn">
+          <SaveAsPDFModalExpense
+            selectedMonth={selectedMonth}
+            setSelectedMonth={setSelectedMonth}
+            availableMonths={availableMonths}
+            handleExportPDF={handleExportPDF}
+            setSaveAsPDFModal={setSaveAsPDFModal} 
+          />
+        </div>
+      }
     </>
     
   );

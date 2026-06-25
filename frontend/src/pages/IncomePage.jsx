@@ -5,6 +5,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowTrendUp, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import FadeIn from "../components/FadeIn.jsx";
+import { saveAsPDFIncome } from "../utils/saveAsPDFIncome.js";
+import SaveAsPDFModal from "../modals/SaveAsPDFModal.jsx";
+import { DateFormatter } from "../utils/DateFormatter.js";
 
 function IncomePage() {
   const [incomeList, setIncomeList] = useState([]);
@@ -16,6 +19,8 @@ function IncomePage() {
   const totalPages = Math.ceil(incomeList.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const currentItems = incomeList.slice(startIndex, startIndex + itemsPerPage);
+  const [selectedMonth, setSelectedMonth] = useState("all")
+  const [saveAsPDFModal, setSaveAsPDFModal] = useState(false);
 
   // Fetch all income on page load
   const fetchIncome = async () => {
@@ -41,6 +46,14 @@ function IncomePage() {
     } catch (err) {
       console.error("Failed to delete income");
     }
+  };
+
+  const availableMonths = [
+    ...new Set(incomeList.map((item) => item.date.slice(0, 7)))
+  ].sort().reverse(); // latest month first
+
+  const handleExportPDF = () => {
+    saveAsPDFIncome(incomeList, selectedMonth);
   };
 
   const navigateToHomepage = () => {
@@ -78,7 +91,7 @@ function IncomePage() {
                         key={item.id}
                         className="border-b border-[#2e2460] hover:bg-[#261d52] transition-colors duration-200"
                       >
-                        <td className="text-[#e2d9f3] py-5 px-10">{item.date}</td>
+                        <td className="text-[#e2d9f3] py-5 px-10">{DateFormatter(item.date)}</td>
                         <td className="text-[#e2d9f3] py-5 px-10">{item.source}</td>
                         <td className="text-[#e2d9f3] py-5 px-10">{item.savings}</td>
                         <td className="text-[#c084fc] font-bold p-5 px-10">+ ₱ {item.amount.toLocaleString()}</td>
@@ -127,7 +140,12 @@ function IncomePage() {
                 </div>
 
                 <div className="flex justify-center gap-x-5">
-                    <button className="pdf-background rounded-lg px-5 py-2 cursor-pointer">Save as PDF</button>
+                    <button 
+                      className="income-button-background rounded-lg px-5 py-2 cursor-pointer"
+                      onClick={ () => setSaveAsPDFModal(true) }
+                    >
+                        Save as PDF
+                    </button>
                     <button className="back-background rounded-lg px-5 py-2" onClick={navigateToHomepage}>Back</button>
                 </div>
               </div>
@@ -135,6 +153,18 @@ function IncomePage() {
           )}
         </main>
       </FadeIn>
+
+      {saveAsPDFModal &&
+      <div className="fixed inset-0 z-50 backdrop-blur-md bg-black/20 flex flex-col items-center justify-center animate-backdropIn">
+        <SaveAsPDFModal
+          selectedMonth={selectedMonth}
+          setSelectedMonth={setSelectedMonth}
+          availableMonths={availableMonths}
+          handleExportPDF={handleExportPDF}
+          setSaveAsPDFModal={setSaveAsPDFModal} 
+        />
+      </div>
+    }
     </>
   );
 }
