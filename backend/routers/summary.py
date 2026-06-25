@@ -24,6 +24,7 @@ def get_summary(db: Session = Depends(get_db)):
     savings_breakdown = []
     overall_total_income = 0
     overall_total_expenses = 0
+    overall_balance = 0
 
     for savings in SAVINGS_OPTIONS:
 
@@ -52,23 +53,24 @@ def get_summary(db: Session = Depends(get_db)):
         total_incoming = sum(r.amount for r in incoming)
 
         # Final balance
-        balance = total_income - total_expenses - total_outgoing + total_incoming
+        balance = (total_income - total_expenses - total_outgoing + total_incoming)
 
         savings_breakdown.append(SavingsBalance(
             savings=savings,
             total_income=total_income,
             total_expenses=total_expenses,
-            balance=balance
+            balance=balance,
         ))
 
         overall_total_income += total_income
         overall_total_expenses += total_expenses
+        overall_balance += balance
 
     return SummaryResponse(
         savings_breakdown=savings_breakdown,
         overall_total_income=overall_total_income,
         overall_total_expenses=overall_total_expenses,
-        overall_balance=overall_total_income - overall_total_expenses
+        overall_balance=overall_balance
     )
 
 @router.get("/summary/monthly")

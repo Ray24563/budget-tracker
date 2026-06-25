@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy import desc, extract
 from typing import List
 from database import get_db
-from models import Expense, Income
+from models import Expense, Income, Transfer
 from schemas import ExpenseCreate, ExpenseResponse
 
 router = APIRouter()
@@ -39,31 +39,49 @@ def get_monthly_expenses(year: int, db: Session = Depends(get_db)):
     ]
 
 
-# ─── Add Expense ──────────────────────────────────────────
 @router.post("/expenses", response_model=ExpenseResponse)
 def add_expense(request: ExpenseCreate, db: Session = Depends(get_db)):
 
-    # Step 1: Calculate current balance for the chosen savings
+    # Total income for this savings
     income_records = db.query(Income)\
                        .filter(Income.savings == request.savings)\
                        .all()
     total_income = sum(record.amount for record in income_records)
 
+    # Total expenses for this savings
     expense_records = db.query(Expense)\
                         .filter(Expense.savings == request.savings)\
                         .all()
     total_expenses = sum(record.amount for record in expense_records)
 
-    current_balance = total_income - total_expenses
+    # ✅ Outgoing transfers (deduct)
+    outgoing = db.query(Transfer)\
+                 .filter(Transfer.from_savings == request.savings)\
+                 .all()
+    total_outgoing = sum(r.amount for r in outgoing)
 
-    # Step 2: Check if balance is sufficient
+    # ✅ Incoming transfers (add)
+    incoming = db.query(Transfer)\
+                 .filter(Transfer.to_savings == request.savings)\
+                 .all()
+    total_incoming = sum(r.amount for r in incoming)
+
+    # ✅ Real balance including transfers
+    current_balance = (
+        total_income
+        - total_expenses
+        - total_outgoing
+        + total_incoming
+    )
+
+    # Check if balance is sufficient
     if request.amount > current_balance:
         raise HTTPException(
             status_code=400,
             detail=f"Insufficient balance. Current balance for {request.savings} is ₱{current_balance:,.2f}"
         )
 
-    # Step 3: Balance is sufficient — save the expense
+    # Save the expense
     new_expense = Expense(
         date=request.date,
         category=request.category,

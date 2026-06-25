@@ -68,7 +68,7 @@ function TransferMoneyPage () {
                       <td className="text-[#e2d9f3] py-5 px-10">{item.description}</td>
                       <td className="text-[#e2d9f3] py-5 px-10">{item.from_savings}</td>
                       <td className="text-[#e2d9f3] py-5 px-10">{item.to_savings}</td>
-                      <td className="text-[#c084fc] font-bold p-5 px-10">+ {item.amount.toLocaleString()}</td>
+                      <td className="text-green-400 font-bold p-5 px-10">+ {item.amount.toLocaleString()}</td>
                     </tr>
                   ))}
                 </tbody>
