@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import FadeIn from "../components/FadeIn.jsx";
 import { saveAsPDFIncome } from "../utils/saveAsPDFIncome.js";
 import SaveAsPDFModal from "../modals/SaveAsPDFModal.jsx";
-import { DateFormatter } from "../utils/DateFormatter.js";
+import { DateFormatter, DateFormatterSelector } from "../utils/DateFormatter.js";
 
 function IncomePage() {
   const [incomeList, setIncomeList] = useState([]);
@@ -15,12 +15,9 @@ function IncomePage() {
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const navigate = useNavigate();
-  const itemsPerPage = 7;
-  const totalPages = Math.ceil(incomeList.length / itemsPerPage);
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const currentItems = incomeList.slice(startIndex, startIndex + itemsPerPage);
   const [selectedMonth, setSelectedMonth] = useState("all")
   const [saveAsPDFModal, setSaveAsPDFModal] = useState(false);
+  const [selectedMonthForTable, setSelectedMonthForTable] = useState("all");
 
   // Fetch all income on page load
   const fetchIncome = async () => {
@@ -42,7 +39,7 @@ function IncomePage() {
   const handleDelete = async (id) => {
     try {
       await deleteIncome(id);
-      fetchIncome(); // refresh list after delete
+      fetchIncome();
     } catch (err) {
       console.error("Failed to delete income");
     }
@@ -51,6 +48,15 @@ function IncomePage() {
   const availableMonths = [
     ...new Set(incomeList.map((item) => item.date.slice(0, 7)))
   ].sort().reverse(); // latest month first
+
+  const filteredIncome = selectedMonthForTable === "all"
+    ? incomeList
+    : incomeList.filter((item) => item.date.slice(0, 7) === selectedMonthForTable);
+  
+  const itemsPerPage = 7;
+  const totalPages = Math.ceil(filteredIncome.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const currentItems = filteredIncome.slice(startIndex, startIndex + itemsPerPage);
 
   const handleExportPDF = () => {
     saveAsPDFIncome(incomeList, selectedMonth);
@@ -70,10 +76,23 @@ function IncomePage() {
         <main className="px-20 mt-15">
           {loading ? (
             <p className="text-[#e2d9f3]">Loading...</p>
-          ) : incomeList.length === 0 ? (
+          ) : filteredIncome.length === 0 ? (
             <p className="text-[#e2d9f3]">No income records yet.</p>
           ) : (
             <>
+              <div className="text-right mb-7">
+                <label className="text-[#e2d9f3] syne-heading me-5">Filter Table: </label>
+                  <select
+                    value={selectedMonthForTable}
+                    onChange={(e) => setSelectedMonthForTable(e.target.value)}
+                    className="bg-[#0a0818] border border-[#2e2460] text-[#e2d9f3] rounded-lg px-3 py-2 text-md syne-heading cursor-pointer"
+                    >
+                      <option value="all">All Time</option>
+                      {availableMonths.map((month) => (
+                        <option key={month} value={month}>{DateFormatterSelector(month)}</option>
+                      ))}
+                  </select>
+              </div>
               <div className="animate-tableIn" key={currentPage}>
                 <table className="w-full text-left border-collapse bg-[#1c1640] rounded-lg">
                   <thead>
@@ -86,7 +105,7 @@ function IncomePage() {
                     </tr>
                   </thead>
                   <tbody>
-                    {currentItems.map((item) => ( // <-- changed from incomeList to currentItems
+                    {filteredIncome.map((item) => (
                       <tr
                         key={item.id}
                         className="border-b border-[#2e2460] hover:bg-[#261d52] transition-colors duration-200"
