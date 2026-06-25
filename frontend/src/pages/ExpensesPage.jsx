@@ -5,18 +5,22 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowTrendDown, faTrash } from "@fortawesome/free-solid-svg-icons";
 import FadeIn from "../components/FadeIn";
 import { useNavigate } from "react-router-dom";
-import { DateFormatter } from "../utils/DateFormatter";
+import { DateFormatter, DateFormatterSelector } from "../utils/DateFormatter";
 import SaveAsPDFModalExpense from "../modals/SaveAsPDFModalExpense";
 import { saveAsPDFExpense } from "../utils/saveAsPDFExpense";
 
 export default function ExpensePage() {
   const [expenseList, setExpenseList] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [selectedMonthForTable, setSelectedMonthForTable] = useState("all");
+  const filteredExpense = selectedMonthForTable === "all"
+    ? expenseList
+    : expenseList.filter((item) => item.date.slice(0, 7) === selectedMonthForTable);
   const itemsPerPage = 7;
   const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = Math.ceil(expenseList.length / itemsPerPage);
+  const totalPages = Math.ceil(filteredExpense.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const currentItems = expenseList.slice(startIndex, startIndex + itemsPerPage);
+  const currentItems = filteredExpense.slice(startIndex, startIndex + itemsPerPage);
   const navigate = useNavigate()
   const [selectedMonth, setSelectedMonth] = useState("all")
   const [saveAsPDFModal, setSaveAsPDFModal] = useState(false);
@@ -47,12 +51,12 @@ export default function ExpensePage() {
   };
 
   const availableMonths = [
-      ...new Set(expenseList.map((item) => item.date.slice(0, 7)))
-    ].sort().reverse(); // latest month first
+    ...new Set(expenseList.map((item) => item.date.slice(0, 7)))
+  ].sort().reverse(); // latest month first
   
-    const handleExportPDF = () => {
-      saveAsPDFExpense(expenseList, selectedMonth);
-    };
+  const handleExportPDF = () => {
+    saveAsPDFExpense(expenseList, selectedMonth);
+  };
 
   const navigateToHomepage = () =>{
     navigate('/')
@@ -72,6 +76,19 @@ export default function ExpensePage() {
             <p className="text-[#e2d9f3]">No expense records yet.</p>
           ) : (
             <>
+              <div className="text-right mb-7">
+                <label className="text-[#e2d9f3] syne-heading me-5">Filter Table: </label>
+                  <select
+                    value={selectedMonthForTable}
+                    onChange={(e) => setSelectedMonthForTable(e.target.value)}
+                    className="bg-[#0a0818] border border-[#2e2460] text-[#e2d9f3] rounded-lg px-3 py-2 text-md syne-heading cursor-pointer"
+                    >
+                      <option value="all">All Time</option>
+                      {availableMonths.map((month) => (
+                        <option key={month} value={month}>{DateFormatterSelector(month)}</option>
+                      ))}
+                  </select>
+              </div>
               <div className="animate-tableIn" key={currentPage}>
                 <table className="w-full text-left border-collapse bg-[#1c1640] rounded-lg">
                   <thead>
@@ -94,7 +111,7 @@ export default function ExpensePage() {
                         <td className="text-[#e2d9f3] py-5 px-10">{item.source}</td>
                         <td className="text-[#e2d9f3] py-5 px-10">{item.category}</td>
                         <td className="text-[#e2d9f3] py-5 px-10">{item.savings}</td>
-                        <td className="text-[#c084fc] font-bold p-5 px-10">- ₱ {item.amount.toLocaleString()}</td>
+                        <td className="text-red-400 font-bold p-5 px-10">- ₱ {item.amount.toLocaleString()}</td>
                         <td className="p-5">
                           <button onClick={() => handleDelete(item.id)} className="cursor-pointer ms-4">
                             <FontAwesomeIcon icon={faTrash} className="text-red-400 ms-5" />

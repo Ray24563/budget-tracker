@@ -105,7 +105,7 @@ function IncomePage() {
                     </tr>
                   </thead>
                   <tbody>
-                    {filteredIncome.map((item) => (
+                    {currentItems.map((item) => (
                       <tr
                         key={item.id}
                         className="border-b border-[#2e2460] hover:bg-[#261d52] transition-colors duration-200"
@@ -113,7 +113,7 @@ function IncomePage() {
                         <td className="text-[#e2d9f3] py-5 px-10">{DateFormatter(item.date)}</td>
                         <td className="text-[#e2d9f3] py-5 px-10">{item.source}</td>
                         <td className="text-[#e2d9f3] py-5 px-10">{item.savings}</td>
-                        <td className="text-[#c084fc] font-bold p-5 px-10">+ ₱ {item.amount.toLocaleString()}</td>
+                        <td className="text-green-400 font-bold p-5 px-10">+ ₱ {item.amount.toLocaleString()}</td>
                         <td className="p-5">
                           <button onClick={() => handleDelete(item.id)} className="cursor-pointer ms-4">
                             <FontAwesomeIcon icon={faTrash} className="text-red-400 ms-5" />
