@@ -23,3 +23,17 @@ export const getMonthlyComparison = async () => {
   if (!response.ok) throw new Error(response.status);
   return response.json();
 };
+
+export const getTopCategories = async (year, month) => {
+  const response = await fetch(
+    `${API_URL}/expenses/top-categories/${year}/${month}`,
+    {
+      method: "GET",
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem("token")}`
+      }
+    }
+  );
+  if (!response.ok) throw new Error(response.status);
+  return response.json();
+};

@@ -16,6 +16,7 @@ import RecentExpenses from '../components/RecentExpenses.jsx'
 import TransferMoney from '../modals/TransferMoney.jsx'
 import FuturePage from './FuturePage.jsx'
 import LoanPage from './LoanPage.jsx'
+import TopCategories from '../components/TopCategories.jsx'
 
 const DEFAULT_SUMMARY = {
   savings_breakdown: [
@@ -105,88 +106,90 @@ function Homepage ({handleLogout}){
       </div>
     </header>
 
-    <div className={`side-panel ${isPanelOpen ? "open" : ""}`}>
-      <div className="text-right">
-        <button onClick={togglePanel} className="text-[#c4b8e0] font-bold text-2xl cursor-pointer hover:scale-120 transition-transform duration-500">
-          ✕
-        </button>
-      </div>
-
-      <div>
-        <h2 className='text-[#6b5f8a] text-sm syne-heading mt-5 mb-3'>Primary Actions</h2>
-          <div id='primary_actions'>
-            <button 
-              className='income-button-background py-3 ps-5 w-full text-left rounded-md mb-5'
-              onClick={() => (setAddIncomeModal(true), setIsPanelOpen(false))}
-            >
-                <FontAwesomeIcon icon={faArrowTrendUp} className='me-3'/>Add Income
-              </button>
-            <button 
-              className='expenses-button-background py-3 ps-5 w-full text-left rounded-md'
-              onClick={() => (setAddExpenseModal(true), setIsPanelOpen(false))}
-            >
-              <FontAwesomeIcon icon={faArrowTrendDown} className='me-3'/>Add Expense
-            </button>
-          </div>
+    <div className={`${isPanelOpen ? "fixed inset-0 z-50 backdrop-blur-sm bg-black/20 flex flex-col items-center justify-center animate-backdropIn" : ""}`}>
+      <div className={`side-panel ${isPanelOpen ? "open" : ""}`}>
+        <div className="text-right">
+          <button onClick={togglePanel} className="text-[#c4b8e0] font-bold text-2xl cursor-pointer hover:scale-120 transition-transform duration-500">
+            ✕
+          </button>
         </div>
 
-        <div className='mt-10'>
-          <h2 className='text-[#6b5f8a] syne-heading mb-3 text-sm'>Navigations</h2>
-            <div id='other_actions'>
+        <div>
+          <h2 className='text-[#6b5f8a] text-sm syne-heading mt-5 mb-3'>Primary Actions</h2>
+            <div id='primary_actions'>
               <button 
-                className='bg-transparent border border-[#3b2d6a] text-[#c4b8e0] py-3 ps-5 w-full rounded-md mb-5 hover:bg-[#1c1640] hover:border-[#4c2f8f] cursor-pointer transition-all duration-500 text-left'
-                onClick={navigateToIncomePage}
+                className='income-button-background py-3 ps-5 w-full text-left rounded-md mb-5'
+                onClick={() => (setAddIncomeModal(true), setIsPanelOpen(false))}
               >
-                <FontAwesomeIcon icon={faListCheck} className='me-3'/>Income List
-              </button>
-
+                  <FontAwesomeIcon icon={faArrowTrendUp} className='me-3'/>Add Income
+                </button>
               <button 
-                className='bg-transparent border border-[#3b2d6a] text-[#c4b8e0] py-3 ps-5 w-full text-left rounded-md mb-5 hover:bg-[#1c1640] hover:border-[#4c2f8f] cursor-pointer transition-all duration-500'
-                onClick={navigateToExpensePage}
+                className='expenses-button-background py-3 ps-5 w-full text-left rounded-md'
+                onClick={() => (setAddExpenseModal(true), setIsPanelOpen(false))}
               >
-                <FontAwesomeIcon icon={faListOl} className='me-3'/>Expenses List
-              </button>
-
-              <button 
-                className='bg-transparent border border-[#3b2d6a] text-[#c4b8e0] py-3 ps-5 w-full text-left rounded-md mb-5 hover:bg-[#1c1640] hover:border-[#4c2f8f] cursor-pointer transition-all duration-500'
-                onClick={navigateToTransferMoneyPage}
-              >
-                <FontAwesomeIcon icon={faArrowRotateLeft} className='me-3'/>Money Transfer History
-              </button>
-              
-              <button 
-                className='bg-transparent border border-[#3b2d6a] text-[#c4b8e0] py-3 ps-5 w-full text-left rounded-md mb-5 hover:bg-[#1c1640] hover:border-[#4c2f8f] cursor-pointer transition-all duration-500'
-                onClick={() => (setLogoutModal(true), setIsPanelOpen(false))}
-              >
-                <FontAwesomeIcon icon={faRightFromBracket} className='me-3'/>Logout
+                <FontAwesomeIcon icon={faArrowTrendDown} className='me-3'/>Add Expense
               </button>
             </div>
           </div>
 
-        <div className='mt-5'>
-          <h2 className='text-[#6b5f8a] syne-heading mb-3 text-sm'>Other Actions</h2>
-            <div id='other_actions'>
-              <button className='bg-transparent border border-[#3b2d6a] text-[#c4b8e0] py-3 ps-5 w-full text-left rounded-md mb-5 hover:bg-[rgb(28,22,64)] hover:border-[#4c2f8f] cursor-pointer transition-all duration-500'
-              onClick={() => (setTransMoneyModal(true), setIsPanelOpen(false))}
-              >
-                <FontAwesomeIcon icon={faArrowRightArrowLeft} className='me-3'/>Transfer Money
-              </button>
-
-              <button 
-                className='bg-transparent border border-[#3b2d6a] text-[#c4b8e0] py-3 ps-5 w-full text-left rounded-md mb-5 hover:bg-[#1c1640] hover:border-[#4c2f8f] cursor-pointer transition-all duration-500'
-                onClick={navigateToFuturePage}
-              >
-                  <FontAwesomeIcon icon={faChartLine} className='me-3'/>Future
+          <div className='mt-10'>
+            <h2 className='text-[#6b5f8a] syne-heading mb-3 text-sm'>Navigations</h2>
+              <div id='other_actions'>
+                <button 
+                  className='bg-transparent border border-[#3b2d6a] text-[#c4b8e0] py-3 ps-5 w-full rounded-md mb-5 hover:bg-[#1c1640] hover:border-[#4c2f8f] cursor-pointer transition-all duration-500 text-left'
+                  onClick={navigateToIncomePage}
+                >
+                  <FontAwesomeIcon icon={faListCheck} className='me-3'/>Income List
                 </button>
 
-              <button 
-                className='bg-transparent border border-[#3b2d6a] text-[#c4b8e0] py-3 ps-5 w-full text-left rounded-md mb-5 hover:bg-[#1c1640] hover:border-[#4c2f8f] cursor-pointer transition-all duration-500'
-                onClick={navigateToLoanPage}
-              >
-                <FontAwesomeIcon icon={faClipboardList} className='me-2'/> Debt
-              </button>
+                <button 
+                  className='bg-transparent border border-[#3b2d6a] text-[#c4b8e0] py-3 ps-5 w-full text-left rounded-md mb-5 hover:bg-[#1c1640] hover:border-[#4c2f8f] cursor-pointer transition-all duration-500'
+                  onClick={navigateToExpensePage}
+                >
+                  <FontAwesomeIcon icon={faListOl} className='me-3'/>Expenses List
+                </button>
+
+                <button 
+                  className='bg-transparent border border-[#3b2d6a] text-[#c4b8e0] py-3 ps-5 w-full text-left rounded-md mb-5 hover:bg-[#1c1640] hover:border-[#4c2f8f] cursor-pointer transition-all duration-500'
+                  onClick={navigateToTransferMoneyPage}
+                >
+                  <FontAwesomeIcon icon={faArrowRotateLeft} className='me-3'/>Money Transfer History
+                </button>
+                
+                <button 
+                  className='bg-transparent border border-[#3b2d6a] text-[#c4b8e0] py-3 ps-5 w-full text-left rounded-md mb-5 hover:bg-[#1c1640] hover:border-[#4c2f8f] cursor-pointer transition-all duration-500'
+                  onClick={() => (setLogoutModal(true), setIsPanelOpen(false))}
+                >
+                  <FontAwesomeIcon icon={faRightFromBracket} className='me-3'/>Logout
+                </button>
+              </div>
             </div>
-          </div>
+
+          <div className='mt-5'>
+            <h2 className='text-[#6b5f8a] syne-heading mb-3 text-sm'>Other Actions</h2>
+              <div id='other_actions'>
+                <button className='bg-transparent border border-[#3b2d6a] text-[#c4b8e0] py-3 ps-5 w-full text-left rounded-md mb-5 hover:bg-[rgb(28,22,64)] hover:border-[#4c2f8f] cursor-pointer transition-all duration-500'
+                onClick={() => (setTransMoneyModal(true), setIsPanelOpen(false))}
+                >
+                  <FontAwesomeIcon icon={faArrowRightArrowLeft} className='me-3'/>Transfer Money
+                </button>
+
+                <button 
+                  className='bg-transparent border border-[#3b2d6a] text-[#c4b8e0] py-3 ps-5 w-full text-left rounded-md mb-5 hover:bg-[#1c1640] hover:border-[#4c2f8f] cursor-pointer transition-all duration-500'
+                  onClick={navigateToFuturePage}
+                >
+                    <FontAwesomeIcon icon={faChartLine} className='me-3'/>Future
+                  </button>
+
+                <button 
+                  className='bg-transparent border border-[#3b2d6a] text-[#c4b8e0] py-3 ps-5 w-full text-left rounded-md mb-5 hover:bg-[#1c1640] hover:border-[#4c2f8f] cursor-pointer transition-all duration-500'
+                  onClick={navigateToLoanPage}
+                >
+                  <FontAwesomeIcon icon={faClipboardList} className='me-2'/> Debt
+                </button>
+              </div>
+            </div>
+        </div>
       </div>
 
     <main className='mx-10 mt-15'>
@@ -254,7 +257,7 @@ function Homepage ({handleLogout}){
 
       <FadeIn>
         <h2 className='text-[#6b5f8a] syne-heading mt-7 mb-3'>Dashboard</h2>
-        <section className='grid grid-cols-[1.8fr_1fr] gap-x-5 mb-20'>
+        <section className='grid grid-cols-[1.8fr_1fr] gap-x-5'>
 
           <div className='bg-[#1c1640] border border-[#2e2460] rounded-lg px-7 pt-10 text-[#6b5f8a]'>
             <MonthlyGraph/>
@@ -270,7 +273,12 @@ function Homepage ({handleLogout}){
           <div className='bg-[#1c1640] border border-[#2e2460] rounded-lg text-[#6b5f8a] pt-7 pb-5 px-10'>
             <IncomeVsExpenses/>
           </div>
+        </section>
+      </FadeIn>
 
+      <FadeIn>
+        <section className='mt-10 mb-20'>
+          <TopCategories/>
         </section>
       </FadeIn>
 
@@ -303,7 +311,6 @@ function Homepage ({handleLogout}){
             </div>
             <RecentExpenses/>
           </div>
-
         </section>
       </FadeIn>
      

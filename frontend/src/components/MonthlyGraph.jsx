@@ -53,7 +53,7 @@ function MonthlyGraph() {
         <select
           value={selectedYear}
           onChange={(e) => setSelectedYear(Number(e.target.value))}
-          className="bg-[#0a0818] border border-[#2e2460] text-[#e2d9f3] rounded-lg ps-3 pe-5 py-2 text-sm"
+          className="bg-[#0a0818] border border-[#2e2460] text-[#e2d9f3] rounded-lg ps-3 pe-5 py-2 text-sm cursor-pointer"
         >
           {yearOptions.map((year) => (
             <option key={year} value={year}>{year}</option>

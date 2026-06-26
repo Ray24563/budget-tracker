@@ -90,7 +90,7 @@ function IncomeVsExpenses() {
                 data={chartData}
                 cx="50%"
                 cy="50%"
-                outerRadius={80}
+                outerRadius={90}
                 dataKey="value"
                 strokeWidth={0}
               >

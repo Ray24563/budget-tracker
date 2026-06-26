@@ -65,7 +65,14 @@ export default function ExpensePage() {
   return (
     <>
       <header className="px-20 pt-20">
-        <h1 className="text-[#e2d9f3] syne-heading text-5xl font-bold"><FontAwesomeIcon icon={faArrowTrendDown} className="me-3 text-[#6b5f8a]"/> List of Expenses</h1>
+        <div className="flex">
+          <h1 
+          className="text-[#e2d9f3] syne-heading text-5xl font-bold cursor-pointer"
+          onClick={navigateToHomepage}
+          >
+            <FontAwesomeIcon icon={faArrowTrendDown} className="me-3 text-[#6b5f8a]"/> List of Expenses
+          </h1>
+          </div>
       </header>
 
       <FadeIn>
@@ -123,7 +130,7 @@ export default function ExpensePage() {
                 </table>
               </div>
 
-              <div className="flex justify-between flex-row-reverse mt-8">
+              <div className="flex justify-between flex-row-reverse mt-8 mb-15">
                 <div className="flex justify-center items-center gap-2">
                   <button
                     onClick={() => setCurrentPage(p => p - 1)}

@@ -54,19 +54,16 @@ def add_expense(request: ExpenseCreate, db: Session = Depends(get_db)):
                         .all()
     total_expenses = sum(record.amount for record in expense_records)
 
-    # ✅ Outgoing transfers (deduct)
     outgoing = db.query(Transfer)\
                  .filter(Transfer.from_savings == request.savings)\
                  .all()
     total_outgoing = sum(r.amount for r in outgoing)
 
-    # ✅ Incoming transfers (add)
     incoming = db.query(Transfer)\
                  .filter(Transfer.to_savings == request.savings)\
                  .all()
     total_incoming = sum(r.amount for r in incoming)
 
-    # ✅ Real balance including transfers
     current_balance = (
         total_income
         - total_expenses
@@ -131,3 +128,36 @@ def delete_expense(expense_id: int, db: Session = Depends(get_db)):
     db.commit()         # save to SQLite
 
     return { "message": "Expense deleted successfully" }
+
+@router.get("/expenses/top-categories/{year}/{month}")
+def get_top_categories(year: int, month: int, db: Session = Depends(get_db)):
+
+    # Query expenses filtered by year and month
+    expenses = db.query(Expense).filter(
+        extract("year", Expense.date) == year,
+        extract("month", Expense.date) == month
+    ).all()
+
+    # Group and sum by category
+    category_totals = {}
+    for expense in expenses:
+        category = expense.category
+        if category not in category_totals:
+            category_totals[category] = 0
+        category_totals[category] += expense.amount
+
+    # Sort by amount descending and take top 5
+    sorted_categories = sorted(
+        category_totals.items(),
+        key=lambda x: x[1],
+        reverse=True
+    )[:5]
+
+    # Format for frontend
+    return [
+        {
+            "category": category,
+            "total": round(amount, 2)
+        }
+        for category, amount in sorted_categories
+    ]
