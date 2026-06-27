@@ -3,6 +3,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import {useState} from 'react'
 import { addExpense } from "../api/expenses";
 import { SAVINGS_OPTIONS, EXPENSE_CATEGORIES } from "../constants/savings";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowTrendDown } from "@fortawesome/free-solid-svg-icons";
 
 function AddExpense({setAddExpenseModal, onSuccess}) {
   const [date, setDate] = useState(new Date());
@@ -54,10 +56,13 @@ function AddExpense({setAddExpenseModal, onSuccess}) {
       <div className='add-income-modal w-auto p-10 rounded-lg animate-modalIn'>
          <h1 
           className='syne-heading text-[#e2d9f3] font-bold text-3xl mb-5'
-          onClick={() => setAddExpenseModal(false)}>Add Expense</h1>
+          onClick={() => setAddExpenseModal(false)}
+          >
+            <FontAwesomeIcon icon={faArrowTrendDown} className="me-3"/> Add Expense
+          </h1>
 
          <form>
-          <div className='mb-5 flex gap-x-5'>
+          <div className='mb-5 flex flex-col sm:flex-row gap-x-0 gap-y-4 sm:gap-y-0 sm:gap-x-5'>
 
             <div>
               <label className='text-[#e2d9f3] syne-heading mb-2 block'>Date</label>
@@ -71,7 +76,7 @@ function AddExpense({setAddExpenseModal, onSuccess}) {
              <div>
               <label className='text-[#e2d9f3] syne-heading mb-2 block'>Category</label>
               <select 
-                className="border rounded-lg ps-3 py-2.5 text-[#e2d9f3] bg-[#0a0818] border-[#2e2460] w-60 mb-5"
+                className="border rounded-lg ps-3 py-2.5 text-[#e2d9f3] bg-[#0a0818] border-[#2e2460] w-60 mb-0 sm:mb-5"
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
               >

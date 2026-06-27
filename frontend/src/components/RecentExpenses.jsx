@@ -1,5 +1,6 @@
 import { getAllExpenses } from "../api/expenses";
 import { useState, useEffect } from "react";
+import { DateFormatter } from "../utils/DateFormatter";
 
 function RecentExpenses ({isMobile}) {
   const [expenseLoading, setExpenseLoading] = useState(false);
@@ -66,7 +67,7 @@ function RecentExpenses ({isMobile}) {
               {/* Date divider */}
               <div className="flex items-center gap-3 mb-3">
                 <div className="h-px flex-1 bg-[#2e2460]" />
-                <span className="text-[#e2d9f3] text-sm bg-[#2e2460]/80 px-4 py-1 rounded-full syne-heading font-bold">{date}</span>
+                <span className="text-[#e2d9f3] text-sm bg-[#2e2460]/80 px-4 py-1 rounded-full syne-heading font-bold">{DateFormatter(date)}</span>
                 <div className="h-px flex-1 bg-[#2e2460]" />
               </div>
 
@@ -76,7 +77,7 @@ function RecentExpenses ({isMobile}) {
                   <div key={item.id} className="flex justify-between items-center px-2">
                     <div>
                       <p className="text-[#9b8ab8] text-xs">{item.savings}</p>
-                      <p className="text-[#e2d9f3] text-md font-medium mt-1">{item.source}</p>
+                      <p className="text-[#e2d9f3] text-md font-medium mt-1">{item.category}</p>
                     </div>
                     <div className="flex items-center gap-4">
                       <span className="text-green-400 font-bold text-md mt-4">+ ₱ {item.amount.toLocaleString()}</span>

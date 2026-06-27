@@ -78,7 +78,7 @@ function IncomePage() {
       <header className="px-5 sm:px-20 pt-15 sm:pt-20">
         <div className="flex">
           <h1 
-            className="text-[#e2d9f3] syne-heading text-[1.8em] sm:text-5xl font-bold"
+            className="text-[#e2d9f3] syne-heading text-[1.8em] sm:text-5xl font-bold cursor-pointer"
             onClick={navigateToHomepage}
           >
             <FontAwesomeIcon icon={faArrowTrendUp} className="me-3 text-[#6b5f8a]"/> List of Incomes</h1>
@@ -94,7 +94,11 @@ function IncomePage() {
           ) : (
             <>
               <div className="text-right mb-5 sm:mb-7">
-                <label className="text-[#e2d9f3] syne-heading me-3 sm:me-5 text-sm sm:text-md">Filter Table: </label>
+                <label 
+                  className="text-[#e2d9f3] syne-heading me-3 sm:me-5 text-sm sm:text-md"
+                >
+                  Filter Table: 
+                </label>
                   <select
                     value={selectedMonthForTable}
                     onChange={(e) => setSelectedMonthForTable(e.target.value)}
@@ -152,7 +156,7 @@ function IncomePage() {
                         {/* Date divider */}
                         <div className="flex items-center gap-3 mb-3">
                           <div className="h-px flex-1 bg-[#2e2460]" />
-                          <span className="text-[#e2d9f3] text-sm bg-[#2e2460]/80 px-4 py-1 rounded-full syne-heading font-bold">{date}</span>
+                          <span className="text-[#e2d9f3] text-sm bg-[#2e2460]/80 px-4 py-1 rounded-full syne-heading font-bold">{DateFormatter(date)}</span>
                           <div className="h-px flex-1 bg-[#2e2460]" />
                         </div>
 

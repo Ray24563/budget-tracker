@@ -1,5 +1,6 @@
 import { getAllIncome } from '../api/income.js'
 import { useState, useEffect } from 'react'
+import { DateFormatter } from '../utils/DateFormatter.js';
 
 function RecentIncome({ isMobile }){
   const [incomeLoading, setIncomeLoading] = useState(false);
@@ -66,7 +67,7 @@ function RecentIncome({ isMobile }){
               {/* Date divider */}
               <div className="flex items-center gap-3 mb-3">
                 <div className="h-px flex-1 bg-[#2e2460]" />
-                <span className="text-[#e2d9f3] text-sm bg-[#2e2460]/80 px-4 py-1 rounded-full syne-heading font-bold">{date}</span>
+                <span className="text-[#e2d9f3] text-sm bg-[#2e2460]/80 px-4 py-1 rounded-full syne-heading font-bold">{DateFormatter(date)}</span>
                 <div className="h-px flex-1 bg-[#2e2460]" />
               </div>
 

@@ -6,7 +6,7 @@ import { DateFormatter, DateFormatterSelector } from "../utils/DateFormatter";
 function SaveAsPDFModal({ selectedMonth, setSelectedMonth, availableMonths, handleExportPDF, setSaveAsPDFModal }) {
   return (
     <>
-      <div className='add-income-modal w-auto p-10 rounded-lg animate-modalIn'>
+      <div className='add-income-modal w-auto mx-5 p-8 sm:p-10 rounded-lg animate-modalIn'>
         <h1 
           className='syne-heading text-[#e2d9f3] font-bold text-3xl mb-10'
         ><FontAwesomeIcon className="text-red-500 me-3" icon={faFilePdf}/> Save AS PDF</h1>
