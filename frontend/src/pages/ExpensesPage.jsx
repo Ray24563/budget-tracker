@@ -188,7 +188,7 @@ export default function ExpensePage() {
                                 <p className="text-[#9b8ab8] text-xs">{item.savings}</p>
                               </div>
                               <div className="flex items-center gap-4">
-                                <span className="text-green-400 font-bold text-sm">+₱{item.amount.toLocaleString()}</span>
+                                <span className="text-red-400 font-bold text-sm">- ₱ {item.amount.toLocaleString()}</span>
                                 <button onClick={() => handleDelete(item.id)}>
                                   <FontAwesomeIcon icon={faTrash} className="text-[#6b5f8a] hover:text-red-400 transition-colors text-xs" />
                                 </button>
