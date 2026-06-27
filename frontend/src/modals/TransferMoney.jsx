@@ -59,7 +59,7 @@ function TransferMoney({ setTransMoneyModal, onSuccess }) {
           ><FontAwesomeIcon icon={faArrowRightArrowLeft} className='me-3'/> Transfer Money</h1>
 
          <form>
-          <div className='mb-5 flex gap-x-5'>
+          <div className='mb-5 flex flex-col sm:flex-row gap-x-0 gap-y-5 sm:gap-y-0 sm:gap-x-5'>
 
             <div>
               <label className='text-[#e2d9f3] syne-heading mb-2 block'>Date</label>

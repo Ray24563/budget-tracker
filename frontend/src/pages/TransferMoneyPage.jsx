@@ -37,11 +37,18 @@ function TransferMoneyPage () {
 
   return(
     <>
-      <header className="px-20 pt-20">
-        <h1 className="text-[#e2d9f3] syne-heading text-5xl font-bold"><FontAwesomeIcon icon={faArrowRotateLeft} className="me-3 text-[#6b5f8a]"/> Money Transfer History</h1>
+      <header className="px-5 sm:px-20 pt-15 sm:pt-20">
+        <div className="flex">
+          <h1 
+            className="text-[#e2d9f3] syne-heading text-[1.6em] sm:text-5xl font-bold cursor-pointer"
+            onClick={navigateToHomepage}
+          >
+            <FontAwesomeIcon icon={faArrowRotateLeft} className="me-3 text-[#6b5f8a]"/> Money Transfer History
+          </h1>
+        </div>
       </header>
 
-      <main className="px-20 mt-15">
+      <main className="px-5 sm:px-20 mt-10 sm:mt-15">
         { loading ? (
           <p className="text-[#e2d9f3]">Loading...</p>
         ) : transferData.length === 0 ? (

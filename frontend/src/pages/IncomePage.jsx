@@ -65,6 +65,28 @@ function IncomePage() {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const currentItems = filteredIncome.slice(startIndex, startIndex + itemsPerPage);
 
+  const getVisiblePages = (currentPage, totalPages) => {
+    if (totalPages <= 3) {
+      return Array.from({ length: totalPages }, (_, i) => i + 1);
+    }
+
+    let start = currentPage - 1;
+    let end = currentPage + 1;
+
+    if (start < 1) {
+      start = 1;
+      end = 3;
+    }
+
+    if (end > totalPages) {
+      end = totalPages;
+      start = totalPages - 2;
+    }
+
+    return Array.from({ length: end - start + 1 }, (_, i) => start + i);
+  };
+
+
   const handleExportPDF = () => {
     saveAsPDFIncome(incomeList, selectedMonth);
   };
@@ -169,9 +191,9 @@ function IncomePage() {
                                 <p className="text-[#e2d9f3] text-md font-medium mt-1">{item.source}</p>
                               </div>
                               <div className="flex items-center gap-4">
-                                <span className="text-green-400 font-bold text-sm">+₱{item.amount.toLocaleString()}</span>
+                                <span className="text-green-400 font-bold text-md mt-3">+ ₱ {item.amount.toLocaleString()}</span>
                                 <button onClick={() => handleDelete(item.id)}>
-                                  <FontAwesomeIcon icon={faTrash} className="text-[#6b5f8a] hover:text-red-400 transition-colors text-xs" />
+                                  <FontAwesomeIcon icon={faTrash} className="text-[#6b5f8a] hover:text-red-400 transition-colors text-xs mt-4" />
                                 </button>
                               </div>
                             </div>
@@ -194,7 +216,22 @@ function IncomePage() {
                     {isMobile? "<" : "← Prev"}
                   </button>
 
-                  {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
+                  {getVisiblePages(currentPage, totalPages)[0] > 1 && (
+                    <>
+                      <button
+                        onClick={() => setCurrentPage(1)}
+                        className="w-9 h-9 rounded-full sm:rounded-lg text-sm font-medium transition-all duration-150 border border-[#3b2d6a] text-[#a78bca] hover:border-[#4c2f8f] hover:text-[#e2d9f3]"
+                      >
+                        1
+                      </button>
+                      {getVisiblePages(currentPage, totalPages)[0] > 2 && (
+                        <span className="text-[#6b5f8a]">...</span>
+                      )}
+                    </>
+                  )}
+
+                  {/* Visible Pages */}
+                  {getVisiblePages(currentPage, totalPages).map(page => (
                     <button
                       key={page}
                       onClick={() => setCurrentPage(page)}
@@ -207,6 +244,21 @@ function IncomePage() {
                       {page}
                     </button>
                   ))}
+
+                  {/* Last page + ellipsis */}
+                  {getVisiblePages(currentPage, totalPages)[getVisiblePages(currentPage, totalPages).length - 1] < totalPages && (
+                    <>
+                      {getVisiblePages(currentPage, totalPages)[getVisiblePages(currentPage, totalPages).length - 1] < totalPages - 1 && (
+                        <span className="text-[#6b5f8a]">...</span>
+                      )}
+                      <button
+                        onClick={() => setCurrentPage(totalPages)}
+                        className="w-9 h-9 rounded-full sm:rounded-lg text-sm font-medium transition-all duration-150 border border-[#3b2d6a] text-[#a78bca] hover:border-[#4c2f8f] hover:text-[#e2d9f3]"
+                      >
+                        {totalPages}
+                      </button>
+                    </>
+                  )}
 
                   <button
                     onClick={() => setCurrentPage(p => p + 1)}

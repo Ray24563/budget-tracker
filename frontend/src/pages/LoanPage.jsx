@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { getExpensesByCategory, deleteExpense } from "../api/expenses";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faClipboardList } from "@fortawesome/free-solid-svg-icons";
+import { faClipboardList, faCheck } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import { DateFormatter } from "../utils/DateFormatter";
 
@@ -14,6 +14,13 @@ function LoanPage() {
   const [selectedSource, setSelectedSource] = useState(null);
   const [selectedAmount, setSelectedAmount] = useState(null);
   const [selectedDate, setSelectedDate] = useState(null);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768)
+
+  useEffect(() => {
+    const update = () => setIsMobile(window.innerWidth < 768)
+    window.addEventListener('resize', update)
+    return () => window.removeEventListener('resize', update)
+  }, [])
 
   const fetchLoans = useCallback(async () => {
     setLoading(true);
@@ -50,16 +57,23 @@ function LoanPage() {
 
   return (
     <>
-      <header className="px-20 pt-20">
-        <h1 className="text-[#e2d9f3] syne-heading text-5xl font-bold"><FontAwesomeIcon icon={faClipboardList} className="me-3 text-[#6b5f8a]"/> List of Debts</h1>
+      <header className="px-5 sm:px-20 pt-15 sm:pt-20">
+        <div className="flex">
+          <h1 
+            className="text-[#e2d9f3] syne-heading text-[1.8em] sm:text-5xl font-bold cursor-pointer"
+            onClick={navigateToHomepage}
+          >
+            <FontAwesomeIcon icon={faClipboardList} className="me-3 text-[#6b5f8a]"/> List of Debts
+          </h1>
+        </div>
       </header>
 
-      <main className="px-20 pt-20">
+      <main className="px-5 sm:px-20 mt-10 sm:mt-15">
         {loading ? (
           <p className="text-[#6b5f8a]">Loading...</p>
         ) : loanList.length === 0 ? (
           <p className="text-[#6b5f8a] syne-heading text-md">No loan records yet.</p>
-        ) : (
+        ) : !isMobile ? (
           <table className="w-full text-left border-collapse bg-[#1c1640] rounded-lg animate-tableIn">
             <thead>
               <tr className="border-b border-[#2e2460] syne-heading text-[#e2d9f3] font-bold text-xl bg-[#2e2460]">
@@ -96,6 +110,47 @@ function LoanPage() {
             </tbody>
 
           </table>
+        ) : (
+          <div className="flex flex-col gap-6">
+            {Object.entries(
+              loanList.reduce((groups, item) => {
+                const date = item.date
+                if (!groups[date]) groups[date] = []
+                groups[date].push(item)
+                return groups
+              }, {})
+            ).map(([date, items]) => (
+              <div key={date}>
+
+                {/* Date divider */}
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="h-px flex-1 bg-[#2e2460]" />
+                  <span className="text-[#e2d9f3] text-sm bg-[#2e2460]/80 px-4 py-1 rounded-full syne-heading font-bold">{DateFormatter(date)}</span>
+                  <div className="h-px flex-1 bg-[#2e2460]" />
+                </div>
+
+                {/* Rows under this date */}
+                <div className="flex flex-col gap-y-7">
+                  {items.map((item) => (
+                    <div key={item.id} className="flex justify-between items-center px-2">
+                      <div>
+                        <p className="text-[#9b8ab8] text-xs">{item.savings}</p>
+                        <p className="text-[#e2d9f3] text-md font-medium mt-1">{item.source}</p>
+                      </div>
+                      <div className="flex items-center gap-4">
+                        <span className="text-red-400 font-bold text-md">- ₱ {item.amount.toLocaleString()}</span>
+                        <button 
+                          onClick={() => (setSelectedID(item.id), setConfirmModal(true), setSelectedAmount(item.amount.toLocaleString()), setSelectedSource(item.source), setSelectedDate(item.date))}>
+                          <FontAwesomeIcon icon={faCheck} className="bg-[#6b5f8a] text-[#e2d9f3] transition-colors text-xs px-1.5 py-1.5 rounded-full mt-1" />
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+              </div>
+            ))}
+          </div>
         )}
         <div className="flex justify-between mt-10">
           <button className="income-button-background rounded-lg px-7 py-1" onClick={navigateToHomepage}>Back</button>

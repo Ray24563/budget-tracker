@@ -76,7 +76,7 @@ function AddExpense({setAddExpenseModal, onSuccess}) {
              <div>
               <label className='text-[#e2d9f3] syne-heading mb-2 block'>Category</label>
               <select 
-                className="border rounded-lg ps-3 py-2.5 text-[#e2d9f3] bg-[#0a0818] border-[#2e2460] w-60 mb-0 sm:mb-5"
+                className="border rounded-lg ps-3 py-2.5 text-[#e2d9f3] bg-[#0a0818] border-[#2e2460] w-full sm:w-60 mb-0 sm:mb-5"
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
               >

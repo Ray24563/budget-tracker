@@ -65,6 +65,27 @@ export default function ExpensePage() {
     saveAsPDFExpense(expenseList, selectedMonth);
   };
 
+   const getVisiblePages = (currentPage, totalPages) => {
+    if (totalPages <= 3) {
+      return Array.from({ length: totalPages }, (_, i) => i + 1);
+    }
+
+    let start = currentPage - 1;
+    let end = currentPage + 1;
+
+    if (start < 1) {
+      start = 1;
+      end = 3;
+    }
+
+    if (end > totalPages) {
+      end = totalPages;
+      start = totalPages - 2;
+    }
+
+    return Array.from({ length: end - start + 1 }, (_, i) => start + i);
+  };
+
   const navigateToHomepage = () =>{
     navigate('/')
   }
@@ -181,7 +202,7 @@ export default function ExpensePage() {
                 )}
               </div>
 
-             <div className="flex justify-between flex-col gap-y-10 sm:gap-y-0 sm:flex-row-reverse mt-8 mb-15">
+              <div className="flex justify-between flex-col gap-y-10 sm:gap-y-0 sm:flex-row-reverse mt-8 mb-15">
                 <div className="flex justify-center items-center gap-2">
                   <button
                     onClick={() => setCurrentPage(p => p - 1)}
@@ -191,7 +212,22 @@ export default function ExpensePage() {
                     {isMobile? "<" : "← Prev"}
                   </button>
 
-                  {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
+                  {getVisiblePages(currentPage, totalPages)[0] > 1 && (
+                    <>
+                      <button
+                        onClick={() => setCurrentPage(1)}
+                        className="w-9 h-9 rounded-full sm:rounded-lg text-sm font-medium transition-all duration-150 border border-[#3b2d6a] text-[#a78bca] hover:border-[#4c2f8f] hover:text-[#e2d9f3]"
+                      >
+                        1
+                      </button>
+                      {getVisiblePages(currentPage, totalPages)[0] > 2 && (
+                        <span className="text-[#6b5f8a]">...</span>
+                      )}
+                    </>
+                  )}
+
+                  {/* Visible Pages */}
+                  {getVisiblePages(currentPage, totalPages).map(page => (
                     <button
                       key={page}
                       onClick={() => setCurrentPage(page)}
@@ -204,6 +240,21 @@ export default function ExpensePage() {
                       {page}
                     </button>
                   ))}
+
+                  {/* Last page + ellipsis */}
+                  {getVisiblePages(currentPage, totalPages)[getVisiblePages(currentPage, totalPages).length - 1] < totalPages && (
+                    <>
+                      {getVisiblePages(currentPage, totalPages)[getVisiblePages(currentPage, totalPages).length - 1] < totalPages - 1 && (
+                        <span className="text-[#6b5f8a]">...</span>
+                      )}
+                      <button
+                        onClick={() => setCurrentPage(totalPages)}
+                        className="w-9 h-9 rounded-full sm:rounded-lg text-sm font-medium transition-all duration-150 border border-[#3b2d6a] text-[#a78bca] hover:border-[#4c2f8f] hover:text-[#e2d9f3]"
+                      >
+                        {totalPages}
+                      </button>
+                    </>
+                  )}
 
                   <button
                     onClick={() => setCurrentPage(p => p + 1)}
