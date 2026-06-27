@@ -54,10 +54,10 @@ function Login({ onLoginSuccess }) {
 
         <div className="flex justify-center flex-col items-center gap-y-5">
           <img src={Logo} className="w-70"/>
-          <p className="text-[#9b8ab8] -[sans-serif] text-lg">Welcome to <span className="syne-heading font-bold text-[#f0eaff]">WhyHub!</span> Please input your credential to proceed.</p>
+          <p className="text-[#9b8ab8] font-[sans-serif] text-lg text-center sm:text-left">Welcome to <span className="syne-heading font-bold text-[#f0eaff]">WhyHub!</span> Please input your credential to proceed.</p>
           <div>
           <input 
-            className="bg-[#13102a] border border-[#3b2d6a] rounded-md px-3 w-70 py-2 text-[#f0eaff]"
+            className="bg-[#13102a] border border-[#3b2d6a] rounded-md px-3 w-60 sm:w-70 py-2 text-[#f0eaff]"
             placeholder="Enter Password"
             onKeyDown={(e) => e.key === "Enter" && handleSubmit()}
             onChange={(e) => setPassword(e.target.value)}
