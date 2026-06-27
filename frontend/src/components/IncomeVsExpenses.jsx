@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, Legend } from "recharts";
 import { getMonthlyComparison } from "../api/charts";
+import useOuterRadius from "../constants/UseOuterRadius";
 
 const COLORS = {
   income: "#e2d9f3",    
@@ -37,6 +38,7 @@ const CustomLegend = ({ income, expenses }) => (
 function IncomeVsExpenses() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const outerRadiusResponsive = useOuterRadius()
 
   useEffect(() => {
     const fetchData = async () => {
@@ -90,7 +92,7 @@ function IncomeVsExpenses() {
                 data={chartData}
                 cx="50%"
                 cy="50%"
-                outerRadius={90}
+                outerRadius={outerRadiusResponsive}
                 dataKey="value"
                 strokeWidth={0}
               >

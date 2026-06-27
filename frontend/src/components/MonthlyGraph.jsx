@@ -1,6 +1,9 @@
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer} from "recharts";
 import { getMonthlyExpenses } from "../api/charts.js";
 import { useState, useEffect } from "react";
+import useBarSize from "../constants/UseBarSize";
+import useTickFormatter from "../constants/UseTickFormatter";
+import useTickSize from "../constants/UseTickSize";
 
 const CustomTooltip = ({ active, payload, label }) => {
   if (active && payload && payload.length) {
@@ -21,6 +24,10 @@ function MonthlyGraph() {
   const [selectedYear, setSelectedYear] = useState(currentYear);
   const [data, setData] = useState([]);
   const [loading2, setLoading2] = useState(true);
+  const responsiveBarSize = useBarSize();
+  const responsiveTickFormatter = useTickFormatter();
+  const responsiveTickSize = useTickSize();
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
   const yearOptions = Array.from(
     { length: 4 },
@@ -46,7 +53,7 @@ function MonthlyGraph() {
   return(
     <>
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-[#e2d9f3] syne-heading font-bold text-xl">
+        <h2 className="text-[#e2d9f3] syne-heading font-bold text-lg sm:text-xl">
           Monthly Expenses
         </h2>
 
@@ -64,40 +71,34 @@ function MonthlyGraph() {
       {loading2 ? (
         <p className="text-[#6b5f8a] text-sm">Loading...</p>
       ) : (
-        <ResponsiveContainer width="100%" height={250}>
-          <BarChart
-            data={data}
-            margin={{ top: 5, right: 10, left: 5, bottom: 5 }}
-          >
-            <CartesianGrid
-              strokeDasharray="3 3"
-              stroke="#2e2460"
-              vertical={false}
-            />
-            <XAxis
-              dataKey="month"
-              tick={{ fill: "#6b5f8a", fontSize: 15 }}
-              axisLine={false}
-              tickLine={false}
-            />
-            <YAxis
-              tick={{ fill: "#6b5f8a", fontSize: 15 }}
-              axisLine={false}
-              tickLine={false}
-              tickFormatter={(value) => `₱ ${value.toLocaleString()}`}
-            />
-            <Tooltip
-              content={<CustomTooltip />}
-              cursor={{ fill: "#2e2460", opacity: 0.5 }}
-            />
-            <Bar
-              dataKey="total"
-              fill="#c084fc"
-              radius={[6, 6, 0, 0]}
-              maxBarSize={40}
-            />
-          </BarChart>
-        </ResponsiveContainer>
+         <div className="overflow-x-auto md:overflow-visible">
+          <div className="min-w-150 md:min-w-0">
+            <ResponsiveContainer width="100%" height={window.innerWidth >= 1280 ? 280 : window.innerWidth >= 768 ? 250 : 200}>
+              <BarChart data={data} margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#2e2460" vertical={false} />
+                <XAxis
+                  dataKey="month"
+                  tick={{ fill: "#6b5f8a", fontSize: responsiveTickSize }}
+                  axisLine={false}
+                  tickLine={false}
+                />
+                <YAxis
+                  tick={{ fill: "#6b5f8a", fontSize: responsiveTickSize }}
+                  axisLine={false}
+                  tickLine={false}
+                  tickFormatter={responsiveTickFormatter}
+                />
+                <Tooltip content={<CustomTooltip />} cursor={{ fill: "#2e2460", opacity: 0.5 }} />
+                <Bar
+                  dataKey="total"
+                  fill="#c084fc"
+                  radius={[6, 6, 0, 0]}
+                  maxBarSize={responsiveBarSize}
+                />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
       )}
     </>
   )

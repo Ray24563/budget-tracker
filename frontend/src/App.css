@@ -129,6 +129,12 @@ input[type=number]::-webkit-inner-spin-button {
   overflow-y: auto;
 }
 
+@media screen and ( max-width:640px ) {
+  .side-panel{
+    width: 280px;
+  }
+}
+
 .side-panel.open {
   transform: translateX(0);
 }

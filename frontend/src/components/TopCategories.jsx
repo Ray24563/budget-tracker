@@ -62,6 +62,13 @@ function TopCategories() {
   const [selectedOption, setSelectedOption] = useState(monthOptions[0]);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+  useEffect(() => {
+    const update = () => setIsMobile(window.innerWidth < 768)
+    window.addEventListener('resize', update)
+    return () => window.removeEventListener('resize', update)
+  }, [])
 
   useEffect(() => {
     const fetchData = async () => {
@@ -88,17 +95,17 @@ function TopCategories() {
   };
 
   return (
-    <div className="bg-[#1c1640] border border-[#2e2460] rounded-lg px-8 py-6">
+    <div className="bg-[#1c1640] border border-[#2e2460] rounded-lg px-5 sm:px-8 py-6">
 
-      <div className="flex justify-between items-center mb-6">
-        <h2 className="text-[#e2d9f3] syne-heading font-bold text-xl">
+      <div className="flex flex-col sm:flex-row justify-between items-center mb-6">
+        <h2 className="text-[#e2d9f3] syne-heading font-bold text-xl mb-5 sm:mb-0">
           Top 5 Expense Categories
         </h2>
 
         {/* Month Selector */}
         <select
           onChange={handleMonthChange}
-          className="bg-[#0a0818] border border-[#2e2460] text-[#e2d9f3] rounded-lg px-2 py-2 text-sm cursor-pointer"
+          className="bg-[#0a0818] border border-[#2e2460] text-[#e2d9f3] rounded-lg px-2 py-2 text-[0.7em] sm:text-sm cursor-pointer"
         >
           {monthOptions.map((option, index) => (
             <option key={index} value={index}>
@@ -116,31 +123,26 @@ function TopCategories() {
           No expenses for this.
         </p>
       ) : (
-        <ResponsiveContainer width="100%" height={250}>
-          <BarChart
+        <ResponsiveContainer width="100%" height={isMobile ? 200 : 250}>
+         <BarChart
             data={data}
-            layout="vertical"  // ← makes it horizontal
-            margin={{ top: 5, right: 30, left: 80, bottom: 5 }}
+            layout="vertical"
+            margin={{ top: 5, right: isMobile ? 10 : 30, left: isMobile ? 30 : 40, bottom: 5 }}
           >
-            <CartesianGrid
-              strokeDasharray="3 3"
-              stroke="#2e2460"
-              horizontal={false}
-            />
             <XAxis
               type="number"
-              tick={{ fill: "#6b5f8a", fontSize: 11 }}
+              tick={{ fill: "#6b5f8a", fontSize: isMobile ? 10 : 11 }}
               axisLine={false}
               tickLine={false}
-              tickFormatter={(value) => `₱${value.toLocaleString()}`}
+              tickFormatter={(value) => isMobile ? `₱${value >= 1000 ? (value/1000) + 'k' : value}` : `₱${value.toLocaleString()}`}
             />
             <YAxis
               type="category"
               dataKey="category"
-              tick={{ fill: "#e2d9f3", fontSize: 11 }}
+              tick={{ fill: "#e2d9f3", fontSize: isMobile ? 10 : 11 }}
               axisLine={false}
               tickLine={false}
-              width={75}
+              width={isMobile ? 55 : 75}
             />
             <Tooltip
               content={<CustomTooltip />}

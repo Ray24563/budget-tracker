@@ -98,7 +98,7 @@ function Homepage ({handleLogout}){
 
   return(
     <>
-    <header className='mx-10 mt-10 mb-7 flex justify-between'>
+    <header className='mx-7 sm:mx-10 mt-10 mb-7 flex justify-between'>
       <div className='flex gap-x-5'>
         <button onClick={togglePanel} className='toggle-button hover:scale-120 transition-transform duration-500'>☰</button>
         <img src={Logo} className='w-20'/>
@@ -192,10 +192,10 @@ function Homepage ({handleLogout}){
         </div>
       </div>
 
-    <main className='mx-10 mt-15'>
+    <main className='mx-5 sm:mx-10 mt-13 sm:mt-15'>
       <FadeIn>
         <section id='section_1' className="animate-fadeIn mb-10">
-          <h1 className='text-white syne-heading font-bold text-3xl'>
+          <h1 className='text-white syne-heading font-bold text-xl sm:text-3xl'>
             <DayTime/>
           </h1>
         </section>
@@ -203,50 +203,50 @@ function Homepage ({handleLogout}){
 
        <FadeIn>
         <div className='flex justify-between mb-5'>
-          <h2 className='text-[#6b5f8a] syne-heading mt-2'>Savings</h2>
-          <h1 className='text-[#c4b8e0] font-bold text-xl'>₱ {summary.overall_balance.toLocaleString()}</h1>
+          <h2 className='text-[#6b5f8a] syne-heading mt-0.5 sm:mt-2'>Savings</h2>
+          <h1 className='text-[#c4b8e0] font-bold text-lg sm:text-xl'>₱ {summary.overall_balance.toLocaleString()}</h1>
         </div>
-        <section className='grid grid-cols-4 gap-x-3 mb-20'>
+        <section className='grid grid-cols-1 lg:grid-cols-4 gap-y-5 lg:gap-y-0 gap-x-0 lg:gap-x-3 mb-20'>
 
-          <div className='savings-bg-color border-l-5 border-l-[#c084fc] rounded-lg px-10 py-5 text-[#6b5f8a]'>
-            <h1 className='#a78bca mb-3'><FontAwesomeIcon icon={faWallet} className='me-3 text-[#c084fc]'/>Wallet</h1>
+          <div className='savings-bg-color border-l-5 border-l-[#c084fc] rounded-lg px-7 sm:px-10 py-5 text-[#6b5f8a]'>
+            <h1 className='#a78bca mb-5'><FontAwesomeIcon icon={faWallet} className='me-3 text-[#c084fc]'/>Wallet</h1>
 
             <div>
               <div className='flex justify-between'>
-                <p className='syne-heading'>Main</p>
-                <p className='text-[#c4b8e0] font-bold text-xl'>₱ {option1?.balance.toLocaleString() ?? 0}</p>
+                <p className='syne-heading mt-0.5 sm:mt-0'>Main</p>
+                <p className='text-[#c4b8e0] font-bold text-lg sm:text-xl'>₱ {option1?.balance.toLocaleString() ?? 0}</p>
               </div>
               <hr className='mt-3 mb-3'/>
               <div className='flex justify-between'>
-                <p className='syne-heading'>Secondary</p>
-                <p className='text-[#c4b8e0] font-bold text-xl'>₱ {option2?.balance.toLocaleString() ?? 0}</p>
+                <p className='syne-heading mt-0.5 sm:mt-0'>Secondary</p>
+                <p className='text-[#c4b8e0] font-bold text-lg sm:text-xl'>₱ {option2?.balance.toLocaleString() ?? 0}</p>
               </div>
             </div>
           </div>
 
-          <div className='savings-bg-color border-l-5 border-l-[#00D3B8] rounded-lg px-10 py-5 text-[#6b5f8a]'>
-            <h1 className='#a78bca mb-3'><FontAwesomeIcon icon={faM} className='me-3 text-[#00D3B8]'/>Maya</h1>
+          <div className='savings-bg-color border-l-5 border-l-[#00D3B8] rounded-lg px-7 sm:px-10 py-5 text-[#6b5f8a]'>
+            <h1 className='#a78bca mb-5'><FontAwesomeIcon icon={faM} className='me-3 text-[#00D3B8]'/>Maya</h1>
 
             <div>
               <div className='flex justify-between'>
-                <p className='syne-heading'>Wallet</p>
-                <p className='text-[#c4b8e0] font-bold text-xl'>₱ {option3?.balance.toLocaleString() ?? 0}</p>
+                <p className='syne-heading mt-0.5 sm:mt-0'>Wallet</p>
+                <p className='text-[#c4b8e0] font-bold text-lg sm:text-xl'>₱ {option3?.balance.toLocaleString() ?? 0}</p>
               </div>
               <hr className='mt-3 mb-3'/>
               <div className='flex justify-between'>
-                <p className='syne-heading'>Savings</p>
-                <p className='text-[#c4b8e0] font-bold text-xl'>₱ {option4?.balance.toLocaleString() ?? 0}</p>
+                <p className='syne-heading mt-0.5 sm:mt-0'>Savings</p>
+                <p className='text-[#c4b8e0] font-bold text-lg sm:text-xl'>₱ {option4?.balance.toLocaleString() ?? 0}</p>
               </div>
             </div>
           </div>
 
-          <div className='savings-bg-color border-l-5 border-l-[#B11116] rounded-lg px-10 py-5 text-[#6b5f8a]'>
+          <div className='savings-bg-color border-l-5 border-l-[#B11116] rounded-lg px-7 sm:px-10 pt-5 pb-16 sm:py-5 sm:pb-0 text-[#6b5f8a]'>
             <h1 className='#a78bca mb-3'><FontAwesomeIcon icon={faCreditCard} className='me-3 text-[#B11116]'/>BPI</h1>
 
             <h1 className='text-[#c4b8e0] font-bold text-xl'>₱ {option5?.balance.toLocaleString() ?? 0}</h1>
           </div>
 
-          <div className='savings-bg-color border-l-5 border-l-[#00D4C6] rounded-lg px-10 py-5 text-[#6b5f8a]'>
+          <div className='savings-bg-color border-l-5 border-l-[#00D4C6] rounded-lg px-7 sm:px-10 pt-5 pb-16 sm:py-5 sm:pb-0 text-[#6b5f8a]'>
             <h1 className='#a78bca mb-3'><FontAwesomeIcon icon={faCircleQuestion} className='me-3 text-[#00D4C6]'/>GoTyme</h1>
 
             <h1 className='text-[#c4b8e0] font-bold text-xl'>₱ {option6?.balance.toLocaleString() ?? 0}</h1>
@@ -256,21 +256,21 @@ function Homepage ({handleLogout}){
       </FadeIn>
 
       <FadeIn>
-        <h2 className='text-[#6b5f8a] syne-heading mt-7 mb-3'>Dashboard</h2>
-        <section className='grid grid-cols-[1.8fr_1fr] gap-x-5'>
+        <h2 className='text-[#6b5f8a] syne-heading mt-0 sm:mt-7 mb-3'>Dashboard</h2>
+        <section className='grid grid-cols-1 sm:grid-cols-[1.8fr_1fr] gap-x-0 gap-y-7 sm:gap-y-0 sm:gap-x-5'>
 
-          <div className='bg-[#1c1640] border border-[#2e2460] rounded-lg px-7 pt-10 text-[#6b5f8a]'>
+          <div className='bg-[#1c1640] border border-[#2e2460] rounded-lg px-7 pt-8 sm:pt-10 text-[#6b5f8a]'>
             <MonthlyGraph/>
 
             <p 
-              className='text-sm text-right mt-5 underline cursor-pointer hover:text-[#c4b8e0] transition-colors duration-500'
+              className='text-sm text-right mt-5 underline cursor-pointer hover:text-[#c4b8e0] transition-colors duration-500 mb-5'
               onClick={navigateToExpensePage}
             >
                 See All →
             </p>
           </div>
 
-          <div className='bg-[#1c1640] border border-[#2e2460] rounded-lg text-[#6b5f8a] pt-7 pb-5 px-10'>
+          <div className='bg-[#1c1640] border border-[#2e2460] rounded-lg text-[#6b5f8a] pt-7 pb-5 px-7 sm:px-10'>
             <IncomeVsExpenses/>
           </div>
         </section>
