@@ -56,11 +56,11 @@ function AddIncome({ setAddIncomeModal, onSuccess }) {
     <>
       <div className='add-income-modal w-auto p-10 rounded-lg animate-modalIn'>
          <h1 
-          className='syne-heading text-[#e2d9f3] font-bold text-3xl mb-5'
+          className='syne-heading text-[#e2d9f3] font-bold text-3xl mb-7 sm:mb-5'
           ><FontAwesomeIcon icon={faArrowTrendUp} className='me-3'/> Add Income</h1>
 
          <form>
-          <div className='mb-5 flex gap-x-5'>
+          <div className='mb-5 flex flex-col sm:flex-row gap-x-0 gap-y-5 sm:gap-y-0 sm:gap-x-5'>
 
             <div>
               <label className='text-[#e2d9f3] syne-heading mb-2 block'>Date</label>

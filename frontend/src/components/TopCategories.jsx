@@ -165,7 +165,7 @@ function TopCategories() {
       )}
 
       {!loading && data.length > 0 && (
-        <div className="mt-4 pt-4 border-t border-[#2e2460] flex flex-col gap-2">
+        <div className="mt-4 pt-4 border-t border-[#2e2460] flex flex-col gap-y-4">
           {data.map((item, index) => (
             <div key={item.category} className="flex justify-between items-center">
               <div className="flex items-center gap-3">

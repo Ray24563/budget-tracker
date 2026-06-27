@@ -78,7 +78,7 @@ function IncomePage() {
       <header className="px-5 sm:px-20 pt-15 sm:pt-20">
         <div className="flex">
           <h1 
-            className="text-[#e2d9f3] syne-heading text-[1.6em] sm:text-5xl font-bold"
+            className="text-[#e2d9f3] syne-heading text-[1.8em] sm:text-5xl font-bold"
             onClick={navigateToHomepage}
           >
             <FontAwesomeIcon icon={faArrowTrendUp} className="me-3 text-[#6b5f8a]"/> List of Incomes</h1>
@@ -152,7 +152,7 @@ function IncomePage() {
                         {/* Date divider */}
                         <div className="flex items-center gap-3 mb-3">
                           <div className="h-px flex-1 bg-[#2e2460]" />
-                          <span className="text-[#e2d9f3] text-xs bg-[#2e2460]/80 px-4 py-1 rounded-full syne-heading">{date}</span>
+                          <span className="text-[#e2d9f3] text-sm bg-[#2e2460]/80 px-4 py-1 rounded-full syne-heading font-bold">{date}</span>
                           <div className="h-px flex-1 bg-[#2e2460]" />
                         </div>
 
@@ -215,14 +215,14 @@ function IncomePage() {
 
                 <div className="flex justify-center gap-x-4 sm:gap-x-5">
                     <button 
-                      className="income-button-background rounded-lg px-4 py-1.5 sm:px-5 sm:py-2 cursor-pointer text-[0.8em] ms:text-md"
+                      className="income-button-background rounded-lg px-4 py-2 sm:px-5 sm:py-2 cursor-pointer text-[0.8em] ms:text-md"
                       onClick={ () => setSaveAsPDFModal(true) }
                     >
                         Save as PDF
                     </button>
 
                     <button 
-                      className="back-background rounded-lg px-3 py-1 sm:px-5 sm:py-2 cursor-pointer text-[0.8em] ms:text-md" 
+                      className="back-background rounded-lg px-3 py-2 sm:px-5 sm:py-2 cursor-pointer text-[0.8em] ms:text-md" 
                       onClick={navigateToHomepage}
                     >
                       Back

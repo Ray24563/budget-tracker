@@ -40,6 +40,14 @@ function Homepage ({handleLogout}){
   const [summary, setSummary] = useState(DEFAULT_SUMMARY);
   const [loading, setLoading] = useState(true);
   const [isPanelOpen, setIsPanelOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768)
+
+  useEffect(() => {
+    const update = () => setIsMobile(window.innerWidth < 768)
+    window.addEventListener('resize', update)
+    return () => window.removeEventListener('resize', update)
+  }, [])
+
 
   const fetchSummary = useCallback(async () => {
     try {
@@ -284,32 +292,32 @@ function Homepage ({handleLogout}){
 
       <FadeIn>
         <h2 className='text-[#6b5f8a] syne-heading mt-7 mb-3'>Recent Transaction</h2>
-        <section className='grid grid-cols-2 gap-x-5'>
+        <section className='grid grid-cols-1 sm:grid-cols-2 gap-x-0 gap-y-7 sm:gap-y-0 sm:gap-x-5'>
 
-          <div className='bg-[#1c1640] border border-[#2e2460] rounded-lg px-10 py-7 text-[#6b5f8a]'>
-            <div className='flex justify-between'>
-              <p className='text-[#c4b8e0] mb-5 font-bold text-xl syne-heading'>Recent Incomes</p>
+          <div className='bg-[#1c1640] border border-[#2e2460] rounded-lg px-7 sm:px-10 py-7 text-[#6b5f8a]'>
+            <div className='flex justify-between mb-7'>
+              <p className='text-[#c4b8e0] font-bold text-xl syne-heading'>Recent Incomes</p>
               <p 
-                className='text-sm underline cursor-pointer hover:text-[#c4b8e0] transition-colors duration-500'
+                className='text-sm underline cursor-pointer mt-1 hover:text-[#c4b8e0] transition-colors duration-500'
                 onClick={navigateToIncomePage}
               >
                   See All →
               </p>
             </div>
-            <RecentIncome/>
+            <RecentIncome isMobile={isMobile}/>
           </div>
 
-          <div className='bg-[#1c1640] border border-[#2e2460] rounded-lg px-10 py-7 text-[#6b5f8a]'>
+          <div className='bg-[#1c1640] border border-[#2e2460] rounded-lg px-7 sm:px-10 py-7 text-[#6b5f8a]'>
             <div className='flex justify-between'>
               <p className='text-[#c4b8e0] mb-5 font-bold text-xl syne-heading'>Recent Expenses</p>
               <p 
-                className='text-sm underline cursor-pointer hover:text-[#c4b8e0] transition-colors duration-500'
+                className='text-sm underline cursor-pointer mt-1 hover:text-[#c4b8e0] transition-colors duration-500'
                 onClick={navigateToExpensePage}
               >
                   See All →
               </p>
             </div>
-            <RecentExpenses/>
+            <RecentExpenses isMobile={isMobile}/>
           </div>
         </section>
       </FadeIn>
