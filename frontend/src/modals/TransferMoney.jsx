@@ -4,7 +4,8 @@ import { useState } from 'react'
 import { addTransfer } from "../api/transfer";
 import { SAVINGS_OPTIONS } from "../constants/savings";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowRightArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { faArrowRightArrowLeft, faCircleExclamation } from "@fortawesome/free-solid-svg-icons";
+import ConfirmTransferModal from "./ConfirmTransferModal";
 
 function TransferMoney({ setTransMoneyModal, onSuccess }) {
   const [date, setDate] = useState(new Date());
@@ -14,6 +15,12 @@ function TransferMoney({ setTransMoneyModal, onSuccess }) {
   const [description, setDescription] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [confirmTransferModal, setConfirmTransferModal] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedDescription, setSelectedDescription] = useState(null);
+  const [selectedToSavings, setSelectedToSavings] = useState(null);
+  const [selectedFromSavings, setSelectedFromSavings] = useState(null); 
+  const [selectedAmount, setSelectedAmount] = useState(null);    
 
   const handleSubmit = async () => {
     setError("");
@@ -39,7 +46,7 @@ function TransferMoney({ setTransMoneyModal, onSuccess }) {
         description: description || null
       });
 
-      onSuccess();
+      window.location.reload()
       setTransMoneyModal(false);
 
     } catch (err) {
@@ -58,7 +65,15 @@ function TransferMoney({ setTransMoneyModal, onSuccess }) {
           className='syne-heading text-[#e2d9f3] font-bold text-3xl mb-5'
           ><FontAwesomeIcon icon={faArrowRightArrowLeft} className='me-3'/> Transfer Money</h1>
 
-         <form>
+         <form onSubmit={(e) => { e.preventDefault()
+                                  e.stopPropagation()
+                                  setSelectedDate(date)
+                                  setSelectedDescription(description)
+                                  setSelectedToSavings(toSavings)
+                                  setSelectedFromSavings(fromSavings)
+                                  setSelectedAmount(amount)
+                                  setConfirmTransferModal(true)
+                                }}>
           <div className='mb-5 flex flex-col sm:flex-row gap-x-0 gap-y-5 sm:gap-y-0 sm:gap-x-5'>
 
             <div>
@@ -121,9 +136,9 @@ function TransferMoney({ setTransMoneyModal, onSuccess }) {
 
           <div className='flex justify-center gap-x-3'>
             <button 
+              type="submit"
               className="px-3 py-2 income-button-background rounded-sm cursor-pointer syne-heading mt-7 disabled:pointer-events-none disabled:opacity-50"
               disabled={loading || isFormEmpty}
-              onClick={handleSubmit}
             >
                 Submit
             </button>
@@ -137,6 +152,20 @@ function TransferMoney({ setTransMoneyModal, onSuccess }) {
           </div>
          </form>
       </div>
+      
+      {confirmTransferModal && (
+         <div className="fixed inset-0 z-50 backdrop-blur-md bg-black/20 flex flex-col items-center justify-center animate-backdropIn">
+          <ConfirmTransferModal
+            handleSubmit={handleSubmit}
+            selectedDate={selectedDate}
+            selectedDescription={selectedDescription}
+            selectedToSavings={selectedToSavings}
+            selectedFromSavings={selectedFromSavings}
+            selectedAmount={selectedAmount}
+            setConfirmTransferModal={setConfirmTransferModal}
+          />
+         </div>
+      )}
     </>
   )
 }
