@@ -80,7 +80,7 @@ function RecentExpenses ({isMobile}) {
                       <p className="text-[#e2d9f3] text-md font-medium mt-1">{item.category}</p>
                     </div>
                     <div className="flex items-center gap-4">
-                      <span className="text-red-400 font-bold text-md mt-4">+ ₱ {item.amount.toLocaleString()}</span>
+                      <span className="text-red-400 font-bold text-md mt-4">- ₱ {item.amount.toLocaleString()}</span>
                     </div>
                   </div>
                 ))}
