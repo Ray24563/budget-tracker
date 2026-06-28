@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { getExpensesByCategory, deleteExpense } from "../api/expenses";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faClipboardList, faCheck } from "@fortawesome/free-solid-svg-icons";
+import { faClipboardList, faCheck, faCircleExclamation } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import { DateFormatter } from "../utils/DateFormatter";
 
@@ -14,6 +14,7 @@ function LoanPage() {
   const [selectedSource, setSelectedSource] = useState(null);
   const [selectedAmount, setSelectedAmount] = useState(null);
   const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedSavings, setSelectedSavings] = useState(null);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768)
 
   useEffect(() => {
@@ -140,8 +141,14 @@ function LoanPage() {
                       <div className="flex items-center gap-4">
                         <span className="text-red-400 font-bold text-md">- ₱ {item.amount.toLocaleString()}</span>
                         <button 
-                          onClick={() => (setSelectedID(item.id), setConfirmModal(true), setSelectedAmount(item.amount.toLocaleString()), setSelectedSource(item.source), setSelectedDate(item.date))}>
-                          <FontAwesomeIcon icon={faCheck} className="bg-[#6b5f8a] text-[#e2d9f3] transition-colors text-xs px-1.5 py-1.5 rounded-full mt-1" />
+                          onClick={() => 
+                                        (setSelectedID(item.id), 
+                                        setConfirmModal(true), 
+                                        setSelectedAmount(item.amount.toLocaleString()), setSelectedSource(item.source), 
+                                        setSelectedDate(item.date), 
+                                        setSelectedSavings(item.savings)
+                                  )}>
+                          <FontAwesomeIcon icon={faCheck} className="bg-[#6b5f8a] text-[#e2d9f3] transition-colors text-xs px-1.5 py-1.5 rounded-full mt-1 cursor-pointer" />
                         </button>
                       </div>
                     </div>
@@ -163,39 +170,75 @@ function LoanPage() {
 
       {confirmModal &&
       <div className="fixed inset-0 z-50 backdrop-blur-md bg-black/20 flex flex-col items-center justify-center animate-backdropIn">
-        <div className='add-income-modal w-auto p-10 rounded-lg animate-modalIn'>
-          <p className="text-[#e2d9f3] mb-5 syne-heading font-bold text-xl">Are you sure that this debt has been successfully paid?</p>
+        <div className='add-income-modal w-auto sm:mx-0 mx-5 p-8 sm:p-10 rounded-lg animate-modalIn'>
 
-          <table className="w-full text-left border-collapse bg-[#1c1640] rounded-lg animate-tableIn mb-7">
-            <thead>
-              <tr className="border-b border-[#2e2460] syne-heading text-[#e2d9f3] font-bold text-md bg-[#2e2460]">
-                <th className="py-3 px-10 rounded-tl-lg rounded-bl-lg">Date</th>
-                <th className="py-3 px-10">Source</th>
-                <th className="py-3 px-10 rounded-tr-lg rounded-br-lg">Amount</th>
-              </tr>
-            </thead>
+          <div className="flex justify-center flex-col items-center">
+            <FontAwesomeIcon icon={faCircleExclamation} className="text-red-500 text-6xl sm:text-7xl mb-5"/>
+            <p className="text-[#e2d9f3] mb-5 syne-heading font-bold text-lg sm:text-xl text-center sm:text-left">Are you sure that this debt has been successfully paid?</p>
+          </div>
+          
 
-            <tbody>
-                <tr
-                  className="border-b border-[#2e2460] hover:bg-[#261d52] transition-colors duration-200"
-                >
-                  <td className="text-[#e2d9f3] py-3 px-10">{selectedDate}</td>
-                  <td className="text-[#e2d9f3] py-3 px-10">{selectedSource}</td>
-                  <td className="text-red-400 font-bold py-3 px-10">
-                    - ₱{selectedAmount}
-                  </td>
+          {!isMobile && (
+            <table className="w-full text-left border-collapse bg-[#1c1640] rounded-lg animate-tableIn mb-7">
+              <thead>
+                <tr className="border-b border-[#2e2460] syne-heading text-[#e2d9f3] font-bold text-md bg-[#2e2460]">
+                  <th className="py-3 px-10 rounded-tl-lg rounded-bl-lg">Date</th>
+                  <th className="py-3 px-10">Source</th>
+                  <th className="py-3 px-10 rounded-tr-lg rounded-br-lg">Amount</th>
                 </tr>
-            </tbody>
-          </table>
+              </thead>
+
+              <tbody>
+                  <tr
+                    className="border-b border-[#2e2460] hover:bg-[#261d52] transition-colors duration-200"
+                  >
+                    <td className="text-[#e2d9f3] py-3 px-10">{selectedDate}</td>
+                    <td className="text-[#e2d9f3] py-3 px-10">{selectedSource}</td>
+                    <td className="text-red-400 font-bold py-3 px-10">
+                      - ₱{selectedAmount}
+                    </td>
+                  </tr>
+              </tbody>
+            </table>
+          )}
+
+          {isMobile && (
+            <>
+                <div className="text-[#e2d9f3] bg-[#2e2460]/50 py-2 rounded-full mb-5">
+                  <p className="text-center text-sm syne-heading">Paid with <strong>{selectedSavings}</strong></p>
+                </div>
+                
+                <div className="flex justify-between mb-1">
+                  <p className="text-[#6b5f8a] mt-1 syne-heading text-sm">Transaction ID</p>
+                  <p className="text-[#e2d9f3] font-bold">{selectedID}</p>
+                </div>
+
+                <div className="flex justify-between mb-1">
+                  <p className="text-[#6b5f8a] mt-1 syne-heading text-sm">Source</p>
+                  <p className="text-[#e2d9f3] font-bold">{selectedSource}</p>
+                </div>
+
+                <div className="flex justify-between mb-1">
+                  <p className="text-[#6b5f8a] mt-1 syne-heading text-sm">Amount</p>
+                  <p className="text-[#e2d9f3] font-bold">₱{selectedAmount}</p>
+                </div>
+
+                <div className="flex justify-between mb-10">
+                  <p className="text-[#6b5f8a] mt-1 syne-heading text-sm">Paid on</p>
+                  <p className="text-[#e2d9f3] font-bold">{DateFormatter(selectedDate)}</p>
+                </div>
+            </>
+          )}
+         
           <div className="flex justify-center gap-x-3">
             <button 
-              className="income-button-background rounded-lg px-5 py-2" 
+              className="income-button-background rounded-lg text-sm sm:text-md px-4 sm:px-5 py-2" 
               onClick={() => (handleDelete(selectedID), setConfirmModal(false))}
             >
               Delete
             </button>
             <button 
-              className="px-4 py-2 text-[#7c6e9c] hover:text-[#a78bca] transition-colors duration-500 rounded-sm cursor-pointer syne-heading"
+              className="text-sm sm:text-md px-4 sm:px-5 py-2 text-[#7c6e9c] hover:text-[#a78bca] transition-colors duration-500 rounded-sm cursor-pointer syne-heading"
               onClick={() => setConfirmModal(false)}
             >
                 Close
