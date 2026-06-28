@@ -2,14 +2,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCircleExclamation } from "@fortawesome/free-solid-svg-icons"
 import { DateFormatter } from "../utils/DateFormatter"
 
-function ConfirmDeleteIncome ({isMobile, handleDelete, selectedDate, selectedSource, selectedSavings, selectedAmount, selectedID, setConfirmationModal}) {
+function ConfirmDeleteExpense ({isMobile, handleDelete, selectedDate, selectedSource, selectedSavings, selectedAmount, selectedID, setConfirmationModal, selectedCategory}) {
   return (
     <>
       <div className='add-income-modal w-auto sm:mx-0 mx-5 p-8 sm:p-10 rounded-lg animate-modalIn'>
 
         <div className="flex justify-center flex-col items-center">
           <FontAwesomeIcon icon={faCircleExclamation} className="text-red-500 text-6xl sm:text-7xl mb-5"/>
-          <p className="text-[#e2d9f3] mb-5 syne-heading font-bold text-lg sm:text-xl text-center sm:text-left">Are you sure you want to delete this Income?</p>
+          <p className="text-[#e2d9f3] mb-5 syne-heading font-bold text-lg sm:text-xl text-center sm:text-left">Are you sure you want to delete this Expense?</p>
         </div>
         
 
@@ -19,6 +19,7 @@ function ConfirmDeleteIncome ({isMobile, handleDelete, selectedDate, selectedSou
               <tr className="border-b border-[#2e2460] syne-heading text-[#e2d9f3] font-bold text-md bg-[#2e2460]">
                 <th className="py-3 px-10 rounded-tl-lg rounded-bl-lg">Transaction ID</th>
                 <th className="py-3 px-10">Date</th>
+                <th className="py-3 px-10">Category</th>
                 <th className="py-3 px-10">Source</th>
                 <th className="py-3 px-10">Savings</th>
                 <th className="py-3 px-10 rounded-tr-lg rounded-br-lg">Amount</th>
@@ -31,10 +32,11 @@ function ConfirmDeleteIncome ({isMobile, handleDelete, selectedDate, selectedSou
                 >
                   <td className="text-[#e2d9f3] py-3 px-10">{selectedID}</td>
                   <td className="text-[#e2d9f3] py-3 px-10">{DateFormatter(selectedDate)}</td>
+                  <td className="text-[#e2d9f3] py-3 px-10">{selectedCategory}</td>
                   <td className="text-[#e2d9f3] py-3 px-10">{selectedSource}</td>
                   <td className="text-[#e2d9f3] py-3 px-10">{selectedSavings}</td>
-                  <td className="text-green-400 font-bold py-3 px-10">
-                    + ₱ {selectedAmount.toLocaleString()}
+                  <td className="text-red-400 font-bold py-3 px-10">
+                    - ₱ {selectedAmount.toLocaleString()}
                   </td>
                 </tr>
             </tbody>
@@ -44,12 +46,17 @@ function ConfirmDeleteIncome ({isMobile, handleDelete, selectedDate, selectedSou
         {isMobile && (
           <>
             <div className="text-[#e2d9f3] bg-[#2e2460]/50 py-2 rounded-full mb-5">
-              <p className="text-center text-sm syne-heading">Added to <strong>{selectedSavings}</strong></p>
+              <p className="text-center text-sm syne-heading">Paid with <strong>{selectedSavings}</strong></p>
             </div>
             
             <div className="flex justify-between mb-1">
               <p className="text-[#6b5f8a] syne-heading text-sm">Transaction ID</p>
               <p className="text-[#e2d9f3] font-bold">{selectedID}</p>
+            </div>
+
+            <div className="flex justify-between mb-1">
+              <p className="text-[#6b5f8a] syne-heading text-sm">Category</p>
+              <p className="text-[#e2d9f3] font-bold">{selectedCategory}</p>
             </div>
 
             <div className="flex justify-between mb-1">
@@ -59,7 +66,7 @@ function ConfirmDeleteIncome ({isMobile, handleDelete, selectedDate, selectedSou
 
             <div className="flex justify-between mb-1">
               <p className="text-[#6b5f8a] syne-heading text-sm">Amount</p>
-              <p className="text-green-400 font-bold">+ ₱ {selectedAmount.toLocaleString()}</p>
+              <p className="text-red-400 font-bold">- ₱ {selectedAmount.toLocaleString()}</p>
             </div>
 
             <div className="flex justify-between mb-10">
@@ -88,4 +95,4 @@ function ConfirmDeleteIncome ({isMobile, handleDelete, selectedDate, selectedSou
   )
 }
 
-export default ConfirmDeleteIncome
+export default ConfirmDeleteExpense

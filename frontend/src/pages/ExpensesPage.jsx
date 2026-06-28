@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { DateFormatter, DateFormatterSelector } from "../utils/DateFormatter";
 import SaveAsPDFModalExpense from "../modals/SaveAsPDFModalExpense";
 import { saveAsPDFExpense } from "../utils/saveAsPDFExpense";
+import ConfirmDeleteExpense from "../modals/ConfirmDeleteExpense";
 
 export default function ExpensePage() {
   const [expenseList, setExpenseList] = useState([]);
@@ -24,7 +25,14 @@ export default function ExpensePage() {
   const navigate = useNavigate()
   const [selectedMonth, setSelectedMonth] = useState("all")
   const [saveAsPDFModal, setSaveAsPDFModal] = useState(false);
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768)
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [confirmationModal, setConfirmationModal] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedSource, setSelectedSource] = useState(null);
+  const [selectedSavings, setSelectedSavings] = useState(null);
+  const [selectedAmount, setSelectedAmount] = useState(null);
+  const [selectedID, setSelectedID] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState(null);
 
   useEffect(() => {
     const update = () => setIsMobile(window.innerWidth < 768)
@@ -149,7 +157,17 @@ export default function ExpensePage() {
                           <td className="text-[#e2d9f3] py-5 px-10">{item.savings}</td>
                           <td className="text-red-400 font-bold p-5 px-10">- ₱ {item.amount.toLocaleString()}</td>
                           <td className="p-5">
-                            <button onClick={() => handleDelete(item.id)} className="cursor-pointer ms-4">
+                            <button 
+                              onClick={() => (
+                                              setConfirmationModal(true),
+                                              setSelectedDate(item.date),
+                                              setSelectedID(item.id),
+                                              setSelectedAmount(item.amount),
+                                              setSelectedSource(item.source),
+                                              setSelectedSavings(item.savings),
+                                              setSelectedCategory(item.category)
+                                          )} 
+                              className="cursor-pointer ms-4">
                               <FontAwesomeIcon icon={faTrash} className="text-red-400 ms-5" />
                             </button>
                           </td>
@@ -189,7 +207,16 @@ export default function ExpensePage() {
                               </div>
                               <div className="flex items-center gap-4">
                                 <span className="text-red-400 font-bold text-sm">- ₱ {item.amount.toLocaleString()}</span>
-                                <button onClick={() => handleDelete(item.id)}>
+                                <button 
+                                  onClick={() => (
+                                              setConfirmationModal(true),
+                                              setSelectedDate(item.date),
+                                              setSelectedID(item.id),
+                                              setSelectedAmount(item.amount),
+                                              setSelectedSource(item.source),
+                                              setSelectedSavings(item.savings),
+                                              setSelectedCategory(item.category)
+                                          )}>
                                   <FontAwesomeIcon icon={faTrash} className="text-[#6b5f8a] hover:text-red-400 transition-colors text-xs" />
                                 </button>
                               </div>
@@ -297,6 +324,22 @@ export default function ExpensePage() {
           />
         </div>
       }
+
+      {confirmationModal &&
+      <div className="fixed inset-0 z-50 backdrop-blur-md bg-black/20 flex flex-col items-center justify-center animate-backdropIn">
+        <ConfirmDeleteExpense
+          isMobile={isMobile}
+          handleDelete={handleDelete}
+          selectedAmount={selectedAmount}
+          selectedDate={selectedDate}
+          selectedSource={selectedSource}
+          selectedSavings={selectedSavings}
+          setConfirmationModal={setConfirmationModal}
+          selectedID={selectedID}
+          selectedCategory={selectedCategory}
+        />
+      </div> 
+    }
     </>
     
   );
