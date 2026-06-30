@@ -146,7 +146,7 @@ function TransferMoneyPage () {
 
                         <div>
                           <p className="text-[#9b8ab8] text-xs syne-heading">{item.to_savings}</p>
-                          <p className="text-green-400 text-xs font-bold">- ₱{item.amount.toLocaleString()}</p>
+                          <p className="text-green-400 text-xs font-bold">+ ₱{item.amount.toLocaleString()}</p>
                         </div>
                       </div>
                     </div>
