@@ -50,7 +50,7 @@ function AddFutureIncome({ setAddFutureIncomeModal }) {
               <label className='text-[#e2d9f3] syne-heading mb-2 block'>Date</label>
                 <DatePicker
                   selected={incomeDate}
-                  onChange={(incomeDate) => setIncomeDate(incomeDatedate)}
+                  onChange={(incomeDate) => setIncomeDate(incomeDate)}
                   className="border rounded-lg ps-5 pe-19 sm:pe-10 py-2.5 text-[#e2d9f3] bg-[#0a0818] border-[#2e2460]"
                 />
             </div>
