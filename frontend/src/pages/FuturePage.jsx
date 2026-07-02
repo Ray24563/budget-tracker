@@ -186,7 +186,7 @@ function FuturePage() {
                   <tbody>
                     {futureIncome.map((item) => (
                       <tr key={item.id} className="border-b border-[#2e2460] hover:bg-[#1c1640]">
-                        <td className="text-[#e2d9f3] py-3 text-sm">{item.date}</td>
+                        <td className="text-[#e2d9f3] py-3 text-sm">{DateFormatter(item.date)}</td>
                         <td className="text-[#e2d9f3] py-3 text-sm">{item.source}</td>
                         <td className="text-[#e2d9f3] py-3 text-sm">{item.savings}</td>
                         <td className="text-green-400 py-3 text-sm font-bold">+ ₱ {item.amount.toLocaleString()}</td>
@@ -277,7 +277,7 @@ function FuturePage() {
                 <tbody>
                   {futureExpenses.map((item) => (
                     <tr key={item.id} className="border-b border-[#2e2460] hover:bg-[#1c1640]">
-                      <td className="text-[#e2d9f3] py-3 px-3 text-sm">{item.date}</td>
+                      <td className="text-[#e2d9f3] py-3 px-3 text-sm">{DateFormatter(item.date)}</td>
                       <td className="text-[#e2d9f3] py-3 px-3 text-sm">{item.category}</td>
                       <td className="text-[#e2d9f3] py-3 px-3 text-sm">{item.source}</td>
                       <td className="text-[#e2d9f3] py-3 px-3 text-sm">{item.savings}</td>
