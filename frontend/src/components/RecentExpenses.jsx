@@ -41,7 +41,7 @@ function RecentExpenses ({isMobile}) {
                   key={item.id}
                   className="border-b border-[#2e2460] hover:bg-[#261d52] transition-colors duration-200 text-sm"
                 >
-                  <td className="text-[#e2d9f3] py-5 px-5">{item.date}</td>
+                  <td className="text-[#e2d9f3] py-5 px-5">{DateFormatter(item.date)}</td>
                   <td className="text-[#e2d9f3] py-5 px-5">{item.category}</td>
                   <td className="text-[#e2d9f3] py-5 px-5">{item.savings}</td>
                   <td className="text-red-400 font-bold p-5 px-5">- ₱ {item.amount.toLocaleString()}</td>
