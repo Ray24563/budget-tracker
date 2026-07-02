@@ -29,7 +29,7 @@
 - **Projected Balance** - See estimated balance per savings based on future plans.
 
 ### 📝 Reports
-- **Save as PDF** - Export income records filtered by month or all time.
+- **Save as PDF** - Export income, expense, and money transfer records filtered by month or all time.
 
 ### ➕ Other
 - **Loan Tracker** - View all expenses tagged under the "Loan" category.
