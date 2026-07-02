@@ -4,6 +4,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRotateLeft } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import { DateFormatter } from "../utils/DateFormatter";
+import { saveAsPDFTransfer } from "../utils/saveAsPDFTransfer";
+import SaveAsPDFModalTransfer from "../modals/SaveAsPDFModalTransfer";
 
 function TransferMoneyPage () {
   const [loading, setLoading] = useState(false);
@@ -14,7 +16,9 @@ function TransferMoneyPage () {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const currentItems = transferData.slice(startIndex, startIndex + itemsPerPage);
   const navigate = useNavigate();
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768)
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [selectedMonth, setSelectedMonth] = useState("all");
+  const [saveAsPDFModal, setSaveAsPDFModal] = useState(false);
 
   useEffect(() => {
     const update = () => setIsMobile(window.innerWidth < 768)
@@ -59,9 +63,17 @@ function TransferMoneyPage () {
     return Array.from({ length: end - start + 1 }, (_, i) => start + i);
   };
 
+  const availableMonths = [
+    ...new Set(transferData.map((item) => item.date.slice(0, 7)))
+  ].sort().reverse(); // latest month first
+
   const navigateToHomepage = () => {
     navigate('/')
   } 
+
+  const handleExportPDF = () => {
+    saveAsPDFTransfer(transferData, selectedMonth);
+  };
 
   return(
     <>
@@ -220,11 +232,28 @@ function TransferMoneyPage () {
           </div>
 
           <div className="flex justify-center gap-x-5">
-              <button className="income-button-background rounded-lg px-4 py-2 sm:px-5 sm:py-2 cursor-pointer text-[0.8em] ms:text-md">Save as PDF</button>
+              <button 
+                className="income-button-background rounded-lg px-4 py-2 sm:px-5 sm:py-2 cursor-pointer text-[0.8em] ms:text-md"
+                onClick={() => setSaveAsPDFModal(true)}
+              >
+                Save as PDF
+              </button>
               <button className="back-background rounded-lg px-3 py-2 sm:px-5 sm:py-2 cursor-pointer text-[0.8em] ms:text-md" onClick={navigateToHomepage}>Back</button>
           </div>
         </div>
       </main>
+
+      {saveAsPDFModal && (
+        <div className="fixed inset-0 z-50 backdrop-blur-md bg-black/20 flex flex-col items-center justify-center animate-backdropIn">
+          <SaveAsPDFModalTransfer
+              selectedMonth={selectedMonth}
+              setSelectedMonth={setSelectedMonth}
+              availableMonths={availableMonths}
+              handleExportPDF={handleExportPDF}
+              setSaveAsPDFModal={setSaveAsPDFModal} 
+          />
+        </div>
+      )}
     </>
   )
 }
