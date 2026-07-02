@@ -120,11 +120,11 @@ export default function ExpensePage() {
           ) : (
             <>
               <div className="text-right mb-7">
-                <label className="text-[#e2d9f3] syne-heading me-3 sm:me-5 text-sm sm:text-md">Filter Table: </label>
+                <label className="text-[#e2d9f3] syne-heading me-3 sm:me-5 text-sm sm:text-lg">Filter Table: </label>
                   <select
                     value={selectedMonthForTable}
                     onChange={(e) => setSelectedMonthForTable(e.target.value)}
-                    className="bg-[#0a0818] border border-[#2e2460] text-[#e2d9f3] rounded-lg px-3 py-2 text-xs sm:text-md syne-heading cursor-pointer"
+                    className="bg-[#0a0818] border border-[#2e2460] text-[#e2d9f3] rounded-lg px-3 py-2 text-xs sm:text-lg syne-heading cursor-pointer"
                     >
                       <option value="all">All Time</option>
                       {availableMonths.map((month) => (
@@ -294,14 +294,14 @@ export default function ExpensePage() {
 
                 <div className="flex justify-center gap-x-4 sm:gap-x-5">
                     <button 
-                      className="income-button-background rounded-lg px-4 py-2 sm:px-5 sm:py-2 cursor-pointer text-[0.8em] ms:text-md"
+                      className="income-button-background rounded-lg px-4 py-2 sm:px-5 sm:py-2 cursor-pointer text-[0.8em] sm:text-md"
                       onClick={ () => setSaveAsPDFModal(true) }
                     >
                         Save as PDF
                     </button>
 
                     <button 
-                      className="back-background rounded-lg px-3 py-2 sm:px-5 sm:py-2 cursor-pointer text-[0.8em] ms:text-md" 
+                      className="back-background rounded-lg px-3 py-2 sm:px-5 sm:py-2 cursor-pointer text-[0.8em] sm:text-md" 
                       onClick={navigateToHomepage}
                     >
                       Back
