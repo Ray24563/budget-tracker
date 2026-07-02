@@ -12,7 +12,7 @@ import LoanPage from './pages/LoanPage';
 function App() {
   // Check if a token already exists (user already logged in)
   const [isLoggedIn, setIsLoggedIn] = useState(
-    !!localStorage.getItem("token")
+    !!sessionStorage.getItem("token")
   );
 
   const handleLoginSuccess = () => {
@@ -21,7 +21,7 @@ function App() {
 
   const handleLogout = () => {
     // Remove token and go back to login
-    localStorage.removeItem("token");
+    sessionStorage.removeItem("token");
     setIsLoggedIn(false);
   };
 

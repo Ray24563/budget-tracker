@@ -6,7 +6,7 @@ export const addIncome = async (data) => {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${localStorage.getItem("token")}`
+      "Authorization": `Bearer ${sessionStorage.getItem("token")}`
     },
     body: JSON.stringify(data)
   });
@@ -20,7 +20,7 @@ export const getAllIncome = async () => {
   const response = await fetch(`${API_URL}/income`, {
     method: "GET",
     headers: {
-      "Authorization": `Bearer ${localStorage.getItem("token")}`
+      "Authorization": `Bearer ${sessionStorage.getItem("token")}`
     }
   });
 
@@ -33,7 +33,7 @@ export const deleteIncome = async (id) => {
   const response = await fetch(`${API_URL}/income/${id}`, {
     method: "DELETE",
     headers: {
-      "Authorization": `Bearer ${localStorage.getItem("token")}`
+      "Authorization": `Bearer ${sessionStorage.getItem("token")}`
     }
   });
 

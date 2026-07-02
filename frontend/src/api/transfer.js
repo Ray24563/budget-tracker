@@ -5,7 +5,7 @@ export const addTransfer = async (data) => {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${localStorage.getItem("token")}`
+      "Authorization": `Bearer ${sessionStorage.getItem("token")}`
     },
     body: JSON.stringify(data)
   });
@@ -22,7 +22,7 @@ export const getAllTransfers = async () => {
   const response = await fetch(`${API_URL}/transfer`, {
     method: "GET",
     headers: {
-      "Authorization": `Bearer ${localStorage.getItem("token")}`
+      "Authorization": `Bearer ${sessionStorage.getItem("token")}`
     }
   });
 

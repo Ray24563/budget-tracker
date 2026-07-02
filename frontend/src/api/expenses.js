@@ -6,7 +6,7 @@ export const addExpense = async (data) => {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${localStorage.getItem("token")}`
+      "Authorization": `Bearer ${sessionStorage.getItem("token")}`
     },
     body: JSON.stringify(data)
   });
@@ -25,7 +25,7 @@ export const getAllExpenses = async () => {
   const response = await fetch(`${API_URL}/expenses`, {
     method: "GET",
     headers: {
-      "Authorization": `Bearer ${localStorage.getItem("token")}`
+      "Authorization": `Bearer ${sessionStorage.getItem("token")}`
     }
   });
 
@@ -38,7 +38,7 @@ export const deleteExpense = async (id) => {
   const response = await fetch(`${API_URL}/expenses/${id}`, {
     method: "DELETE",
     headers: {
-      "Authorization": `Bearer ${localStorage.getItem("token")}`
+      "Authorization": `Bearer ${sessionStorage.getItem("token")}`
     }
   });
 
@@ -50,7 +50,7 @@ export const getExpensesByCategory = async (category) => {
   const response = await fetch(`${API_URL}/expenses/category/${category}`, {
     method: "GET",
     headers: {
-      "Authorization": `Bearer ${localStorage.getItem("token")}`
+      "Authorization": `Bearer ${sessionStorage.getItem("token")}`
     }
   });
 

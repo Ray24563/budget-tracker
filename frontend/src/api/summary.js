@@ -5,7 +5,7 @@ export const getSummary = async () => {
   const response = await fetch(`${API_URL}/summary`, {
     method: "GET",
     headers: {
-      "Authorization": `Bearer ${localStorage.getItem("token")}`
+      "Authorization": `Bearer ${sessionStorage.getItem("token")}`
     }
   });
 

@@ -9,7 +9,7 @@ function Login({ onLoginSuccess }) {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    document.title = "Login"
+    document.title = "WhyHub - Login"
   },[])
 
    const handleSubmit = async () => {
@@ -30,7 +30,7 @@ function Login({ onLoginSuccess }) {
 
       // Save the token in localStorage
       // This persists even if you refresh the page
-      localStorage.setItem("token", data.access_token);
+      sessionStorage.setItem("token", data.access_token);
 
       // Tell the parent component login was successful
       onLoginSuccess();
