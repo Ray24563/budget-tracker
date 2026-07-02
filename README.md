@@ -1,6 +1,6 @@
 # WhyHub
 
-![Project Status](https://img.shields.io/badge/Status-In%20Progress-yellow?style=for-the-badge)
+![Project Status](https://img.shields.io/badge/Status-Done-green?style=for-the-badge)
 ![React](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black)
 ![TailwindCSS](https://img.shields.io/badge/TailwindCSS-0F172A?style=for-the-badge&logo=tailwind-css&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)
