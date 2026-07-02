@@ -38,20 +38,20 @@ function AddFutureIncome({ setAddFutureIncomeModal }) {
 
   return (
     <>
-      <div className='add-income-modal w-auto p-10 rounded-lg animate-modalIn'>
+      <div className='add-income-modal mx-5 w-auto p-8 sm:p-10 rounded-lg animate-modalIn'>
          <h1 
-          className='syne-heading text-[#e2d9f3] font-bold text-3xl mb-5'
+          className='syne-heading text-[#e2d9f3] font-bold text-2xl sm:text-3xl mb-5'
           ><FontAwesomeIcon icon={faArrowTrendUp} className='me-3'/> Add Future Income</h1>
 
          <form>
-          <div className='mb-5 flex gap-x-5'>
+          <div className='mb-5 flex flex-col sm:flex-row gap-x-0 gap-y-5 sm:gap-y-0 sm:gap-x-5'>
 
             <div>
               <label className='text-[#e2d9f3] syne-heading mb-2 block'>Date</label>
                 <DatePicker
                   selected={incomeDate}
                   onChange={(incomeDate) => setIncomeDate(incomeDatedate)}
-                  className="border rounded-lg ps-5 pe-10 py-2.5 text-[#e2d9f3] bg-[#0a0818] border-[#2e2460]"
+                  className="border rounded-lg ps-5 pe-19 sm:pe-10 py-2.5 text-[#e2d9f3] bg-[#0a0818] border-[#2e2460]"
                 />
             </div>
 
@@ -60,7 +60,7 @@ function AddFutureIncome({ setAddFutureIncomeModal }) {
               <input 
                 type="text" 
                 placeholder="Enter source of income" 
-                className="border rounded-lg ps-5 pe-10 py-2.5 text-[#e2d9f3] bg-[#0a0818] border-[#2e2460]"
+                className="border rounded-lg ps-5 pe-10 py-2.5 text-[#e2d9f3] bg-[#0a0818] border-[#2e2460] w-full"
                 value={incomeSource}
                 onChange={(e) => setIncomeSource(e.target.value)} 
               />

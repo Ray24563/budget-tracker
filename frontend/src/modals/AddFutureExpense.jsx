@@ -41,16 +41,16 @@ function AddFutureExpense({ setAddFutureExpenseModal }) {
 
   return (
     <>
-      <div className='add-income-modal w-auto p-10 rounded-lg animate-modalIn'>
+      <div className='add-income-modal mx-5 w-auto p-8 sm:p-10 rounded-lg animate-modalIn'>
         <h1 
-        className='syne-heading text-[#e2d9f3] font-bold text-3xl mb-7'
+        className='syne-heading text-[#e2d9f3] font-bold text-2xl sm:text-3xl mb-7'
         onClick={() => setAddExpenseModal(false)}
         >
           <FontAwesomeIcon icon={faArrowTrendDown} className='me-3'/> Add Future Expense
         </h1>
 
         <form>
-        <div className='mb-5 flex gap-x-5'>
+        <div className='mb-5 flex flex-col sm:flex-row gap-x-0 gap-y-3 sm:gap-y-0 sm:gap-x-5'>
 
           <div>
             <label className='text-[#e2d9f3] syne-heading mb-2 block'>Date</label>
@@ -64,7 +64,7 @@ function AddFutureExpense({ setAddFutureExpenseModal }) {
             <div>
             <label className='text-[#e2d9f3] syne-heading mb-2 block'>Category</label>
             <select 
-              className="border rounded-lg ps-3 py-2.5 text-[#e2d9f3] bg-[#0a0818] border-[#2e2460] w-60 mb-5"
+              className="border rounded-lg ps-3 py-2.5 text-[#e2d9f3] bg-[#0a0818] border-[#2e2460] w-60 mb-2"
               value={expenseCategory}
               onChange={(e) => setExpenseCategory(e.target.value)}
             >
