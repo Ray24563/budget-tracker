@@ -57,14 +57,14 @@ function AddFutureExpense({ setAddFutureExpenseModal }) {
               <DatePicker
                 selected={expenseDate}
                 onChange={(expenseDate) => setExpenseDate(expenseDate)}
-                className="border rounded-lg ps-5 pe-10 py-2.5 text-[#e2d9f3] bg-[#0a0818] border-[#2e2460]"
+                className="border rounded-lg ps-5 pe-19 sm:pe-10 py-2.5 text-[#e2d9f3] bg-[#0a0818] border-[#2e2460]"
               />
           </div>
 
             <div>
             <label className='text-[#e2d9f3] syne-heading mb-2 block'>Category</label>
             <select 
-              className="border rounded-lg ps-3 py-2.5 text-[#e2d9f3] bg-[#0a0818] border-[#2e2460] w-60 mb-2"
+              className="border rounded-lg ps-3 py-2.5 text-[#e2d9f3] bg-[#0a0818] border-[#2e2460] w-full sm:w-60 mb-2"
               value={expenseCategory}
               onChange={(e) => setExpenseCategory(e.target.value)}
             >
