@@ -9,7 +9,7 @@ function Login({ onLoginSuccess }) {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    document.title = "WhyHub - Login"
+    document.title = "WhyHub"
   },[])
 
    const handleSubmit = async () => {
@@ -53,7 +53,7 @@ function Login({ onLoginSuccess }) {
       <div className="h-screen flex justify-center items-center flex-col">
 
         <div className="flex justify-center flex-col items-center gap-y-5">
-          <img src={Logo} className="w-70"/>
+          <img src={Logo} className="w-55 sm:w-70"/>
           <p className="text-[#9b8ab8] font-[sans-serif] text-lg text-center sm:text-left">Welcome to <span className="syne-heading font-bold text-[#f0eaff]">WhyHub!</span> Please input your credential to proceed.</p>
           <div>
           <input 
