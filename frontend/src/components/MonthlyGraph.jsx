@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import useBarSize from "../constants/UseBarSize";
 import useTickFormatter from "../constants/UseTickFormatter";
 import useTickSize from "../constants/UseTickSize";
+import Loader from "./Loader.jsx";
 
 const CustomTooltip = ({ active, payload, label }) => {
   if (active && payload && payload.length) {
@@ -69,7 +70,9 @@ function MonthlyGraph() {
       </div>
 
       {loading2 ? (
-        <p className="text-[#6b5f8a] text-sm">Loading...</p>
+        <div className="flex justify-center mb-15 mt-10">
+          <Loader/>
+        </div>
       ) : (
          <div className="overflow-x-auto md:overflow-visible">
           <div className="min-w-150 md:min-w-0">

@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { DateFormatter } from "../utils/DateFormatter";
 import { saveAsPDFTransfer } from "../utils/saveAsPDFTransfer";
 import SaveAsPDFModalTransfer from "../modals/SaveAsPDFModalTransfer";
+import Loader from "../components/Loader";
 
 function TransferMoneyPage () {
   const [loading, setLoading] = useState(false);
@@ -90,7 +91,9 @@ function TransferMoneyPage () {
 
       <main className="px-5 sm:px-20 mt-10 sm:mt-15">
         { loading ? (
-          <p className="text-[#e2d9f3]">Loading...</p>
+          <div className="h-screen flex justify-center mt-35">
+            <Loader/>
+          </div>
         ) : transferData.length === 0 ? (
           <p className="text-[#e2d9f3] syne-heading text-md">No History of Money Transfer</p>
         ) : !isMobile ? (

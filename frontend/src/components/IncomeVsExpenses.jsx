@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, Legend } from "recharts";
 import { getMonthlyComparison } from "../api/charts";
 import useOuterRadius from "../constants/UseOuterRadius";
+import Loader from "./Loader";
 
 const COLORS = {
   income: "#e2d9f3",    
@@ -79,7 +80,9 @@ function IncomeVsExpenses() {
       </div>
 
       {loading ? (
-        <p className="text-[#6b5f8a] text-sm">Loading...</p>
+        <div className="flex justify-center mb-15 sm:mb-0 mt-10">
+          <Loader/>
+        </div>
 
       ) : total === 0 ? (
         <p className="text-[#6b5f8a] text-sm">No data for this month yet.</p>

@@ -9,6 +9,7 @@ import { saveAsPDFIncome } from "../utils/saveAsPDFIncome.js";
 import SaveAsPDFModal from "../modals/SaveAsPDFModal.jsx";
 import { DateFormatter, DateFormatterSelector } from "../utils/DateFormatter.js";
 import ConfirmDeleteIncome from "../modals/ConfirmDeleteIncome.jsx";
+import Loader from "../components/Loader.jsx";
 
 function IncomePage() {
   const [incomeList, setIncomeList] = useState([]);
@@ -117,7 +118,9 @@ function IncomePage() {
       <FadeIn>
         <main className="px-5 sm:px-20 mt-10 sm:mt-15">
           {loading ? (
-            <p className="text-[#e2d9f3]">Loading...</p>
+            <div className="h-screen flex justify-center mt-35">
+              <Loader/>
+            </div>
           ) : filteredIncome.length === 0 ? (
             <p className="text-[#e2d9f3]">No income records yet.</p>
           ) : (

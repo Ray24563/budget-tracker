@@ -10,6 +10,7 @@ import {
   Cell
 } from "recharts";
 import { getTopCategories } from "../api/charts";
+import Loader from "./Loader";
 
 // Custom tooltip
 const CustomTooltip = ({ active, payload }) => {
@@ -117,7 +118,9 @@ function TopCategories() {
 
       {/* Chart */}
       {loading ? (
-        <p className="text-[#6b5f8a] text-sm">Loading...</p>
+        <div className="flex justify-center mb-20 mt-10">
+          <Loader/>
+        </div>
       ) : data.length === 0 ? (
         <p className="text-[#6b5f8a] text-sm">
           No expenses for this.

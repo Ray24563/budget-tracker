@@ -9,6 +9,7 @@ import { DateFormatter, DateFormatterSelector } from "../utils/DateFormatter";
 import SaveAsPDFModalExpense from "../modals/SaveAsPDFModalExpense";
 import { saveAsPDFExpense } from "../utils/saveAsPDFExpense";
 import ConfirmDeleteExpense from "../modals/ConfirmDeleteExpense";
+import Loader from "../components/Loader";
 
 export default function ExpensePage() {
   const [expenseList, setExpenseList] = useState([]);
@@ -114,7 +115,9 @@ export default function ExpensePage() {
       <FadeIn>
         <main className="px-5 sm:px-20 mt-10 sm:mt-15">
           {loading ? (
-            <p className="text-[#e2d9f3]">Loading...</p>
+            <div className="h-screen flex justify-center mt-35">
+              <Loader/>
+            </div>
           ) : expenseList.length === 0 ? (
             <p className="text-[#e2d9f3]">No expense records yet.</p>
           ) : (

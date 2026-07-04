@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClipboardList, faCheck, faCircleExclamation } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import { DateFormatter } from "../utils/DateFormatter";
+import Loader from "../components/Loader";
 
 function LoanPage() {
   const [loanList, setLoanList] = useState([]);
@@ -71,7 +72,9 @@ function LoanPage() {
 
       <main className="px-5 sm:px-20 mt-10 sm:mt-15">
         {loading ? (
-          <p className="text-[#6b5f8a]">Loading...</p>
+          <div className="h-screen flex justify-center mt-35">
+            <Loader/>
+          </div>
         ) : loanList.length === 0 ? (
           <p className="text-[#6b5f8a] syne-heading text-md">No loan records yet.</p>
         ) : !isMobile ? (
@@ -195,7 +198,7 @@ function LoanPage() {
                     <td className="text-[#e2d9f3] py-3 px-10">{selectedDate}</td>
                     <td className="text-[#e2d9f3] py-3 px-10">{selectedSource}</td>
                     <td className="text-red-400 font-bold py-3 px-10">
-                      - ₱{selectedAmount}
+                      - ₱ {selectedAmount}
                     </td>
                   </tr>
               </tbody>
@@ -220,7 +223,7 @@ function LoanPage() {
 
                 <div className="flex justify-between mb-1">
                   <p className="text-[#6b5f8a] mt-1 syne-heading text-sm">Amount</p>
-                  <p className="text-[#e2d9f3] font-bold">₱{selectedAmount}</p>
+                  <p className="text-red-400 font-bold">- ₱ {selectedAmount}</p>
                 </div>
 
                 <div className="flex justify-between mb-10">

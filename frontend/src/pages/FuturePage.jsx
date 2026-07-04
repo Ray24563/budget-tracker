@@ -10,6 +10,7 @@ import AddFutureIncome from "../modals/AddFutureIncome";
 import AddFutureExpense from "../modals/AddFutureExpense";
 import { useNavigate } from "react-router-dom";
 import { DateFormatter } from "../utils/DateFormatter";
+import Loader from "../components/Loader";
 
 const DEFAULT_FUTURE_SUMMARY = {
   savings_breakdown: [
@@ -168,7 +169,9 @@ function FuturePage() {
               <p className="text-[#e2d9f3] syne-heading text-xl mt-1 font-bold">Income</p>
             </div>
             {loading ? (
-              <p className="text-[#6b5f8a] text-sm">Loading...</p>
+              <div className="h-screen flex justify-center mt-35">
+                <Loader/>
+              </div>
             ) : futureIncome.length === 0 ? (
               <p className="text-[#6b5f8a] text-md syne-heading">No future incomes recorded.</p>
             ) : !isMobile ? (
@@ -259,7 +262,9 @@ function FuturePage() {
               <p className="text-[#e2d9f3] syne-heading text-xl mt-1 font-bold">Expense</p>
             </div>
             {loading ? (
-              <p className="text-[#6b5f8a] text-md syne-heading">Loading...</p>
+              <div className="h-screen flex justify-center mt-35">
+                <Loader/>
+              </div>
             ) : futureExpenses.length === 0 ? (
               <p className="text-[#6b5f8a] text-md syne-heading">No future expenses recorded.</p>
             ) : !isMobile ? (
