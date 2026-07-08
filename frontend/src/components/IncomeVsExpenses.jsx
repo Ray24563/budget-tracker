@@ -74,7 +74,7 @@ function IncomeVsExpenses() {
     <>
        {/* Header */}
       <div className="flex justify-between items-center mb-4">
-        <span className="text-[#e2d9f3] text-xl font-bold">
+        <span className="text-[#e2d9f3] text-xl font-bold syne-heading">
           {data?.month ?? "Loading..."}
         </span>
       </div>
