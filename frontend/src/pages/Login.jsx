@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { login } from "../api/auth";
 import Logo from '../assets/images/logo.png'
+import Loader from "../components/Loader";
 
 function Login({ onLoginSuccess }) {
   const [password, setPassword] = useState("");
@@ -52,31 +53,37 @@ function Login({ onLoginSuccess }) {
     <>
       <div className="h-screen flex justify-center items-center flex-col">
 
-        <div className="flex justify-center flex-col items-center gap-y-5">
-          <img src={Logo} className="w-55 sm:w-70"/>
-          <p className="text-[#9b8ab8] font-[sans-serif] text-lg text-center sm:text-left">Welcome to <span className="syne-heading font-bold text-[#f0eaff]">WhyHub!</span> Please input your credential to proceed.</p>
-          <div>
-          <input 
-            className="bg-[#13102a] border border-[#3b2d6a] rounded-md px-3 w-60 sm:w-70 py-2 text-[#f0eaff]"
-            placeholder="Enter Password"
-            onKeyDown={(e) => e.key === "Enter" && handleSubmit()}
-            onChange={(e) => setPassword(e.target.value)}
-            value={password}
-            type="password"
-          />
-          <button 
-            className="px-3 py-2 bg-[#7c3aed] ms-3 rounded-sm cursor-pointer syne-heading hover:opacity-70 transition-opacity duration-500"
-            onClick={handleSubmit}
-            disabled={loading}
-            >
-              Submit
-            </button>
-            
-            {error && (
-              <p className="text-red-500 text-sm mb-4 mt-3">{error}</p>
-            )}
-          </div>
-        </div>
+        {loading ? (
+          <Loader/>
+        ) : (
+          <>
+             <div className="flex justify-center flex-col items-center gap-y-5">
+              <img src={Logo} className="w-55 sm:w-70"/>
+              <p className="text-[#9b8ab8] font-[sans-serif] text-lg text-center sm:text-left">Welcome to <span className="syne-heading font-bold text-[#f0eaff]">WhyHub!</span> Please input your credential to proceed.</p>
+              <div>
+              <input 
+                className="bg-[#13102a] border border-[#3b2d6a] rounded-md px-3 w-60 sm:w-70 py-2 text-[#f0eaff]"
+                placeholder="Enter Password"
+                onKeyDown={(e) => e.key === "Enter" && handleSubmit()}
+                onChange={(e) => setPassword(e.target.value)}
+                value={password}
+                type="password"
+              />
+              <button 
+                className="px-3 py-2 bg-[#7c3aed] ms-3 rounded-sm cursor-pointer syne-heading hover:opacity-70 transition-opacity duration-500"
+                onClick={handleSubmit}
+                disabled={loading}
+                >
+                  Submit
+                </button>
+                
+                {error && (
+                  <p className="text-red-500 text-sm mb-4 mt-3">{error}</p>
+                )}
+              </div>
+            </div>
+          </>
+        )}
       </div>
     </>
   )
