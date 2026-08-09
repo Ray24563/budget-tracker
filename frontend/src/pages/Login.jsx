@@ -57,7 +57,11 @@ function Login({ onLoginSuccess }) {
       <div className="h-screen flex justify-center sm:items-center flex-col">
 
         {loading ? (
-          <Loader/>
+          <>
+            <div className="items-center">
+              <Loader/>
+            </div>
+          </>
         ) : (
           <>
              <div className="flex justify-center flex-col sm:items-center gap-y-3 sm:gap-y-5">
