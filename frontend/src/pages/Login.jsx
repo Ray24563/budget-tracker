@@ -58,7 +58,7 @@ function Login({ onLoginSuccess }) {
 
         {loading ? (
           <>
-            <div className="items-center">
+            <div className="flex items-center">
               <Loader/>
             </div>
           </>
