@@ -132,8 +132,6 @@ function TransferMoney({ setTransMoneyModal, onSuccess }) {
             />
           </div>
 
-           {error && <p className="text-red-400 text-sm mb-4">{error}</p>}
-
           <div className='flex justify-center gap-x-3'>
             <button 
               type="submit"
@@ -163,6 +161,7 @@ function TransferMoney({ setTransMoneyModal, onSuccess }) {
             selectedFromSavings={selectedFromSavings}
             selectedAmount={selectedAmount}
             setConfirmTransferModal={setConfirmTransferModal}
+            error={error}
           />
          </div>
       )}

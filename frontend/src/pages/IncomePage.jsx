@@ -158,7 +158,7 @@ function IncomePage() {
                       {currentItems.map((item) => (
                         <tr key={item.id} className="border-b border-[#2e2460] hover:bg-[#261d52] transition-colors duration-200">
                           <td className="text-[#e2d9f3] py-5 px-10">{DateFormatter(item.date)}</td>
-                          <td className="text-[#e2d9f3] py-5 px-10">{item.source}</td>
+                          <td className="text-[#e2d9f3] truncate max-w-37 py-5 px-10">{item.source}</td>
                           <td className="text-[#e2d9f3] py-5 px-10">{item.savings}</td>
                           <td className="text-green-400 font-bold p-5 px-10">+ ₱ {item.amount.toLocaleString()}</td>
                           <td className="p-5">
@@ -207,7 +207,7 @@ function IncomePage() {
                             <div key={item.id} className="flex justify-between items-center px-2">
                               <div>
                                 <p className="text-[#9b8ab8] text-xs">{item.savings}</p>
-                                <p className="text-[#e2d9f3] text-md font-medium mt-1">{item.source}</p>
+                                <p className="text-[#e2d9f3] text-md truncate w-45 font-medium mt-1">{item.source}</p>
                               </div>
                               <div className="flex items-center gap-4">
                                 <span className="text-green-400 font-bold text-md mt-3">+ ₱ {item.amount.toLocaleString()}</span>

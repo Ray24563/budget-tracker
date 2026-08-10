@@ -324,12 +324,12 @@ function Homepage ({handleLogout}){
      
     </main>
 
-    <footer className='mt-20 px-10 py-4 text-[#6b5f8a] syne-heading border-t border-t-[#2e2460] text-sm text-center'>
+    <footer className='mt-20 px-10 py-4 text-[#6b5f8a] syne-heading border-t border-t-[#2e2460] text-xs sm:text-sm text-center'>
       <p className='opacity-60'>Built for personal use by Bari. --- <span className='text-[#c4b8e0] font-bold'>WhyHub &#169; 2026</span></p>
     </footer>
 
     {logoutModal &&
-      <div className="fixed inset-0 z-50 backdrop-blur-md bg-black/20 flex flex-col items-center justify-center animate-backdropIn"
+      <div className="fixed inset-0 z-50 backdrop-blur-md bg-black/70 flex flex-col items-center justify-center animate-backdropIn"
           onClick={() => setLogoutModal(false)}
       >
         <LogOut 

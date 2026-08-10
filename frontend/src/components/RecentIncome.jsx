@@ -42,7 +42,7 @@ function RecentIncome({ isMobile }){
                   className="border-b border-[#2e2460] hover:bg-[#261d52] transition-colors duration-200 text-sm"
                 >
                   <td className="text-[#e2d9f3] py-5 px-5">{DateFormatter(item.date)}</td>
-                  <td className="text-[#e2d9f3] py-5 px-5">{item.source}</td>
+                  <td className="text-[#e2d9f3] py-5 max-w-30 truncate px-5">{item.source}</td>
                   <td className="text-[#e2d9f3] py-5 px-5">{item.savings}</td>
                   <td className="text-green-400 font-bold py-5 px-5">+ ₱ {item.amount.toLocaleString()}</td>
                 </tr>
@@ -77,7 +77,7 @@ function RecentIncome({ isMobile }){
                   <div key={item.id} className="flex justify-between items-center px-2">
                     <div>
                       <p className="text-[#9b8ab8] text-xs">{item.savings}</p>
-                      <p className="text-[#e2d9f3] text-md font-medium mt-1">{item.source}</p>
+                      <p className="text-[#e2d9f3] text-md font-medium mt-1 w-30 truncate">{item.source}</p>
                     </div>
                     <div className="flex items-center gap-4">
                       <span className="text-green-400 font-bold text-md mt-4">+ ₱ {item.amount.toLocaleString()}</span>

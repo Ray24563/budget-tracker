@@ -3,7 +3,7 @@ import { faRightLeft } from "@fortawesome/free-solid-svg-icons"
 import { DateFormatter } from "../utils/DateFormatter"
 import { useState, useEffect } from "react"
 
-function ConfirmTransferModal ({handleSubmit, selectedDate, selectedDescription, selectedToSavings, selectedFromSavings, selectedAmount, setConfirmTransferModal}) {
+function ConfirmTransferModal ({handleSubmit, selectedDate, selectedDescription, selectedToSavings, selectedFromSavings, selectedAmount, setConfirmTransferModal, error}) {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768)
   
   useEffect(() => {
@@ -24,7 +24,7 @@ function ConfirmTransferModal ({handleSubmit, selectedDate, selectedDescription,
         </div>
       
       {!isMobile && (
-         <table className="w-full text-left border-collapse bg-[#1c1640] rounded-lg animate-tableIn mb-7">
+         <table className="w-full text-left border-collapse bg-[#1c1640] rounded-lg animate-tableIn mb-3">
           <thead>
             <tr className="border-b border-[#2e2460] syne-heading text-[#e2d9f3] font-bold text-md bg-[#2e2460]">
               <th className="py-3 px-10 rounded-tl-lg rounded-bl-lg">Date</th>
@@ -72,12 +72,15 @@ function ConfirmTransferModal ({handleSubmit, selectedDate, selectedDescription,
             <p className="text-green-400 font-bold">+ ₱ {selectedAmount}</p>
           </div>
 
-          <div className="flex justify-between mb-10">
+          <div className={`flex justify-between ${error ? "mb-5" : "mb-10"}`}>
             <p className="text-[#6b5f8a] mt-1 syne-heading text-sm">Description</p>
-            <p className="text-[#e2d9f3] font-bold">{selectedDescription}</p>
+            <p className="text-[#e2d9f3] w-37 truncate font-bold">{selectedDescription}</p>
           </div>
         </>
       )}
+      
+      {error && (<p className="text-red-400 text-sm mb-4">{error}</p>)}
+
         <div className="flex gap-x-3 justify-center mt-7">
           <button
             onClick={handleSubmit}

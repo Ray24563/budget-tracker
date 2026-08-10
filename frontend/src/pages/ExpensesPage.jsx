@@ -155,7 +155,7 @@ export default function ExpensePage() {
                           className="border-b border-[#2e2460] hover:bg-[#261d52] transition-colors duration-200"
                         >
                           <td className="text-[#e2d9f3] py-5 px-10">{DateFormatter(item.date)}</td>
-                          <td className="text-[#e2d9f3] py-5 px-10">{item.source}</td>
+                          <td className="text-[#e2d9f3] truncate max-w-37 py-5 px-10">{item.source}</td>
                           <td className="text-[#e2d9f3] py-5 px-10">{item.category}</td>
                           <td className="text-[#e2d9f3] py-5 px-10">{item.savings}</td>
                           <td className="text-red-400 font-bold p-5 px-10">- ₱ {item.amount.toLocaleString()}</td>
@@ -205,7 +205,7 @@ export default function ExpensePage() {
                             <div key={item.id} className="flex justify-between items-center px-2">
                               <div>
                                 <p className="text-[#9b8ab8] text-xs">{item.category}</p>
-                                <p className="text-[#e2d9f3] text-md font-medium mt-1">{item.source}</p>
+                                <p className="text-[#e2d9f3] truncate w-45 text-md font-medium mt-1">{item.source}</p>
                                 <p className="text-[#9b8ab8] text-xs">{item.savings}</p>
                               </div>
                               <div className="flex items-center gap-4">

@@ -33,7 +33,7 @@ function ConfirmDeleteExpense ({isMobile, handleDelete, selectedDate, selectedSo
                   <td className="text-[#e2d9f3] py-3 px-10">{selectedID}</td>
                   <td className="text-[#e2d9f3] py-3 px-10">{DateFormatter(selectedDate)}</td>
                   <td className="text-[#e2d9f3] py-3 px-10">{selectedCategory}</td>
-                  <td className="text-[#e2d9f3] py-3 px-10">{selectedSource}</td>
+                  <td className="text-[#e2d9f3] truncate max-w-40 py-3 px-10">{selectedSource}</td>
                   <td className="text-[#e2d9f3] py-3 px-10">{selectedSavings}</td>
                   <td className="text-red-400 font-bold py-3 px-10">
                     - ₱ {selectedAmount.toLocaleString()}
@@ -61,7 +61,7 @@ function ConfirmDeleteExpense ({isMobile, handleDelete, selectedDate, selectedSo
 
             <div className="flex justify-between mb-1">
               <p className="text-[#6b5f8a] syne-heading text-sm">Source</p>
-              <p className="text-[#e2d9f3] font-bold">{selectedSource}</p>
+              <p className="text-[#e2d9f3] truncate w-40 font-bold">{selectedSource}</p>
             </div>
 
             <div className="flex justify-between mb-1">
