@@ -6,10 +6,10 @@ import Logo from '../assets/images/logo.png'
 function IncomeInfoModal ({selectedDate, selectedSource, selectedSavings, selectedAmount, selectedID, setConfirmationModal, setInfoModal}) {
   return(
     <>
-      <div className='add-income-modal mx-3 w-auto p-5 sm:p-10 rounded-lg animate-modalIn'>
+      <div className='add-income-modal mx-3 w-auto p-7 sm:p-10 rounded-lg animate-modalIn'>
         <div className="flex justify-between gap-x-25 items-center">
           <div>
-            <p className="font-bold text-green-400 text-2xl">+ ₱{selectedAmount}</p>
+            <p className="font-bold text-green-400 text-2xl">+ ₱ {selectedAmount.toLocaleString()}</p>
           </div>
 
           <FontAwesomeIcon
