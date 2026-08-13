@@ -61,7 +61,7 @@ function ConfirmDeleteExpense ({isMobile, handleDelete, selectedDate, selectedSo
 
             <div className="flex justify-between mb-1">
               <p className="text-[#6b5f8a] syne-heading text-sm">Source</p>
-              <p className="text-[#e2d9f3] truncate w-40 font-bold">{selectedSource}</p>
+              <p className="text-[#e2d9f3] truncate w-40 text-right font-bold">{selectedSource}</p>
             </div>
 
             <div className="flex justify-between mb-1">

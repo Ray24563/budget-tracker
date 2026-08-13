@@ -69,7 +69,7 @@ function Login({ onLoginSuccess }) {
 
               <div className="text-center sm:mb-0 mb-3">
                 <h1 className="syne-heading text-[#f0eaff] font-bold text-3xl sm:text-4xl mb-2">WhyHub</h1>
-                <p className="text-[#9b8ab8] font-[sans-serif] text-xs text-center sm:text-left font-medium">PERSONAL BUDGET TRACKER &middot; v1.0.6</p>
+                <p className="text-[#9b8ab8] font-[sans-serif] text-xs text-center sm:text-left font-medium">PERSONAL BUDGET TRACKER &middot; v1.1.0</p>
               </div>
 
               <div className="login-container mx-6 p-6 sm:p-7 rounded-2xl w-auto sm:w-100">

@@ -10,6 +10,7 @@ import SaveAsPDFModalExpense from "../modals/SaveAsPDFModalExpense";
 import { saveAsPDFExpense } from "../utils/saveAsPDFExpense";
 import ConfirmDeleteExpense from "../modals/ConfirmDeleteExpense";
 import Loader from "../components/Loader";
+import ExpenseInfoModal from "../modals/ExpenseInfoModal";
 
 export default function ExpensePage() {
   const [expenseList, setExpenseList] = useState([]);
@@ -34,6 +35,7 @@ export default function ExpensePage() {
   const [selectedAmount, setSelectedAmount] = useState(null);
   const [selectedID, setSelectedID] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const [infoModal, setInfoModal] = useState(false);
 
   useEffect(() => {
     const update = () => setIsMobile(window.innerWidth < 768)
@@ -202,26 +204,26 @@ export default function ExpensePage() {
                         {/* Rows under this date */}
                         <div className="flex flex-col gap-y-7">
                           {items.map((item) => (
-                            <div key={item.id} className="flex justify-between items-center px-2">
-                              <div>
-                                <p className="text-[#9b8ab8] text-xs">{item.category}</p>
-                                <p className="text-[#e2d9f3] truncate w-45 text-md font-medium mt-1">{item.source}</p>
-                                <p className="text-[#9b8ab8] text-xs">{item.savings}</p>
-                              </div>
-                              <div className="flex items-center gap-4">
-                                <span className="text-red-400 font-bold text-sm">- ₱ {item.amount.toLocaleString()}</span>
-                                <button 
-                                  onClick={() => (
-                                              setConfirmationModal(true),
+                            <div 
+                              key={item.id} 
+                              className="flex justify-between items-center px-2"
+                              onClick={() => (
+                                              setInfoModal(true),
                                               setSelectedDate(item.date),
                                               setSelectedID(item.id),
                                               setSelectedAmount(item.amount),
                                               setSelectedSource(item.source),
                                               setSelectedSavings(item.savings),
                                               setSelectedCategory(item.category)
-                                          )}>
-                                  <FontAwesomeIcon icon={faTrash} className="text-[#6b5f8a] hover:text-red-400 transition-colors text-xs" />
-                                </button>
+                                      )}
+                            >
+                              <div>
+                                <p className="text-[#e2d9f3] truncate w-45 text-md font-medium mt-1">{item.source}</p>
+                                <p className="text-[#9b8ab8] text-xs">{item.category}</p>
+                              </div>
+                              <div className="flex flex-col text-right">
+                                <span className="text-red-400 font-bold text-sm">- ₱ {item.amount.toLocaleString()}</span>
+                                <p className="text-[#9b8ab8] text-xs">{item.savings}</p>
                               </div>
                             </div>
                           ))}
@@ -340,6 +342,21 @@ export default function ExpensePage() {
           setConfirmationModal={setConfirmationModal}
           selectedID={selectedID}
           selectedCategory={selectedCategory}
+        />
+      </div> 
+    }
+
+    {infoModal &&
+      <div className="fixed inset-0 z-50 backdrop-blur-md bg-black/20 flex flex-col items-center justify-center animate-backdropIn">
+        <ExpenseInfoModal
+          selectedAmount={selectedAmount}
+          selectedDate={selectedDate}
+          selectedSource={selectedSource}
+          selectedSavings={selectedSavings}
+          setConfirmationModal={setConfirmationModal}
+          selectedID={selectedID}
+          selectedCategory={selectedCategory}
+          setInfoModal={setInfoModal}
         />
       </div> 
     }

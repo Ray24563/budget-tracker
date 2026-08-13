@@ -10,6 +10,7 @@ import SaveAsPDFModal from "../modals/SaveAsPDFModal.jsx";
 import { DateFormatter, DateFormatterSelector } from "../utils/DateFormatter.js";
 import ConfirmDeleteIncome from "../modals/ConfirmDeleteIncome.jsx";
 import Loader from "../components/Loader.jsx";
+import IncomeInfoModal from "../modals/IncomeInfoModal.jsx";
 
 function IncomePage() {
   const [incomeList, setIncomeList] = useState([]);
@@ -27,6 +28,7 @@ function IncomePage() {
   const [selectedSavings, setSelectedSavings] = useState(null);
   const [selectedAmount, setSelectedAmount] = useState(null);
   const [selectedID, setSelectedID] = useState(null);
+  const [infoModal, setInfoModal] = useState(false);
 
   useEffect(() => {
     const update = () => setIsMobile(window.innerWidth < 768)
@@ -204,24 +206,24 @@ function IncomePage() {
                         {/* Rows under this date */}
                         <div className="flex flex-col gap-y-7">
                           {items.map((item) => (
-                            <div key={item.id} className="flex justify-between items-center px-2">
+                            <div 
+                              key={item.id} 
+                              className="flex justify-between items-center px-2"
+                              onClick={() => (
+                                      setInfoModal(true),
+                                      setSelectedDate(item.date),
+                                      setSelectedID(item.id),
+                                      setSelectedAmount(item.amount),
+                                      setSelectedSource(item.source),
+                                      setSelectedSavings(item.savings)
+                              )}
+                            >
                               <div>
                                 <p className="text-[#9b8ab8] text-xs">{item.savings}</p>
                                 <p className="text-[#e2d9f3] text-md truncate w-45 font-medium mt-1">{item.source}</p>
                               </div>
                               <div className="flex items-center gap-4">
                                 <span className="text-green-400 font-bold text-md mt-3">+ ₱ {item.amount.toLocaleString()}</span>
-                                <button 
-                                  onClick={() => (
-                                      setConfirmationModal(true),
-                                      setSelectedDate(item.date),
-                                      setSelectedID(item.id),
-                                      setSelectedAmount(item.amount),
-                                      setSelectedSource(item.source),
-                                      setSelectedSavings(item.savings)
-                                  )}>
-                                  <FontAwesomeIcon icon={faTrash} className="text-[#6b5f8a] hover:text-red-400 transition-colors text-xs mt-4" />
-                                </button>
                               </div>
                             </div>
                           ))}
@@ -317,7 +319,7 @@ function IncomePage() {
         </main>
       </FadeIn>
 
-      {saveAsPDFModal &&
+    {saveAsPDFModal &&
       <div className="fixed inset-0 z-50 backdrop-blur-md bg-black/20 flex flex-col items-center justify-center animate-backdropIn">
         <SaveAsPDFModal
           selectedMonth={selectedMonth}
@@ -340,6 +342,21 @@ function IncomePage() {
           selectedSavings={selectedSavings}
           setConfirmationModal={setConfirmationModal}
           selectedID={selectedID}
+        />
+      </div> 
+    }
+
+    {infoModal &&
+      <div className="fixed inset-0 z-50 backdrop-blur-md bg-black/20 flex flex-col items-center justify-center animate-backdropIn">
+        <IncomeInfoModal
+          selectedAmount={selectedAmount}
+          selectedDate={selectedDate}
+          selectedSource={selectedSource}
+          selectedSavings={selectedSavings}
+          setConfirmationModal={setConfirmationModal}
+          selectedID={selectedID}
+          setInfoModal={setInfoModal}
+          setConfirmationModal={setConfirmationModal}
         />
       </div> 
     }
