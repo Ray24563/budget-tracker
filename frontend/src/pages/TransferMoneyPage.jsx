@@ -116,7 +116,7 @@ function TransferMoneyPage () {
                       className="border-b border-[#2e2460] hover:bg-[#261d52] transition-colors duration-200"
                     >
                       <td className="text-[#e2d9f3] py-5 px-10">{DateFormatter(item.date)}</td>
-                      <td className="text-[#e2d9f3] py-5 px-10">{item.description}</td>
+                      <td className="text-[#e2d9f3] truncate max-w-37 py-5 px-10">{item.description}</td>
                       <td className="text-[#e2d9f3] py-5 px-10">{item.from_savings}</td>
                       <td className="text-[#e2d9f3] py-5 px-10">{item.to_savings}</td>
                       <td className="text-green-400 font-bold p-5 px-10">+ ₱ {item.amount.toLocaleString()}</td>
@@ -160,8 +160,8 @@ function TransferMoneyPage () {
                         </div>
 
                         <div>
-                          <p className="text-[#9b8ab8] text-xs syne-heading">{item.to_savings}</p>
-                          <p className="text-green-400 text-xs font-bold">+ ₱{item.amount.toLocaleString()}</p>
+                          <p className="text-[#9b8ab8] text-right text-xs syne-heading">{item.to_savings}</p>
+                          <p className="text-green-400 text-xs text-right font-bold">+ ₱{item.amount.toLocaleString()}</p>
                         </div>
                       </div>
                     </div>

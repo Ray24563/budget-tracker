@@ -74,7 +74,7 @@ function ConfirmTransferModal ({handleSubmit, selectedDate, selectedDescription,
 
           <div className={`flex justify-between ${error ? "mb-5" : "mb-10"}`}>
             <p className="text-[#6b5f8a] mt-1 syne-heading text-sm">Description</p>
-            <p className="text-[#e2d9f3] w-37 truncate font-bold">{selectedDescription}</p>
+            <p className="text-[#e2d9f3] w-37 text-right truncate font-bold">{selectedDescription}</p>
           </div>
         </>
       )}
