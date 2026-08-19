@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { getAllExpenses, deleteExpense } from "../api/expenses";
 import AddExpense from "../modals/AddExpense";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowTrendDown, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faArrowTrendDown, faCalendar, faWallet, faM, faCreditCard, faCircleQuestion } from "@fortawesome/free-solid-svg-icons";
 import FadeIn from "../components/FadeIn";
 import { useNavigate } from "react-router-dom";
 import { DateFormatter, DateFormatterSelector } from "../utils/DateFormatter";
@@ -125,11 +125,11 @@ export default function ExpensePage() {
           ) : (
             <>
               <div className="text-right mb-7">
-                <label className="text-[#e2d9f3] syne-heading me-3 sm:me-5 text-sm sm:text-lg">Filter Table: </label>
+                <label className="text-[#e2d9f3] syne-heading me-3 sm:me-5 text-sm sm:text-[0.9em]">Filter Table: </label>
                   <select
                     value={selectedMonthForTable}
                     onChange={(e) => setSelectedMonthForTable(e.target.value)}
-                    className="bg-[#0a0818] border border-[#2e2460] text-[#e2d9f3] rounded-lg px-3 py-2 text-xs sm:text-lg syne-heading cursor-pointer"
+                    className="bg-[#0a0818] border border-[#2e2460] text-[#e2d9f3] rounded-lg px-3 py-2 text-xs sm:text-[0.9em] syne-heading cursor-pointer"
                     >
                       <option value="all">All Time</option>
                       {availableMonths.map((month) => (
@@ -139,47 +139,79 @@ export default function ExpensePage() {
               </div>
               <div className="animate-tableIn" key={currentPage}>
                 {!isMobile && (
-                  <table className="w-full text-left border-collapse bg-[#1c1640] rounded-lg">
-                    <thead>
-                      <tr className="border-b border-[#2e2460] syne-heading text-[#e2d9f3] font-bold text-xl bg-[#2e2460]">
-                        <th className="py-5 px-10 rounded-tl-lg">Date</th>
-                        <th className="py-5 px-10">Category</th>
-                        <th className="py-5 px-10">Description</th>
-                        <th className="py-5 px-10">Savings</th>
-                        <th className="py-5 px-10">Amount</th>
-                        <th className="py-5 px-10 rounded-tr-lg">Action</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {currentItems.map((item) => (
-                        <tr
-                          key={item.id}
-                          className="border-b border-[#2e2460] hover:bg-[#261d52] transition-colors duration-200"
-                        >
-                          <td className="text-[#e2d9f3] py-5 px-10">{DateFormatter(item.date)}</td>
-                          <td className="text-[#e2d9f3] truncate max-w-37 py-5 px-10">{item.source}</td>
-                          <td className="text-[#e2d9f3] py-5 px-10">{item.category}</td>
-                          <td className="text-[#e2d9f3] py-5 px-10">{item.savings}</td>
-                          <td className="text-red-400 font-bold p-5 px-10">- ₱ {item.amount.toLocaleString()}</td>
-                          <td className="p-5">
-                            <button 
-                              onClick={() => (
-                                              setConfirmationModal(true),
-                                              setSelectedDate(item.date),
-                                              setSelectedID(item.id),
-                                              setSelectedAmount(item.amount),
-                                              setSelectedSource(item.source),
-                                              setSelectedSavings(item.savings),
-                                              setSelectedCategory(item.category)
-                                          )} 
-                              className="cursor-pointer ms-4">
-                              <FontAwesomeIcon icon={faTrash} className="text-red-400 ms-5" />
-                            </button>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                  <div className="flex flex-col">
+                    {Object.entries(
+                      currentItems.reduce((groups, item) => {
+                        const date = item.date
+                        if (!groups[date]) groups[date] = []
+                        groups[date].push(item)
+                        return groups
+                      }, {})
+                    ).map(([date, items], index, arr) => (
+                      <div key={date}>
+
+                        {/* Date divider */}
+                        <div className="flex flex-col">
+                          <div className="flex gap-x-5">
+
+                            <div className="flex flex-col items-center">
+                              <div className="w-10 h-10 rounded-full border border-[#3b2d6a] bg-[#1c1640] flex items-center justify-center">
+                                <FontAwesomeIcon icon={faCalendar} className="text-[#6d28d9] text-sm" />
+                              </div>
+                              {/* hide line on last item */}
+                              {index < arr.length - 1 && (
+                                <div className="w-px h-full bg-[#3b2d6a]" />
+                              )}
+                            </div>
+
+                            <div className="mt-0.5 grow">
+                              <p className="text-[#e2d9f3] text-lg syne-heading mb-5 font-bold">{DateFormatter(date)}</p>
+                                {items.map((item) => (
+                                    <div 
+                                      key={item.id}
+                                        onClick={() => (
+                                        setConfirmationModal(true),
+                                        setSelectedDate(item.date),
+                                        setSelectedID(item.id),
+                                        setSelectedAmount(item.amount),
+                                        setSelectedCategory(item.category),
+                                        setSelectedSource(item.source),
+                                        setSelectedSavings(item.savings)
+                                      )}  
+                                      className="flex items-center justify-between bg-white/[0.024] border border-[rgba(167,139,250,0.07)] opacity-100 transition-all duration-300 shadow-none w-full pt-4 pb-5 px-5 mb-7 rounded-xl cursor-pointer"
+                                    >
+                                    <div className="flex items-center">
+                                      <FontAwesomeIcon
+                                        className={`p-2 text-sm me-3 rounded-lg border border-[#3b2d6a] bg-[#1c1640] ${(item.savings == "Main Wallet" || item.savings == "Secondary Wallet") ? "text-[#c084fc]" : (item.savings == "Maya Wallet" || item.savings == "Maya Savings") ? "bg-[rgba(52,211,153,0.1)] text-[rgb(110,231,183)] border border-[rgba(52,211,153,0.25)]" : item.savings === "BPI" ? "bg-[rgba(178,34,34,0.1)] text-[rgb(248,113,113)] border border-[rgba(178,34,34,0.25)]" : item.savings === "GoTyme" ? "bg-[rgba(0,212,198,0.1)] text-[#00D4C6] border border-[rgba(0,212,198,0.25)]" : "text-[#e2d9f3]"}`}
+                                        icon={
+                                          (item.savings == "Main Wallet" || item.savings == "Secondary Wallet") 
+                                            ? faWallet
+                                          : (item.savings == "Maya Wallet" || item.savings == "Maya Savings")
+                                            ? faM
+                                          : item.savings === "BPI"
+                                            ? faCreditCard
+                                          : item.savings === "GoTyme"
+                                            ? faCircleQuestion
+                                            : faWallet}
+                                      />
+                                      <div>
+                                        <p className="text-[#e2d9f3] syne-heading text-lg truncate w-70 lg:w-150 font-bold mt-1 mb-1">{item.source}</p>
+                                        <p className={`inline-block py-0.5 font-bold px-2 rounded-md ${(item.savings == "Main Wallet" || item.savings == "Secondary Wallet") ? "bg-[rgba(139,92,246,0.12)] text-[rgb(196,181,253)] border w-auto border-[rgba(139,92,246,0.22)]" : (item.savings == "Maya Wallet" || item.savings == "Maya Savings") ? "bg-[rgba(52,211,153,0.1)] text-[rgb(110,231,183)] border border-[rgba(52,211,153,0.25)]" : item.savings === "BPI" ? "bg-[rgba(178,34,34,0.1)] text-[rgb(248,113,113)] border border-[rgba(178,34,34,0.25)]" : item.savings === "GoTyme" ? "bg-[rgba(0,212,198,0.1)] text-[#00D4C6] border border-[rgba(0,212,198,0.25)]" : "text-[#e2d9f3]"} text-xs`}><span className={`text-sm ${(item.savings == "Main Wallet" || item.savings == "Secondary Wallet") ? "text-[#c084fc]" : (item.savings == "Maya Wallet" || item.savings == "Maya Savings") ? " text-[rgb(110,231,183)]" : item.savings === "BPI" ? "text-[rgb(248,113,113)]" : item.savings === "GoTyme" ? "text-[#00D4C6]" : "text-[#e2d9f3]"}`}>&bull;</span> {item.savings}</p>
+                                      </div>
+                                    </div>
+                                    
+                                    <div className="flex flex-col text-right">
+                                      <span className="text-red-400 font-bold text-lg mt-1.5">- ₱ {item.amount.toLocaleString()}</span>
+                                      <p className="text-[#9b8ab8] text-sm">{item.category}</p>
+                                    </div>
+                                  </div>
+                                ))}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 )}
                 
                 {isMobile && (
