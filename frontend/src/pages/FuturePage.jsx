@@ -337,7 +337,7 @@ function FuturePage() {
                           <div className="flex items-center gap-4">
                             <span className="text-red-400 font-bold text-md">- ₱ {item.amount.toLocaleString()}</span>
                             <button 
-                              onClick={() => (handleDeleteIncome(item.id))}>
+                              onClick={() => (handleDeleteExpense(item.id))}>
                               <FontAwesomeIcon icon={faTrash} className="text-red-400 transition-colors text-xs px-1.5 py-1.5 rounded-full mt-1" />
                             </button>
                           </div>
