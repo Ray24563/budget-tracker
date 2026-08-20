@@ -13,13 +13,13 @@ function ExpenseInfoModal ({selectedDate, selectedSource, selectedSavings, selec
           </div>
 
           <FontAwesomeIcon
-            className={`text-2xl ${(selectedSavings == "Main Wallet" || selectedSavings == "Secondary Wallet") ? "text-[#c084fc]" : (selectedSavings == "Maya Wallet" || selectedSavings == "Maya Savings") ? "text-[#00D3B8]" : selectedSavings === "BPI" ? "text-[#B11116]" : selectedSavings === "GoTyme" ? "text-[#00D4C6]" : "text-[#e2d9f3]"}`}
+            className={`text-2xl ${(selectedSavings == "Main Wallet" || selectedSavings == "Secondary Wallet") ? "text-[#c084fc]" : (selectedSavings == "Maya Wallet" || selectedSavings == "Maya Savings") ? "text-[#00D3B8]" : selectedSavings === "BPI" ? "text-[#B11116]" : selectedSavings === "BDO" ? "text-[rgb(96,165,250)]" : selectedSavings === "GoTyme" ? "text-[#00D4C6]" : "text-[#e2d9f3]"}`}
             icon={
               (selectedSavings == "Main Wallet" || selectedSavings == "Secondary Wallet") 
                 ? faWallet
               : (selectedSavings == "Maya Wallet" || selectedSavings == "Maya Savings")
                 ? faM
-              : selectedSavings === "BPI"
+              : (selectedSavings === "BPI" || selectedSavings === "BDO")
                 ? faCreditCard
               : selectedSavings === "GoTyme"
                 ? faCircleQuestion

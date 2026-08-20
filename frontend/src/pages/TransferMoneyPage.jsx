@@ -40,6 +40,7 @@ function TransferMoneyPage () {
   }
 
   useEffect(() => {
+    document.title = "Money Transfer History"
     fetchTransferMoney();
   }, []);
 
@@ -133,27 +134,27 @@ function TransferMoneyPage () {
                                 >
                                 <div className="flex items-center">
                                   <FontAwesomeIcon
-                                    className={`p-2 text-sm me-3 rounded-lg border border-[#3b2d6a] bg-[#1c1640] ${(item.savings == "Main Wallet" || item.savings == "Secondary Wallet") ? "text-[#c084fc]" : (item.savings == "Maya Wallet" || item.savings == "Maya Savings") ? "bg-[rgba(52,211,153,0.1)] text-[rgb(110,231,183)] border border-[rgba(52,211,153,0.25)]" : item.savings === "BPI" ? "bg-[rgba(178,34,34,0.1)] text-[rgb(248,113,113)] border border-[rgba(178,34,34,0.25)]" : item.savings === "GoTyme" ? "bg-[rgba(0,212,198,0.1)] text-[#00D4C6] border border-[rgba(0,212,198,0.25)]" : "text-[#e2d9f3]"}`}
+                                    className={`p-2 text-sm me-3 rounded-lg border border-[#3b2d6a] bg-[#1c1640] ${(item.from_savings == "Main Wallet" || item.from_savings == "Secondary Wallet") ? "text-[#c084fc]" : (item.from_savings == "Maya Wallet" || item.from_savings == "Maya Savings") ? "bg-[rgba(52,211,153,0.1)] text-[rgb(110,231,183)] border border-[rgba(52,211,153,0.25)]" : item.from_savings === "BPI" ? "bg-[rgba(178,34,34,0.1)] text-[rgb(248,113,113)] border border-[rgba(178,34,34,0.25)]" : item.from_savings === "BDO" ? "bg-[rgba(10,61,143,0.1)] text-[rgb(96,165,250)] border border-[rgba(10,61,143,0.25)]" : item.from_savings === "GoTyme" ? "bg-[rgba(0,212,198,0.1)] text-[#00D4C6] border border-[rgba(0,212,198,0.25)]" : "text-[#e2d9f3]"}`}
                                     icon={
-                                      (item.savings == "Main Wallet" || item.savings == "Secondary Wallet") 
+                                      (item.from_savings == "Main Wallet" || item.from_savings == "Secondary Wallet") 
                                         ? faWallet
-                                      : (item.savings == "Maya Wallet" || item.savings == "Maya Savings")
+                                      : (item.from_savings == "Maya Wallet" || item.from_savings == "Maya Savings")
                                         ? faM
-                                      : item.savings === "BPI"
+                                      : (item.from_savings === "BPI" || item.from_savings === "BDO")
                                         ? faCreditCard
-                                      : item.savings === "GoTyme"
+                                      : item.from_savings === "GoTyme"
                                         ? faCircleQuestion
                                         : faWallet}
                                   />
                                   <div>
                                     <p className="text-[#e2d9f3] syne-heading text-lg truncate w-70 lg:w-150 font-bold mt-1 mb-1">{item.description}</p>
-                                    <p className={`inline-block py-0.5 font-bold px-2 rounded-md ${(item.from_savings == "Main Wallet" || item.from_savings == "Secondary Wallet") ? "bg-[rgba(139,92,246,0.12)] text-[rgb(196,181,253)] border w-auto border-[rgba(139,92,246,0.22)]" : (item.from_savings == "Maya Wallet" || item.from_savings == "Maya Savings") ? "bg-[rgba(52,211,153,0.1)] text-[rgb(110,231,183)] border border-[rgba(52,211,153,0.25)]" : item.from_savings === "BPI" ? "bg-[rgba(178,34,34,0.1)] text-[rgb(248,113,113)] border border-[rgba(178,34,34,0.25)]" : item.from_savings === "GoTyme" ? "bg-[rgba(0,212,198,0.1)] text-[#00D4C6] border border-[rgba(0,212,198,0.25)]" : "text-[#e2d9f3]"} text-xs`}><span className={`text-sm ${(item.from_savings == "Main Wallet" || item.from_savings == "Secondary Wallet") ? "text-[#c084fc]" : (item.from_savings == "Maya Wallet" || item.from_savings == "Maya Savings") ? " text-[rgb(110,231,183)]" : item.from_savings === "BPI" ? "text-[rgb(248,113,113)]" : item.from_savings === "GoTyme" ? "text-[#00D4C6]" : "text-[#e2d9f3]"}`}>&bull;</span> {item.from_savings}</p>
+                                    <p className={`inline-block pt-0.5 pb-1 font-bold px-2 rounded-md ${(item.from_savings == "Main Wallet" || item.from_savings == "Secondary Wallet") ? "bg-[rgba(139,92,246,0.12)] text-[rgb(196,181,253)] border w-auto border-[rgba(139,92,246,0.22)]" : (item.from_savings == "Maya Wallet" || item.from_savings == "Maya Savings") ? "bg-[rgba(52,211,153,0.1)] text-[rgb(110,231,183)] border border-[rgba(52,211,153,0.25)]" : item.from_savings === "BPI" ? "bg-[rgba(178,34,34,0.1)] text-[rgb(248,113,113)] border border-[rgba(178,34,34,0.25)]" : item.from_savings === "BDO" ? "bg-[rgba(10,61,143,0.1)] text-[rgb(96,165,250)] border border-[rgba(10,61,143,0.25)]" : item.from_savings === "GoTyme" ? "bg-[rgba(0,212,198,0.1)] text-[#00D4C6] border border-[rgba(0,212,198,0.25)]" : "text-[#e2d9f3]"} text-xs`}><span className={`text-sm ${(item.from_savings == "Main Wallet" || item.from_savings == "Secondary Wallet") ? "text-[#c084fc]" : (item.from_savings == "Maya Wallet" || item.from_savings == "Maya Savings") ? " text-[rgb(110,231,183)]" : item.from_savings === "BPI" ? "text-[rgb(248,113,113)]" : item.from_savings === "BDO" ? "text-[rgb(96,165,250)]" : item.from_savings === "GoTyme" ? "text-[#00D4C6]" : "text-[#e2d9f3]"}`}>&bull;</span> {item.from_savings}</p>
                                   </div>
                                 </div>
                                 
                                 <div className="text-right">
                                   <p className="text-green-400 font-bold text-lg mb-1 mt-1.5">+ ₱ {item.amount.toLocaleString()}</p>
-                                  <p className={`inline-block py-0.5 font-bold px-2 rounded-md ${(item.to_savings == "Main Wallet" || item.to_savings == "Secondary Wallet") ? "bg-[rgba(139,92,246,0.12)] text-[rgb(196,181,253)] border w-auto border-[rgba(139,92,246,0.22)]" : (item.to_savings == "Maya Wallet" || item.to_savings == "Maya Savings") ? "bg-[rgba(52,211,153,0.1)] text-[rgb(110,231,183)] border border-[rgba(52,211,153,0.25)]" : item.to_savings === "BPI" ? "bg-[rgba(178,34,34,0.1)] text-[rgb(248,113,113)] border border-[rgba(178,34,34,0.25)]" : item.to_savings === "GoTyme" ? "bg-[rgba(0,212,198,0.1)] text-[#00D4C6] border border-[rgba(0,212,198,0.25)]" : "text-[#e2d9f3]"} text-xs`}><span className={`text-sm ${(item.to_savings == "Main Wallet" || item.to_savings == "Secondary Wallet") ? "text-[#c084fc]" : (item.to_savings == "Maya Wallet" || item.to_savings == "Maya Savings") ? " text-[rgb(110,231,183)]" : item.to_savings === "BPI" ? "text-[rgb(248,113,113)]" : item.to_savings === "GoTyme" ? "text-[#00D4C6]" : "text-[#e2d9f3]"}`}>&bull;</span> {item.to_savings}</p>
+                                  <p className={`inline-block pt-0.5 pb-1 font-bold px-2 rounded-md ${(item.to_savings == "Main Wallet" || item.to_savings == "Secondary Wallet") ? "bg-[rgba(139,92,246,0.12)] text-[rgb(196,181,253)] border w-auto border-[rgba(139,92,246,0.22)]" : (item.to_savings == "Maya Wallet" || item.to_savings == "Maya Savings") ? "bg-[rgba(52,211,153,0.1)] text-[rgb(110,231,183)] border border-[rgba(52,211,153,0.25)]" : item.to_savings === "BPI" ? "bg-[rgba(178,34,34,0.1)] text-[rgb(248,113,113)] border border-[rgba(178,34,34,0.25)]" : item.to_savings === "BDO" ? "bg-[rgba(10,61,143,0.1)] text-[rgb(96,165,250)] border border-[rgba(10,61,143,0.25)]" : item.to_savings === "GoTyme" ? "bg-[rgba(0,212,198,0.1)] text-[#00D4C6] border border-[rgba(0,212,198,0.25)]" : "text-[#e2d9f3]"} text-xs`}><span className={`text-sm ${(item.to_savings == "Main Wallet" || item.to_savings == "Secondary Wallet") ? "text-[#c084fc]" : (item.to_savings == "Maya Wallet" || item.to_savings == "Maya Savings") ? " text-[rgb(110,231,183)]" : item.to_savings === "BPI" ? "text-[rgb(248,113,113)]" : item.to_savings === "BDO" ? "text-[rgb(96,165,250)]" : item.to_savings === "GoTyme" ? "text-[#00D4C6]" : "text-[#e2d9f3]"}`}>&bull;</span> {item.to_savings}</p>
                                 </div>
                               </div>
                             ))}
@@ -189,7 +190,7 @@ function TransferMoneyPage () {
                   {items.map((item) => (
                     <div key={item.id} className="flex flex-col justify-between px-2">
                       <div>
-                        <p className="text-[#e2d9f3] text-sm font-bold mb-1 syne-heading">{item.description}</p>
+                        <p className="text-[#e2d9f3] font-bold mb-1 syne-heading">{item.description}</p>
                       </div>
 
                       <div className="flex justify-between">

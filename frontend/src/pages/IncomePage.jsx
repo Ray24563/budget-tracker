@@ -50,6 +50,7 @@ function IncomePage() {
   };
 
   useEffect(() => {
+    document.title = "Income"
     fetchIncome();
   }, []);
 
@@ -189,7 +190,7 @@ function IncomePage() {
                                     >
                                     <div className="flex items-center">
                                       <FontAwesomeIcon
-                                        className={`p-2 text-sm me-3 rounded-lg border border-[#3b2d6a] bg-[#1c1640] ${(item.savings == "Main Wallet" || item.savings == "Secondary Wallet") ? "text-[#c084fc]" : (item.savings == "Maya Wallet" || item.savings == "Maya Savings") ? "bg-[rgba(52,211,153,0.1)] text-[rgb(110,231,183)] border border-[rgba(52,211,153,0.25)]" : item.savings === "BPI" ? "bg-[rgba(178,34,34,0.1)] text-[rgb(248,113,113)] border border-[rgba(178,34,34,0.25)]" : item.savings === "GoTyme" ? "bg-[rgba(0,212,198,0.1)] text-[#00D4C6] border border-[rgba(0,212,198,0.25)]" : "text-[#e2d9f3]"}`}
+                                        className={`p-2 text-sm me-3 rounded-lg border border-[#3b2d6a] bg-[#1c1640] ${(item.savings == "Main Wallet" || item.savings == "Secondary Wallet") ? "text-[#c084fc]" : (item.savings == "Maya Wallet" || item.savings == "Maya Savings") ? "bg-[rgba(52,211,153,0.1)] text-[rgb(110,231,183)] border border-[rgba(52,211,153,0.25)]" : item.savings === "BPI" ? "bg-[rgba(178,34,34,0.1)] text-[rgb(248,113,113)] border border-[rgba(178,34,34,0.25)]" : item.savings === "BDO" ? "bg-[rgba(10,61,143,0.1)] text-[rgb(96,165,250)] border border-[rgba(10,61,143,0.25)]" : item.savings === "GoTyme" ? "bg-[rgba(0,212,198,0.1)] text-[#00D4C6] border border-[rgba(0,212,198,0.25)]" : "text-[#e2d9f3]"}`}
                                         icon={
                                           (item.savings == "Main Wallet" || item.savings == "Secondary Wallet") 
                                             ? faWallet
@@ -203,7 +204,7 @@ function IncomePage() {
                                       />
                                       <div>
                                         <p className="text-[#e2d9f3] syne-heading text-lg truncate w-70 lg:w-150 font-bold mt-1 mb-1">{item.source}</p>
-                                        <p className={`inline-block py-0.5 font-bold px-2 rounded-md ${(item.savings == "Main Wallet" || item.savings == "Secondary Wallet") ? "bg-[rgba(139,92,246,0.12)] text-[rgb(196,181,253)] border w-auto border-[rgba(139,92,246,0.22)]" : (item.savings == "Maya Wallet" || item.savings == "Maya Savings") ? "bg-[rgba(52,211,153,0.1)] text-[rgb(110,231,183)] border border-[rgba(52,211,153,0.25)]" : item.savings === "BPI" ? "bg-[rgba(178,34,34,0.1)] text-[rgb(248,113,113)] border border-[rgba(178,34,34,0.25)]" : item.savings === "GoTyme" ? "bg-[rgba(0,212,198,0.1)] text-[#00D4C6] border border-[rgba(0,212,198,0.25)]" : "text-[#e2d9f3]"} text-xs`}><span className={`text-sm ${(item.savings == "Main Wallet" || item.savings == "Secondary Wallet") ? "text-[#c084fc]" : (item.savings == "Maya Wallet" || item.savings == "Maya Savings") ? " text-[rgb(110,231,183)]" : item.savings === "BPI" ? "text-[rgb(248,113,113)]" : item.savings === "GoTyme" ? "text-[#00D4C6]" : "text-[#e2d9f3]"}`}>&bull;</span> {item.savings}</p>
+                                        <p className={`inline-block pt-0.5 pb-1 font-bold px-2 rounded-md ${(item.savings == "Main Wallet" || item.savings == "Secondary Wallet") ? "bg-[rgba(139,92,246,0.12)] text-[rgb(196,181,253)] border w-auto border-[rgba(139,92,246,0.22)]" : (item.savings == "Maya Wallet" || item.savings == "Maya Savings") ? "bg-[rgba(52,211,153,0.1)] text-[rgb(110,231,183)] border border-[rgba(52,211,153,0.25)]" : item.savings === "BPI" ? "bg-[rgba(178,34,34,0.1)] text-[rgb(248,113,113)] border border-[rgba(178,34,34,0.25)]" : item.savings === "BDO" ? "bg-[rgba(10,61,143,0.1)] text-[rgb(96,165,250)] border border-[rgba(10,61,143,0.25)]" : item.savings === "GoTyme" ? "bg-[rgba(0,212,198,0.1)] text-[#00D4C6] border border-[rgba(0,212,198,0.25)]" : "text-[#e2d9f3]"} text-xs`}><span className={`text-sm ${(item.savings == "Main Wallet" || item.savings == "Secondary Wallet") ? "text-[#c084fc]" : (item.savings == "Maya Wallet" || item.savings == "Maya Savings") ? " text-[rgb(110,231,183)]" : item.savings === "BPI" ? "text-[rgb(248,113,113)]" : item.savings === "BDO" ? "text-[rgb(96,165,250)]" : item.savings === "GoTyme" ? "text-[#00D4C6]" : "text-[#e2d9f3]"}`}>&bull;</span> {item.savings}</p>
                                       </div>
                                     </div>
                                     
@@ -258,7 +259,7 @@ function IncomePage() {
                             >
                               <div>
                                 <p className="text-[#9b8ab8] text-xs">{item.savings}</p>
-                                <p className="text-[#e2d9f3] text-md truncate w-45 font-medium mt-1">{item.source}</p>
+                                <p className="text-[#e2d9f3] syne-heading text-md truncate w-45 font-bold mt-1">{item.source}</p>
                               </div>
                               <div className="flex items-center gap-4">
                                 <span className="text-green-400 font-bold text-md mt-3">+ ₱ {item.amount.toLocaleString()}</span>
@@ -385,13 +386,15 @@ function IncomePage() {
     }
 
     {infoModal &&
-      <div className="fixed inset-0 z-50 backdrop-blur-md bg-black/20 flex flex-col items-center justify-center animate-backdropIn">
+      <div 
+        className="fixed inset-0 z-50 backdrop-blur-md bg-black/20 flex flex-col items-center justify-center animate-backdropIn"
+        onClick={() => setInfoModal(false)}
+      >
         <IncomeInfoModal
           selectedAmount={selectedAmount}
           selectedDate={selectedDate}
           selectedSource={selectedSource}
           selectedSavings={selectedSavings}
-          setConfirmationModal={setConfirmationModal}
           selectedID={selectedID}
           setInfoModal={setInfoModal}
           setConfirmationModal={setConfirmationModal}

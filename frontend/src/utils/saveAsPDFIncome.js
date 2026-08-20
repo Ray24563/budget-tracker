@@ -73,6 +73,7 @@ export const saveAsPDFIncome = (incomeList, selectedMonth) => {
     "Maya Wallet",
     "Maya Savings",
     "BPI",
+    "BDO",
     "GoTyme"
   ];
 

@@ -19,6 +19,7 @@ const DEFAULT_FUTURE_SUMMARY = {
     { savings: "Maya Wallet",      future_income: 0, future_expenses: 0, projected_balance: 0 },
     { savings: "Maya Savings",     future_income: 0, future_expenses: 0, projected_balance: 0 },
     { savings: "BPI",              future_income: 0, future_expenses: 0, projected_balance: 0 },
+     { savings: "BDO",              future_income: 0, future_expenses: 0, projected_balance: 0 },
     { savings: "GoTyme",           future_income: 0, future_expenses: 0, projected_balance: 0 },
   ],
   overall_future_income: 0,
@@ -110,7 +111,7 @@ function FuturePage() {
             <h2 className='text-[#6b5f8a] syne-heading mt-0.5 sm:mt-2'>Savings</h2>
             <h1 className='text-[#c4b8e0] font-bold text-lg sm:text-xl'>₱ {summary.overall_projected_balance.toLocaleString()}</h1>
           </div>
-          <section className='grid grid-cols-1 lg:grid-cols-4 gap-y-5 lg:gap-y-0 gap-x-0 lg:gap-x-3 mb-20'>
+          <section className='grid grid-cols-1 lg:grid-cols-4 gap-y-5 gap-x-0 lg:gap-x-3 mb-20'>
 
             <div className='savings-bg-color border-l-5 border-l-[#c084fc] rounded-lg px-7 sm:px-10 py-5 text-[#6b5f8a]'>
               <h1 className='#a78bca mb-5'><FontAwesomeIcon icon={faWallet} className='me-3 text-[#c084fc]'/>Wallet</h1>
@@ -150,7 +151,13 @@ function FuturePage() {
               <h1 className='text-[#c4b8e0] font-bold text-xl'>₱ {getSavings("BPI")?.projected_balance.toLocaleString() ?? 0}</h1>
             </div>
 
-            <div className='savings-bg-color border-l-5 border-l-[#00D4C6] rounded-lg px-7 sm:px-10 pt-5 pb-16 sm:py-5 sm:pb-0 text-[#6b5f8a]'>
+            <div className='savings-bg-color border-l-5 border-l-[#0A3D8F] rounded-lg px-7 sm:px-10 pt-5 pb-16 sm:py-5 sm:pb-0 text-[#6b5f8a]'>
+              <h1 className='#a78bca mb-3'><FontAwesomeIcon icon={faCreditCard} className='me-3 text-[#0A3D8F]'/>BDO</h1>
+
+              <h1 className='text-[#c4b8e0] font-bold text-xl'>₱ {getSavings("BDO")?.projected_balance.toLocaleString() ?? 0}</h1>
+            </div>
+
+            <div className='savings-bg-color border-l-5 border-l-[#00D4C6] rounded-lg px-7 sm:px-10 pt-5 pb-16 sm:py-5 sm:pb-0 text-[#6b5f8a] h-auto sm:h-40'>
               <h1 className='#a78bca mb-3'><FontAwesomeIcon icon={faCircleQuestion} className='me-3 text-[#00D4C6]'/>GoTyme</h1>
 
               <h1 className='text-[#c4b8e0] font-bold text-xl'>₱ {getSavings("GoTyme")?.projected_balance.toLocaleString() ?? 0}</h1>

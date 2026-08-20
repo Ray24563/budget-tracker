@@ -139,7 +139,7 @@ function LoanPage() {
                     <div key={item.id} className="flex justify-between items-center px-2">
                       <div>
                         <p className="text-[#9b8ab8] text-xs">{item.savings}</p>
-                        <p className="text-[#e2d9f3] text-md font-medium mt-1">{item.source}</p>
+                        <p className="text-[#e2d9f3] text-md font-bold syne-heading mt-1">{item.source}</p>
                       </div>
                       <div className="flex items-center gap-4">
                         <span className="text-red-400 font-bold text-md">- ₱ {item.amount.toLocaleString()}</span>

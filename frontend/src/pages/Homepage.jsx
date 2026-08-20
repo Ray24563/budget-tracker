@@ -25,6 +25,7 @@ const DEFAULT_SUMMARY = {
     { savings: "Maya Wallet", total_income: 0, total_expenses: 0, balance: 0 },
     { savings: "Maya Savings", total_income: 0, total_expenses: 0, balance: 0 },
     { savings: "BPI", total_income: 0, total_expenses: 0, balance: 0 },
+    { savings: "BDO", total_income: 0, total_expenses: 0, balance: 0 },
     { savings: "GoTyme", total_income: 0, total_expenses: 0, balance: 0 },
   ],
   overall_total_income: 0,
@@ -76,7 +77,8 @@ function Homepage ({handleLogout}){
   const option3 = getSavings("Maya Wallet");
   const option4 = getSavings("Maya Savings");
   const option5 = getSavings("BPI");
-  const option6 = getSavings("GoTyme");
+  const option6 = getSavings("BDO");
+  const option7 = getSavings("GoTyme");
 
   const navigate = useNavigate();
 
@@ -214,7 +216,7 @@ function Homepage ({handleLogout}){
           <h2 className='text-[#6b5f8a] syne-heading mt-0.5 sm:mt-2'>Savings</h2>
           <h1 className='text-[#c4b8e0] font-bold text-lg sm:text-xl'>₱ {summary.overall_balance.toLocaleString()}</h1>
         </div>
-        <section className='grid grid-cols-1 lg:grid-cols-4 gap-y-5 lg:gap-y-0 gap-x-0 lg:gap-x-3 mb-20'>
+        <section className='grid grid-cols-1 lg:grid-cols-4 gap-y-5 lg:gap-y-5 gap-x-0 lg:gap-x-3 mb-20'>
 
           <div className='savings-bg-color border-l-5 border-l-[#c084fc] rounded-lg px-7 sm:px-10 py-5 text-[#6b5f8a]'>
             <h1 className='#a78bca mb-5'><FontAwesomeIcon icon={faWallet} className='me-3 text-[#c084fc]'/>Wallet</h1>
@@ -254,10 +256,16 @@ function Homepage ({handleLogout}){
             <h1 className='text-[#c4b8e0] font-bold text-xl'>₱ {option5?.balance.toLocaleString() ?? 0}</h1>
           </div>
 
-          <div className='savings-bg-color border-l-5 border-l-[#00D4C6] rounded-lg px-7 sm:px-10 pt-5 pb-16 sm:py-5 sm:pb-0 text-[#6b5f8a]'>
-            <h1 className='#a78bca mb-3'><FontAwesomeIcon icon={faCircleQuestion} className='me-3 text-[#00D4C6]'/>GoTyme</h1>
+          <div className='savings-bg-color border-l-5 border-l-[#0A3D8F] rounded-lg px-7 sm:px-10 pt-5 pb-16 sm:py-5 sm:pb-0 text-[#6b5f8a]'>
+            <h1 className='#a78bca mb-3'><FontAwesomeIcon icon={faCreditCard} className='me-3 text-[#0A3D8F]'/>BDO</h1>
 
             <h1 className='text-[#c4b8e0] font-bold text-xl'>₱ {option6?.balance.toLocaleString() ?? 0}</h1>
+          </div>
+
+          <div className='savings-bg-color border-l-5 border-l-[#00D4C6] rounded-lg px-7 sm:px-10 pt-5 pb-16 sm:py-5 sm:pb-0 text-[#6b5f8a] h-auto sm:h-39'>
+            <h1 className='#a78bca mb-3'><FontAwesomeIcon icon={faCircleQuestion} className='me-3 text-[#00D4C6]'/>GoTyme</h1>
+
+            <h1 className='text-[#c4b8e0] font-bold text-xl'>₱ {option7?.balance.toLocaleString() ?? 0}</h1>
           </div>
 
         </section>
