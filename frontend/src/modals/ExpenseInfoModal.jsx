@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { DateFormatter } from "../utils/DateFormatter"
-import { faWallet, faM, faCreditCard, faCircleQuestion } from "@fortawesome/free-solid-svg-icons"
+import { faWallet, faM, faCreditCard, faCircleQuestion, faBuilding, faBuildingColumns } from "@fortawesome/free-solid-svg-icons"
 import Logo from '../assets/images/logo.png'
 
 function ExpenseInfoModal ({selectedDate, selectedSource, selectedSavings, selectedAmount, selectedID, setConfirmationModal, setInfoModal, selectedCategory}) {
@@ -13,7 +13,7 @@ function ExpenseInfoModal ({selectedDate, selectedSource, selectedSavings, selec
           </div>
 
           <FontAwesomeIcon
-            className={`text-2xl ${(selectedSavings == "Main Wallet" || selectedSavings == "Secondary Wallet") ? "text-[#c084fc]" : (selectedSavings == "Maya Wallet" || selectedSavings == "Maya Savings") ? "text-[#00D3B8]" : selectedSavings === "BPI" ? "text-[#B11116]" : selectedSavings === "BDO" ? "text-[rgb(96,165,250)]" : selectedSavings === "GoTyme" ? "text-[#00D4C6]" : "text-[#e2d9f3]"}`}
+            className={`text-2xl ${(selectedSavings == "Main Wallet" || selectedSavings == "Secondary Wallet") ? "text-[#c084fc]" : (selectedSavings == "Maya Wallet" || selectedSavings == "Maya Savings") ? "text-[#00D3B8]" : selectedSavings === "BPI" ? "text-[#B11116]" : selectedSavings === "BDO" ? "text-[rgb(96,165,250)]" : selectedSavings === "MariBank" ? "text-[rgb(253,186,116)]" : selectedSavings === "GoTyme" ? "text-[#00D4C6]" : "text-[#e2d9f3]"}`}
             icon={
               (selectedSavings == "Main Wallet" || selectedSavings == "Secondary Wallet") 
                 ? faWallet
@@ -21,6 +21,8 @@ function ExpenseInfoModal ({selectedDate, selectedSource, selectedSavings, selec
                 ? faM
               : (selectedSavings === "BPI" || selectedSavings === "BDO")
                 ? faCreditCard
+              : selectedSavings === "MariBank"
+                ? faBuildingColumns
               : selectedSavings === "GoTyme"
                 ? faCircleQuestion
                 : faWallet}
@@ -32,8 +34,8 @@ function ExpenseInfoModal ({selectedDate, selectedSource, selectedSavings, selec
         <p className="syne-heading mb-3 text-xs text-[#e2d9f3]/90">{selectedCategory}</p>
 
         <div className="flex justify-between items-center mb-3">
-          <p className="text-xs font-bold text-[#c084fc]">{selectedSavings}</p>
-          <p className="text-xs text-[#c4b8e0]">{DateFormatter(selectedDate)}</p>
+          <p className={`inline-block pt-0.5 pb-1 font-bold px-2 rounded-md ${(selectedSavings == "Main Wallet" || selectedSavings == "Secondary Wallet") ? "bg-[rgba(139,92,246,0.12)] text-[rgb(196,181,253)] border w-auto border-[rgba(139,92,246,0.22)]" : (selectedSavings == "Maya Wallet" || selectedSavings == "Maya Savings") ? "bg-[rgba(52,211,153,0.1)] text-[rgb(110,231,183)] border border-[rgba(52,211,153,0.25)]" : selectedSavings === "BPI" ? "bg-[rgba(178,34,34,0.1)] text-[rgb(248,113,113)] border border-[rgba(178,34,34,0.25)]" : selectedSavings === "BDO" ? "bg-[rgba(10,61,143,0.1)] text-[rgb(96,165,250)] border border-[rgba(10,61,143,0.25)]" : selectedSavings === "MariBank" ? "bg-[rgba(234,88,12,0.1)] text-[rgb(253,186,116)] border border-[rgba(234,88,12,0.25)]" : selectedSavings === "GoTyme" ? "bg-[rgba(0,212,198,0.1)] text-[#00D4C6] border border-[rgba(0,212,198,0.25)]" : "text-[#e2d9f3]"} text-xs`}><span className={`text-sm ${(selectedSavings == "Main Wallet" || selectedSavings == "Secondary Wallet") ? "text-[#c084fc]" : (selectedSavings == "Maya Wallet" || selectedSavings == "Maya Savings") ? " text-[rgb(110,231,183)]" : selectedSavings === "BPI" ? "text-[rgb(248,113,113)]" : selectedSavings === "BDO" ? "text-[rgb(96,165,250)]" : selectedSavings === "MariBank" ? "text-[rgb(253,186,116)]" : selectedSavings === "GoTyme" ? "text-[#00D4C6]" : "text-[#e2d9f3]"}`}>&bull;</span> {selectedSavings}</p>
+          <p className="text-xs font-bold text-[#c4b8e0]">{DateFormatter(selectedDate)}</p>
         </div>
 
         <div className="flex gap-x-3 mb-4">

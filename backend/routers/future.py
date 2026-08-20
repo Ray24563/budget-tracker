@@ -20,6 +20,7 @@ SAVINGS_OPTIONS = [
     "Maya Savings",
     "BPI",
     "BDO",
+    "MariBank",
     "GoTyme"
 ]
 

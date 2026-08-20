@@ -4,7 +4,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { getAllFutureIncome, getAllFutureExpenses, getFutureSummary, deleteFutureIncome, deleteFutureExpense } from "../api/future";
 import { SAVINGS_OPTIONS, EXPENSE_CATEGORIES } from "../constants/savings";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChartLine, faWallet, faM, faCreditCard, faCircleQuestion, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faChartLine, faWallet, faM, faCreditCard, faCircleQuestion, faPlus, faTrash, faBuildingColumns } from "@fortawesome/free-solid-svg-icons";
 import FadeIn from "../components/FadeIn";
 import AddFutureIncome from "../modals/AddFutureIncome";
 import AddFutureExpense from "../modals/AddFutureExpense";
@@ -19,7 +19,8 @@ const DEFAULT_FUTURE_SUMMARY = {
     { savings: "Maya Wallet",      future_income: 0, future_expenses: 0, projected_balance: 0 },
     { savings: "Maya Savings",     future_income: 0, future_expenses: 0, projected_balance: 0 },
     { savings: "BPI",              future_income: 0, future_expenses: 0, projected_balance: 0 },
-     { savings: "BDO",              future_income: 0, future_expenses: 0, projected_balance: 0 },
+    { savings: "BDO",              future_income: 0, future_expenses: 0, projected_balance: 0 },
+    { savings: "MariBank",         future_income: 0, future_expenses: 0, projected_balance: 0 },
     { savings: "GoTyme",           future_income: 0, future_expenses: 0, projected_balance: 0 },
   ],
   overall_future_income: 0,
@@ -155,6 +156,12 @@ function FuturePage() {
               <h1 className='#a78bca mb-3'><FontAwesomeIcon icon={faCreditCard} className='me-3 text-[#0A3D8F]'/>BDO</h1>
 
               <h1 className='text-[#c4b8e0] font-bold text-xl'>₱ {getSavings("BDO")?.projected_balance.toLocaleString() ?? 0}</h1>
+            </div>
+
+             <div className='savings-bg-color border-l-5 border-l-[#EA580C] rounded-lg px-7 sm:px-10 pt-5 pb-16 sm:py-5 sm:pb-0 text-[#6b5f8a] h-auto sm:h-40'>
+              <h1 className='#a78bca mb-3'><FontAwesomeIcon icon={faBuildingColumns} className='me-3 text-[#EA580C]'/>MariBank</h1>
+
+              <h1 className='text-[#c4b8e0] font-bold text-xl'>₱ {getSavings("MariBank")?.projected_balance.toLocaleString() ?? 0}</h1>
             </div>
 
             <div className='savings-bg-color border-l-5 border-l-[#00D4C6] rounded-lg px-7 sm:px-10 pt-5 pb-16 sm:py-5 sm:pb-0 text-[#6b5f8a] h-auto sm:h-40'>

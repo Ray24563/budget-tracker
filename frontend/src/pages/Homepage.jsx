@@ -1,6 +1,6 @@
 import Logo from '../assets/images/logo.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faCreditCard, faRightFromBracket, faArrowRightArrowLeft, faClipboardList, faChartLine, faArrowTrendUp, faArrowTrendDown, faWallet, faM, faCircleQuestion, faListCheck, faListOl, faArrowRotateLeft} from '@fortawesome/free-solid-svg-icons'
+import {faCreditCard, faRightFromBracket, faArrowRightArrowLeft, faClipboardList, faChartLine, faArrowTrendUp, faArrowTrendDown, faWallet, faM, faCircleQuestion, faListCheck, faListOl, faArrowRotateLeft, faBuildingColumns} from '@fortawesome/free-solid-svg-icons'
 import FadeIn from '../components/FadeIn'
 import DayTime from '../components/DayTime.jsx'
 import { useState, useEffect, useCallback } from 'react'
@@ -26,6 +26,7 @@ const DEFAULT_SUMMARY = {
     { savings: "Maya Savings", total_income: 0, total_expenses: 0, balance: 0 },
     { savings: "BPI", total_income: 0, total_expenses: 0, balance: 0 },
     { savings: "BDO", total_income: 0, total_expenses: 0, balance: 0 },
+    { savings: "MariBank", total_income: 0, total_expenses: 0, balance: 0 },
     { savings: "GoTyme", total_income: 0, total_expenses: 0, balance: 0 },
   ],
   overall_total_income: 0,
@@ -78,7 +79,8 @@ function Homepage ({handleLogout}){
   const option4 = getSavings("Maya Savings");
   const option5 = getSavings("BPI");
   const option6 = getSavings("BDO");
-  const option7 = getSavings("GoTyme");
+  const option7 = getSavings("MariBank");
+  const option8 = getSavings("GoTyme");
 
   const navigate = useNavigate();
 
@@ -262,10 +264,16 @@ function Homepage ({handleLogout}){
             <h1 className='text-[#c4b8e0] font-bold text-xl'>₱ {option6?.balance.toLocaleString() ?? 0}</h1>
           </div>
 
+           <div className='savings-bg-color border-l-5 border-l-[#EA580C] rounded-lg px-7 sm:px-10 pt-5 pb-16 sm:py-5 sm:pb-0 text-[#6b5f8a]'>
+            <h1 className='#a78bca mb-3'><FontAwesomeIcon icon={faBuildingColumns} className='me-3 text-[#EA580C]'/>MariBank</h1>
+
+            <h1 className='text-[#c4b8e0] font-bold text-xl'>₱ {option7?.balance.toLocaleString() ?? 0}</h1>
+          </div>
+
           <div className='savings-bg-color border-l-5 border-l-[#00D4C6] rounded-lg px-7 sm:px-10 pt-5 pb-16 sm:py-5 sm:pb-0 text-[#6b5f8a] h-auto sm:h-39'>
             <h1 className='#a78bca mb-3'><FontAwesomeIcon icon={faCircleQuestion} className='me-3 text-[#00D4C6]'/>GoTyme</h1>
 
-            <h1 className='text-[#c4b8e0] font-bold text-xl'>₱ {option7?.balance.toLocaleString() ?? 0}</h1>
+            <h1 className='text-[#c4b8e0] font-bold text-xl'>₱ {option8?.balance.toLocaleString() ?? 0}</h1>
           </div>
 
         </section>

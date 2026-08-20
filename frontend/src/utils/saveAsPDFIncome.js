@@ -74,6 +74,7 @@ export const saveAsPDFIncome = (incomeList, selectedMonth) => {
     "Maya Savings",
     "BPI",
     "BDO",
+    "MariBank",
     "GoTyme"
   ];
 
