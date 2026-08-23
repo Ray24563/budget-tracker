@@ -161,3 +161,34 @@ def get_top_categories(year: int, month: int, db: Session = Depends(get_db)):
         }
         for category, amount in sorted_categories
     ]
+
+@router.get("/expenses/presets")
+def get_expense_presets(db: Session = Depends(get_db)):
+
+    # Get all expense records
+    expense_records = db.query(Expense).all()
+
+    # Count frequency of each combination
+    frequency = {}
+    for record in expense_records:
+        key = (record.source, record.category, record.savings, record.amount)
+        frequency[key] = frequency.get(key, 0) + 1
+
+    # Sort by most frequent and take top 5
+    sorted_presets = sorted(
+        frequency.items(),
+        key=lambda x: x[1],
+        reverse=True
+    )[:5]
+
+    # Format response
+    return [
+        {
+            "source": preset[0][0],
+            "category": preset[0][1],
+            "savings": preset[0][2],
+            "amount": preset[0][3],
+            "count": preset[1]
+        }
+        for preset in sorted_presets
+    ]

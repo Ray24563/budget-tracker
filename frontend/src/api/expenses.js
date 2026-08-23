@@ -57,3 +57,14 @@ export const getExpensesByCategory = async (category) => {
   if (!response.ok) throw new Error(response.status);
   return response.json();
 };
+
+// Expense Presets
+export const getExpensePresets = async () => {
+  const response = await fetch(`${API_URL}/expenses/presets`, {
+    headers: {
+      "Authorization": `Bearer ${sessionStorage.getItem("token")}`
+    }
+  });
+  if (!response.ok) throw new Error(response.status);
+  return response.json();
+};

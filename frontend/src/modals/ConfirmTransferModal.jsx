@@ -44,7 +44,7 @@ function ConfirmTransferModal ({handleSubmit, selectedDate, selectedDescription,
                 <td className="text-[#e2d9f3] py-3 px-10">{selectedFromSavings}</td>
                 <td className="text-[#e2d9f3] py-3 px-10">{selectedToSavings}</td>
                 <td className="text-green-400 font-bold py-3 px-10">
-                  + ₱ {selectedAmount}
+                  + ₱ {Number(selectedAmount).toLocaleString()}
                 </td>
               </tr>
           </tbody>
@@ -69,7 +69,7 @@ function ConfirmTransferModal ({handleSubmit, selectedDate, selectedDescription,
 
           <div className="flex justify-between mb-2">
             <p className="text-[#6b5f8a] mt-1 syne-heading text-sm">Amount</p>
-            <p className="text-green-400 font-bold">+ ₱ {selectedAmount}</p>
+            <p className="text-green-400 font-bold">+ ₱ {Number(selectedAmount).toLocaleString()}</p>
           </div>
 
           <div className={`flex justify-between ${error ? "mb-5" : "mb-10"}`}>

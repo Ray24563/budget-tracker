@@ -1,10 +1,11 @@
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import {useState} from 'react'
+import { useState, useEffect } from 'react'
 import { addExpense } from "../api/expenses";
 import { SAVINGS_OPTIONS, EXPENSE_CATEGORIES } from "../constants/savings";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowTrendDown } from "@fortawesome/free-solid-svg-icons";
+import { faArrowTrendDown, faXmark } from "@fortawesome/free-solid-svg-icons";
+import QuickAddExpense from "./QuickAddExpense";
 
 function AddExpense({setAddExpenseModal, onSuccess}) {
   const [date, setDate] = useState(new Date());
@@ -14,6 +15,8 @@ function AddExpense({setAddExpenseModal, onSuccess}) {
   const [amount, setAmount] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [quickAddModal, setQuickAddModal] = useState(false);
+  const [expensePreset, setExpensePreset] = useState(null);
 
   const handleSubmit = async () => {
   setError("");
@@ -49,17 +52,39 @@ function AddExpense({setAddExpenseModal, onSuccess}) {
   }
 };
 
-  const isFormEmpty = !amount || !source.trim() || !amount;
+const isFormEmpty = !amount || !source.trim() || !amount;
+
+useEffect(() => {
+  if (expensePreset) {
+    setCategory(expensePreset.category);
+    setSource(expensePreset.source);
+    setSavings(expensePreset.savings);
+    setAmount(expensePreset.amount.toString());
+  }
+}, [expensePreset]);
+
+const handleSelectExpensePreset = (expensePreset) => {
+    setExpensePreset(expensePreset);    // pass preset to AddIncome modal
+    setQuickAddModal(false);    // close QuickAdd modal
+    setAddExpenseModal(true);    // open AddIncome modal
+  };
+
 
   return (
     <>
       <div className='add-income-modal w-auto p-10 rounded-lg animate-modalIn'>
-         <h1 
-          className='syne-heading text-[#e2d9f3] font-bold text-3xl mb-5'
-          onClick={() => setAddExpenseModal(false)}
-          >
-            <FontAwesomeIcon icon={faArrowTrendDown} className="me-3"/> Add Expense
-          </h1>
+        <div className="flex justify-between items-center mb-7 sm:mb-5">
+          <div>
+            <h1 
+              className='syne-heading text-[#e2d9f3] font-bold text-2xl sm:text-3xl'><FontAwesomeIcon icon={faArrowTrendDown} className='me-2 sm:me-3'/> Add Expense</h1>
+          </div>
+
+          <FontAwesomeIcon 
+            icon={faXmark}
+            className="text-[#7c6e9c] hover:text-[#a78bca] transition-colors duration-500 text-lg sm:text-2xl cursor-pointer"
+            onClick={() => setAddExpenseModal(false)}
+          />
+        </div>
 
          <form>
           <div className='mb-5 flex flex-col sm:flex-row gap-x-0 gap-y-4 sm:gap-y-0 sm:gap-x-5'>
@@ -123,9 +148,9 @@ function AddExpense({setAddExpenseModal, onSuccess}) {
 
           {error && <p className="text-red-400 text-sm mt-3 syne-heading">{error}</p>}
 
-          <div className='flex justify-center gap-x-3'>
+          <div className='flex justify-center gap-x-3 mt-7'>
             <button 
-              className="px-3 py-2 income-button-background rounded-sm cursor-pointer syne-heading mt-7 disabled:pointer-events-none disabled:opacity-50"
+              className="px-3 py-2 income-button-background rounded-sm cursor-pointer syne-heading disabled:pointer-events-none disabled:opacity-50"
               onClick={handleSubmit}
               disabled={loading || isFormEmpty}
             >
@@ -133,14 +158,24 @@ function AddExpense({setAddExpenseModal, onSuccess}) {
             </button>
 
             <button 
-              className="px-4 py-2 text-[#7c6e9c] hover:text-[#a78bca] transition-colors duration-500 rounded-sm cursor-pointer syne-heading mt-7"
-              onClick={() => setAddExpenseModal(false)}
+              className="px-4 py-2 text-[#7c6e9c] hover:text-[#a78bca] transition-colors duration-500 rounded-sm cursor-pointer syne-heading"
+              type="button"
+              onClick={() => setQuickAddModal(true)}
             >
-                Close
+                Quick Add
             </button>
           </div>
          </form>
       </div>
+
+      {quickAddModal && (
+        <div className="fixed inset-0 z-50 backdrop-blur-md bg-black/20 flex items-center justify-center animate-backdropIn">
+          <QuickAddExpense
+            onClose={() => setQuickAddModal(false)}
+            onSelectExpensePreset={handleSelectExpensePreset}
+          />
+        </div>
+      )}
     </>
   )
 }

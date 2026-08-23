@@ -14,8 +14,6 @@ import IncomeVsExpenses from '../components/IncomeVsExpenses.jsx'
 import RecentIncome from '../components/RecentIncome.jsx'
 import RecentExpenses from '../components/RecentExpenses.jsx'
 import TransferMoney from '../modals/TransferMoney.jsx'
-import FuturePage from './FuturePage.jsx'
-import LoanPage from './LoanPage.jsx'
 import TopCategories from '../components/TopCategories.jsx'
 
 const DEFAULT_SUMMARY = {

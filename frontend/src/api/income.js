@@ -40,3 +40,14 @@ export const deleteIncome = async (id) => {
   if (!response.ok) throw new Error(response.status);
   return response.json();
 };
+
+// Income Presets
+export const getIncomePresets = async () => {
+  const response = await fetch(`${API_URL}/income/presets`, {
+    headers: {
+      "Authorization": `Bearer ${sessionStorage.getItem("token")}`
+    }
+  });
+  if (!response.ok) throw new Error(response.status);
+  return response.json();
+};

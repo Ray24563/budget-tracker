@@ -1,18 +1,21 @@
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import {useState} from 'react'
+import { useState, useEffect } from 'react'
 import { addIncome } from "../api/income";
 import { SAVINGS_OPTIONS } from "../constants/savings";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowTrendUp } from "@fortawesome/free-solid-svg-icons";
+import { faArrowTrendUp, faGaugeSimpleHigh, faXmark } from "@fortawesome/free-solid-svg-icons";
+import QuickAddIncome from "./QuickAddIncome";
 
-function AddIncome({ setAddIncomeModal, onSuccess }) {
+function AddIncome({ setAddIncomeModal, onSuccess, preset }) {
   const [date, setDate] = useState(new Date());
   const [source, setSource] = useState("");
   const [savings, setSavings] = useState(SAVINGS_OPTIONS[0]);
   const [amount, setAmount] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [quickAddModal, setQuickAddModal] = useState(false);
+  const [incomePreset, setIncomePreset] = useState(null);
 
   const handleSubmit = async () => {
     setError("");
@@ -52,12 +55,35 @@ function AddIncome({ setAddIncomeModal, onSuccess }) {
 
   const isFormEmpty = !source.trim() || !amount;
 
+  useEffect(() => {
+    if (incomePreset) {
+      setSource(incomePreset.source);
+      setSavings(incomePreset.savings);
+      setAmount(incomePreset.amount.toString());
+    }
+  }, [incomePreset]);
+
+  const handleSelectIncomePreset = (incomePreset) => {
+    setIncomePreset(incomePreset);    // pass preset to AddIncome modal
+    setQuickAddModal(false);    // close QuickAdd modal
+    setAddIncomeModal(true);    // open AddIncome modal
+  };
+
   return (
     <>
       <div className='add-income-modal w-auto p-10 rounded-lg animate-modalIn'>
-         <h1 
-          className='syne-heading text-[#e2d9f3] font-bold text-3xl mb-7 sm:mb-5'
-          ><FontAwesomeIcon icon={faArrowTrendUp} className='me-3'/> Add Income</h1>
+        <div className="flex justify-between items-center mb-7 sm:mb-5">
+          <div>
+            <h1 
+              className='syne-heading text-[#e2d9f3] font-bold text-2xl sm:text-3xl'><FontAwesomeIcon icon={faArrowTrendUp} className='me-2 sm:me-3'/> Add Income</h1>
+          </div>
+
+          <FontAwesomeIcon 
+            icon={faXmark}
+            className="text-[#7c6e9c] hover:text-[#a78bca] transition-colors duration-500 text-lg sm:text-2xl cursor-pointer"
+            onClick={() => setAddIncomeModal(false)}
+          />
+        </div>
 
          <form>
           <div className='mb-5 flex flex-col sm:flex-row gap-x-0 gap-y-5 sm:gap-y-0 sm:gap-x-5'>
@@ -109,9 +135,9 @@ function AddIncome({ setAddIncomeModal, onSuccess }) {
 
            {error && <p className="text-red-400 text-sm mb-4">{error}</p>}
 
-          <div className='flex justify-center gap-x-3'>
+          <div className='flex justify-center gap-x-3 mt-7'>
             <button 
-              className="px-3 py-2 income-button-background rounded-sm cursor-pointer syne-heading mt-7 disabled:pointer-events-none disabled:opacity-50"
+              className="px-3 py-2 income-button-background rounded-sm cursor-pointer syne-heading disabled:pointer-events-none disabled:opacity-50"
               onClick={handleSubmit}
               disabled={loading || isFormEmpty}
             >
@@ -119,14 +145,24 @@ function AddIncome({ setAddIncomeModal, onSuccess }) {
             </button>
 
             <button 
-              className="px-4 py-2 text-[#7c6e9c] hover:text-[#a78bca] transition-colors duration-500 rounded-sm cursor-pointer syne-heading mt-7"
-              onClick={() => setAddIncomeModal(false)}
+              className="px-4 py-2 text-[#7c6e9c] hover:text-[#a78bca] transition-colors duration-500 rounded-sm cursor-pointer syne-heading"
+              type="button"
+              onClick={() => setQuickAddModal(true)}
             >
-                Close
+                Quick Add
             </button>
           </div>
          </form>
       </div>
+
+        {quickAddModal && (
+          <div className="fixed inset-0 z-50 backdrop-blur-md bg-black/20 flex items-center justify-center animate-backdropIn">
+            <QuickAddIncome
+              onClose={() => setQuickAddModal(false)}
+              onSelectIncomePreset={handleSelectIncomePreset}
+            />
+          </div>
+        )}
     </>
   )
 }
