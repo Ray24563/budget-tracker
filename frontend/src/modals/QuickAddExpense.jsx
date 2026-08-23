@@ -26,7 +26,7 @@ function QuickAddExpense({onClose, onSelectExpensePreset}) {
   }, []);
 
   return (
-    <div className="bg-[#0a0818] border border-[#2e2460] rounded-xl p-8 w-auto sm:w-170">
+    <div className={` ${loading ? "h-50" : "h-auto"} bg-[#0a0818] border border-[#2e2460] rounded-xl p-8 w-85 sm:w-170`}>
 
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl sm:text-3xl font-bold text-[#e2d9f3] syne-heading">
