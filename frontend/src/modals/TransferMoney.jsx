@@ -6,6 +6,7 @@ import { SAVINGS_OPTIONS } from "../constants/savings";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRightArrowLeft, faCircleExclamation } from "@fortawesome/free-solid-svg-icons";
 import ConfirmTransferModal from "./ConfirmTransferModal";
+import { formatDateLocal } from "../utils/DateFormatter";
 
 function TransferMoney({ setTransMoneyModal, onSuccess }) {
   const [date, setDate] = useState(new Date());
@@ -39,7 +40,7 @@ function TransferMoney({ setTransMoneyModal, onSuccess }) {
 
     try {
       await addTransfer({
-        date: date.toISOString().split("T")[0],
+        date: formatDateLocal(date),
         from_savings: fromSavings,
         to_savings: toSavings,
         amount: Number(amount),

@@ -6,6 +6,7 @@ import { SAVINGS_OPTIONS, EXPENSE_CATEGORIES } from "../constants/savings";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowTrendDown, faXmark } from "@fortawesome/free-solid-svg-icons";
 import QuickAddExpense from "./QuickAddExpense";
+import { formatDateLocal } from "../utils/DateFormatter";
 
 function AddExpense({setAddExpenseModal, onSuccess}) {
   const [date, setDate] = useState(new Date());
@@ -35,7 +36,7 @@ function AddExpense({setAddExpenseModal, onSuccess}) {
 
   try {
     await addExpense({
-      date: date.toISOString().split("T")[0],
+      date: formatDateLocal(date),
       category,
       source,
       savings,

@@ -6,6 +6,7 @@ import { SAVINGS_OPTIONS } from "../constants/savings";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowTrendUp, faGaugeSimpleHigh, faXmark } from "@fortawesome/free-solid-svg-icons";
 import QuickAddIncome from "./QuickAddIncome";
+import { formatDateLocal } from "../utils/DateFormatter";
 
 function AddIncome({ setAddIncomeModal, onSuccess, preset }) {
   const [date, setDate] = useState(new Date());
@@ -36,7 +37,7 @@ function AddIncome({ setAddIncomeModal, onSuccess, preset }) {
     try {
       await addIncome({
         // Format date to YYYY-MM-DD for FastAPI
-        date: date.toISOString().split("T")[0],
+        date: formatDateLocal(date),
         source,
         savings,
         amount: Number(amount)
