@@ -127,7 +127,7 @@ function TransferMoneyPage () {
 
                         <div className="mt-0.5 grow">
                           <p className="text-[#e2d9f3] text-lg syne-heading mb-5 font-bold">{DateFormatter(date)}</p>
-                            {items.map((item) => (
+                            {[...items].reverse().map((item) => (
                                 <div 
                                   key={item.id}
                                   className="flex items-center justify-between bg-white/[0.024] border border-[rgba(167,139,250,0.07)] opacity-100 transition-all duration-300 shadow-none w-full pt-4 pb-5 px-5 mb-7 rounded-xl"

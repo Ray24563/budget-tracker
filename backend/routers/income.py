@@ -5,6 +5,10 @@ from typing import List
 from database import get_db
 from models import Income
 from schemas import IncomeCreate, IncomeResponse
+import pytz
+from datetime import datetime
+
+PHT = pytz.timezone("Asia/Manila")
 
 router = APIRouter()
 
@@ -15,6 +19,7 @@ def add_income(request: IncomeCreate, db: Session = Depends(get_db)):
     # Create a new Income record from the request data
     new_income = Income(
         date=request.date,
+        time=datetime.now(PHT).time(),
         source=request.source,
         savings=request.savings,
         amount=request.amount

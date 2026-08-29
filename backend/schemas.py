@@ -1,27 +1,27 @@
 from pydantic import BaseModel
-from datetime import date
+from datetime import date as date_type
+from datetime import time as time_type
 from typing import List, Optional
 
-# frontend SENDS to backend when logging in
+# ─── Auth ────────────────────────────────────────────────
 class LoginRequest(BaseModel):
-    password: str   # Must be a string (plain text, only lives briefly)
+    password: str
 
-# backend SENDS BACK after a successful login
 class TokenResponse(BaseModel):
-    access_token: str   # The JWT badge
-    token_type: str     # Always "bearer" by convention
+    access_token: str
+    token_type: str
 
-# What frontend sends when adding income
+# ─── Income ──────────────────────────────────────────────
 class IncomeCreate(BaseModel):
-    date: date
+    date: date_type      
     source: str
     savings: str
     amount: float
 
-# What backend sends back per income record
 class IncomeResponse(BaseModel):
     id: int
-    date: date
+    date: date_type
+    time: Optional[time_type] = None
     source: str
     savings: str
     amount: float
@@ -30,19 +30,17 @@ class IncomeResponse(BaseModel):
         from_attributes = True
 
 # ─── Expense ─────────────────────────────────────────────
-
-# What frontend sends when adding expense
 class ExpenseCreate(BaseModel):
-    date: date
+    date: date_type
     category: str
     source: str
     savings: str
     amount: float
 
-# What backend sends back per expense record
 class ExpenseResponse(BaseModel):
     id: int
-    date: date
+    date: date_type
+    time: Optional[time_type] = None
     category: str
     source: str
     savings: str
@@ -53,15 +51,16 @@ class ExpenseResponse(BaseModel):
 
 # ─── Transfer ────────────────────────────────────────────
 class TransferCreate(BaseModel):
-    date: date
+    date: date_type
     from_savings: str
     to_savings: str
     amount: float
-    description: Optional[str] = None  # optional field
+    description: Optional[str] = None
 
 class TransferResponse(BaseModel):
     id: int
-    date: date
+    date: date_type
+    time: Optional[time_type] = None
     from_savings: str
     to_savings: str
     amount: float
@@ -88,14 +87,14 @@ class SummaryResponse(BaseModel):
 
 # ─── Future Income ────────────────────────────────────────
 class FutureIncomeCreate(BaseModel):
-    date: date
+    date: date_type
     source: str
     savings: str
     amount: float
 
 class FutureIncomeResponse(BaseModel):
     id: int
-    date: date
+    date: date_type
     source: str
     savings: str
     amount: float
@@ -105,7 +104,7 @@ class FutureIncomeResponse(BaseModel):
 
 # ─── Future Expense ───────────────────────────────────────
 class FutureExpenseCreate(BaseModel):
-    date: date
+    date: date_type
     category: str
     source: str
     savings: str
@@ -113,7 +112,7 @@ class FutureExpenseCreate(BaseModel):
 
 class FutureExpenseResponse(BaseModel):
     id: int
-    date: date
+    date: date_type
     category: str
     source: str
     savings: str

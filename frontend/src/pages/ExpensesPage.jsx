@@ -35,6 +35,7 @@ export default function ExpensePage() {
   const [selectedAmount, setSelectedAmount] = useState(null);
   const [selectedID, setSelectedID] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedTime, setSelectedTime] = useState(null);
   const [infoModal, setInfoModal] = useState(false);
 
   useEffect(() => {
@@ -167,7 +168,7 @@ export default function ExpensePage() {
 
                             <div className="mt-0.5 grow">
                               <p className="text-[#e2d9f3] text-lg syne-heading mb-5 font-bold">{DateFormatter(date)}</p>
-                                {items.map((item) => (
+                                {[...items].reverse().map((item) => (
                                     <div 
                                       key={item.id}
                                         onClick={() => (
@@ -237,7 +238,7 @@ export default function ExpensePage() {
                         </div>
 
                         {/* Rows under this date */}
-                        <div className="flex flex-col gap-y-7">
+                        <div className="flex flex-col-reverse gap-y-7">
                           {items.map((item) => (
                             <div 
                               key={item.id} 
@@ -249,7 +250,8 @@ export default function ExpensePage() {
                                               setSelectedAmount(item.amount),
                                               setSelectedSource(item.source),
                                               setSelectedSavings(item.savings),
-                                              setSelectedCategory(item.category)
+                                              setSelectedCategory(item.category),
+                                              setSelectedTime(item.time)
                                       )}
                             >
                               <div>
@@ -395,6 +397,7 @@ export default function ExpensePage() {
           selectedID={selectedID}
           selectedCategory={selectedCategory}
           setInfoModal={setInfoModal}
+          selectedTime={selectedTime}
         />
       </div> 
     }

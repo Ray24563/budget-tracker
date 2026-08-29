@@ -28,6 +28,7 @@ function IncomePage() {
   const [selectedSavings, setSelectedSavings] = useState(null);
   const [selectedAmount, setSelectedAmount] = useState(null);
   const [selectedID, setSelectedID] = useState(null);
+  const [selectedTime, setSelectedTime] = useState(null);
   const [infoModal, setInfoModal] = useState(false);
 
   useEffect(() => {
@@ -175,7 +176,7 @@ function IncomePage() {
 
                             <div className="mt-0.5 grow">
                               <p className="text-[#e2d9f3] text-lg syne-heading mb-5 font-bold">{DateFormatter(date)}</p>
-                                {items.map((item) => (
+                                {[...items].reverse().map((item) => (
                                     <div 
                                       key={item.id}
                                        onClick={() => (
@@ -245,7 +246,7 @@ function IncomePage() {
                         </div>
 
                         {/* Rows under this date */}
-                        <div className="flex flex-col gap-y-7">
+                        <div className="flex flex-col-reverse gap-y-7">
                           {items.map((item) => (
                             <div 
                               key={item.id} 
@@ -256,7 +257,8 @@ function IncomePage() {
                                       setSelectedID(item.id),
                                       setSelectedAmount(item.amount),
                                       setSelectedSource(item.source),
-                                      setSelectedSavings(item.savings)
+                                      setSelectedSavings(item.savings),
+                                      setSelectedTime(item.time)
                               )}
                             >
                               <div>
@@ -400,6 +402,7 @@ function IncomePage() {
           selectedID={selectedID}
           setInfoModal={setInfoModal}
           setConfirmationModal={setConfirmationModal}
+          selectedTime={selectedTime}
         />
       </div> 
     }

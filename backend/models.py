@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Float, Date
+from sqlalchemy import Column, Integer, String, Float, Date, Time
 from database import Base
 
 # Credentials table
@@ -12,6 +12,7 @@ class Income(Base):
     __tablename__ = "income"
     id = Column(Integer, primary_key=True, index=True)
     date = Column(Date, nullable=False)
+    time = Column(Time, nullable=True)
     source = Column(String, nullable=False)
     savings = Column(String, nullable=False)
     amount = Column(Float, nullable=False)
@@ -21,6 +22,7 @@ class Expense(Base):
     __tablename__ = "expenses"
     id = Column(Integer, primary_key=True, index=True)
     date = Column(Date, nullable=False)
+    time = Column(Time, nullable=True)
     category = Column(String, nullable=False)
     source = Column(String, nullable=False)
     savings = Column(String, nullable=False)
@@ -31,6 +33,7 @@ class Transfer(Base):
     __tablename__ = "transfers"
     id = Column(Integer, primary_key=True, index=True)
     date = Column(Date, nullable=False)
+    time = Column(Time, nullable=True)
     from_savings = Column(String, nullable=False)
     to_savings = Column(String, nullable=False)
     amount = Column(Float, nullable=False)

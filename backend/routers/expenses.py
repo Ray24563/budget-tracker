@@ -5,6 +5,10 @@ from typing import List
 from database import get_db
 from models import Expense, Income, Transfer
 from schemas import ExpenseCreate, ExpenseResponse
+import pytz
+from datetime import datetime
+
+PHT = pytz.timezone("Asia/Manila")
 
 router = APIRouter()
 
@@ -81,6 +85,7 @@ def add_expense(request: ExpenseCreate, db: Session = Depends(get_db)):
     # Save the expense
     new_expense = Expense(
         date=request.date,
+        time=datetime.now(PHT).time(),
         category=request.category,
         source=request.source,
         savings=request.savings,
