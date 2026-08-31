@@ -15,6 +15,7 @@ import RecentIncome from '../components/RecentIncome.jsx'
 import RecentExpenses from '../components/RecentExpenses.jsx'
 import TransferMoney from '../modals/TransferMoney.jsx'
 import TopCategories from '../components/TopCategories.jsx'
+import SavingsInfo from '../modals/SavingsInfo.jsx'
 
 const DEFAULT_SUMMARY = {
   savings_breakdown: [
@@ -40,7 +41,9 @@ function Homepage ({handleLogout}){
   const [summary, setSummary] = useState(DEFAULT_SUMMARY);
   const [loading, setLoading] = useState(true);
   const [isPanelOpen, setIsPanelOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768)
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [modalType, setModalType] = useState(null)
+  const [selectedAmount, setSelectedAmount] = useState(null);
 
   useEffect(() => {
     const update = () => setIsMobile(window.innerWidth < 768)
@@ -218,7 +221,10 @@ function Homepage ({handleLogout}){
         </div>
         <section className='grid grid-cols-1 lg:grid-cols-4 gap-y-5 lg:gap-y-5 gap-x-0 lg:gap-x-3 mb-20'>
 
-          <div className='savings-bg-color border-l-5 border-l-[#c084fc] rounded-lg px-7 sm:px-10 py-5 text-[#6b5f8a]'>
+          <div 
+            className='savings-bg-color border-l-5 border-l-[#c084fc] rounded-lg px-7 sm:px-10 py-5 text-[#6b5f8a] cursor-pointer'
+            onClick={() => (setModalType("Wallet"), setSelectedAmount(option1.balance + option2.balance))}
+          >
             <h1 className='#a78bca mb-5'><FontAwesomeIcon icon={faWallet} className='me-3 text-[#c084fc]'/>Wallet</h1>
 
             <div>
@@ -234,7 +240,10 @@ function Homepage ({handleLogout}){
             </div>
           </div>
 
-          <div className='savings-bg-color border-l-5 border-l-[#00D3B8] rounded-lg px-7 sm:px-10 py-5 text-[#6b5f8a]'>
+          <div 
+            className='savings-bg-color border-l-5 border-l-[#00D3B8] rounded-lg px-7 sm:px-10 py-5 text-[#6b5f8a] cursor-pointer'
+            onClick={() => (setModalType("Maya"), setSelectedAmount(option3.balance + option4.balance))}
+          >
             <h1 className='#a78bca mb-5'><FontAwesomeIcon icon={faM} className='me-3 text-[#00D3B8]'/>Maya</h1>
 
             <div>
@@ -250,25 +259,37 @@ function Homepage ({handleLogout}){
             </div>
           </div>
 
-          <div className='savings-bg-color border-l-5 border-l-[#B11116] rounded-lg px-7 sm:px-10 pt-5 pb-16 sm:py-5 sm:pb-0 text-[#6b5f8a]'>
+          <div 
+            className='savings-bg-color border-l-5 border-l-[#B11116] rounded-lg px-7 sm:px-10 pt-5 pb-16 sm:py-5 sm:pb-0 text-[#6b5f8a] cursor-pointer'
+            onClick={() => (setModalType("BPI"), setSelectedAmount(option5.balance))}
+          >
             <h1 className='#a78bca mb-3'><FontAwesomeIcon icon={faCreditCard} className='me-3 text-[#B11116]'/>BPI</h1>
 
             <h1 className='text-[#c4b8e0] font-bold text-xl'>₱ {option5?.balance.toLocaleString() ?? 0}</h1>
           </div>
 
-          <div className='savings-bg-color border-l-5 border-l-[#0A3D8F] rounded-lg px-7 sm:px-10 pt-5 pb-16 sm:py-5 sm:pb-0 text-[#6b5f8a]'>
+          <div 
+            className='savings-bg-color border-l-5 border-l-[#0A3D8F] rounded-lg px-7 sm:px-10 pt-5 pb-16 sm:py-5 sm:pb-0 text-[#6b5f8a] cursor-pointer'
+            onClick={() => (setModalType("BDO"), setSelectedAmount(option6.balance))}
+          >
             <h1 className='#a78bca mb-3'><FontAwesomeIcon icon={faCreditCard} className='me-3 text-[#0A3D8F]'/>BDO</h1>
 
             <h1 className='text-[#c4b8e0] font-bold text-xl'>₱ {option6?.balance.toLocaleString() ?? 0}</h1>
           </div>
 
-           <div className='savings-bg-color border-l-5 border-l-[#EA580C] rounded-lg px-7 sm:px-10 pt-5 pb-16 sm:py-5 sm:pb-0 text-[#6b5f8a]'>
+          <div 
+            className='savings-bg-color border-l-5 border-l-[#EA580C] rounded-lg px-7 sm:px-10 pt-5 pb-16 sm:py-5 sm:pb-0 text-[#6b5f8a] cursor-pointer'
+            onClick={() => (setModalType("MariBank"), setSelectedAmount(option7.balance))}
+          >
             <h1 className='#a78bca mb-3'><FontAwesomeIcon icon={faBuildingColumns} className='me-3 text-[#EA580C]'/>MariBank</h1>
 
             <h1 className='text-[#c4b8e0] font-bold text-xl'>₱ {option7?.balance.toLocaleString() ?? 0}</h1>
           </div>
 
-          <div className='savings-bg-color border-l-5 border-l-[#00D4C6] rounded-lg px-7 sm:px-10 pt-5 pb-16 sm:py-5 sm:pb-0 text-[#6b5f8a] h-auto sm:h-39'>
+          <div 
+            className='savings-bg-color border-l-5 border-l-[#00D4C6] rounded-lg px-7 sm:px-10 pt-5 pb-16 sm:py-5 sm:pb-0 text-[#6b5f8a] h-auto sm:h-39 cursor-pointer'
+            onClick={() => (setModalType("GoTyme"), setSelectedAmount(option8.balance))}
+          >
             <h1 className='#a78bca mb-3'><FontAwesomeIcon icon={faCircleQuestion} className='me-3 text-[#00D4C6]'/>GoTyme</h1>
 
             <h1 className='text-[#c4b8e0] font-bold text-xl'>₱ {option8?.balance.toLocaleString() ?? 0}</h1>
@@ -376,6 +397,16 @@ function Homepage ({handleLogout}){
         <TransferMoney 
           setTransMoneyModal={setTransMoneyModal}
           onSuccess={fetchSummary}
+        />
+      </div>
+    }
+
+    {modalType &&
+      <div className="fixed inset-0 z-50 backdrop-blur-md bg-black/20 flex flex-col items-center justify-center animate-backdropIn">
+        <SavingsInfo 
+          type={modalType}
+          selectedAmount={selectedAmount}
+          onClose={() => setModalType(null)}
         />
       </div>
     }

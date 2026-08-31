@@ -57,7 +57,7 @@ function IncomeInfoModal ({selectedDate, selectedSource, selectedSavings, select
         <hr className="text-white/15 mb-3"/>
 
         <div className="flex justify-between items-center mb-3">
-          <p className="text-[#c4b8e0] text-xs syne-heading">Transaction ID</p>
+          <p className="text-[#c4b8e0] text-xs syne-heading">Transaction No.</p>
           <p className="text-[#c084fc] text-sm font-bold">{selectedID}</p>
         </div>
 

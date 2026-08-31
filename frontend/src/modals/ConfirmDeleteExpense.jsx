@@ -17,7 +17,7 @@ function ConfirmDeleteExpense ({isMobile, handleDelete, selectedDate, selectedSo
           <table className="w-full text-left border-collapse bg-[#1c1640] rounded-lg animate-tableIn mb-7">
             <thead>
               <tr className="border-b border-[#2e2460] syne-heading text-[#e2d9f3] font-bold text-md bg-[#2e2460]">
-                <th className="py-3 px-10 rounded-tl-lg rounded-bl-lg">Transaction ID</th>
+                <th className="py-3 px-10 rounded-tl-lg rounded-bl-lg">Transaction No.</th>
                 <th className="py-3 px-10">Date</th>
                 <th className="py-3 px-10">Category</th>
                 <th className="py-3 px-10">Source</th>
@@ -50,7 +50,7 @@ function ConfirmDeleteExpense ({isMobile, handleDelete, selectedDate, selectedSo
             </div>
             
             <div className="flex justify-between mb-1">
-              <p className="text-[#6b5f8a] syne-heading text-sm">Transaction ID</p>
+              <p className="text-[#6b5f8a] syne-heading text-sm">Transaction No.</p>
               <p className="text-[#e2d9f3] font-bold">{selectedID}</p>
             </div>
 
