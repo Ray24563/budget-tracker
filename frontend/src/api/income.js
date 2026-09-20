@@ -51,3 +51,13 @@ export const getIncomePresets = async () => {
   if (!response.ok) throw new Error(response.status);
   return response.json();
 };
+
+export const getSalaryIncome = async () => {
+  const response = await fetch(`${API_URL}/income/salary`, {
+    headers: {
+      "Authorization": `Bearer ${sessionStorage.getItem("token")}`
+    }
+  });
+  if (!response.ok) throw new Error(response.status);
+  return response.json();
+};

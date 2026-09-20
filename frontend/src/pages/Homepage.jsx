@@ -1,6 +1,6 @@
 import Logo from '../assets/images/logo.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faCreditCard, faRightFromBracket, faArrowRightArrowLeft, faClipboardList, faChartLine, faArrowTrendUp, faArrowTrendDown, faWallet, faM, faCircleQuestion, faListCheck, faListOl, faArrowRotateLeft, faBuildingColumns} from '@fortawesome/free-solid-svg-icons'
+import {faCreditCard, faRightFromBracket, faArrowRightArrowLeft, faClipboardList, faChartLine, faArrowTrendUp, faArrowTrendDown, faWallet, faM, faCircleQuestion, faListCheck, faListOl, faArrowRotateLeft, faBuildingColumns, faMoneyBill} from '@fortawesome/free-solid-svg-icons'
 import FadeIn from '../components/FadeIn'
 import DayTime from '../components/DayTime.jsx'
 import { useState, useEffect, useCallback } from 'react'
@@ -105,6 +105,10 @@ function Homepage ({handleLogout}){
     navigate("/loans")
   }
 
+  const navigateToSalaryPage = () => {
+    navigate("/salary")
+  }
+
   const togglePanel = () => {
     setIsPanelOpen(!isPanelOpen);
   }
@@ -167,6 +171,13 @@ function Homepage ({handleLogout}){
                   onClick={navigateToTransferMoneyPage}
                 >
                   <FontAwesomeIcon icon={faArrowRotateLeft} className='me-3'/>Money Transfer History
+                </button>
+
+                <button 
+                  className='bg-transparent border border-[#3b2d6a] text-[#c4b8e0] py-3 ps-5 w-full text-left rounded-md mb-5 hover:bg-[#1c1640] hover:border-[#4c2f8f] cursor-pointer transition-all duration-500 text-sm sm:text-md'
+                  onClick={navigateToSalaryPage}
+                >
+                  <FontAwesomeIcon icon={faMoneyBill} className='me-3'/>Salary
                 </button>
                 
                 <button 

@@ -88,3 +88,11 @@ def get_income_presets(db: Session = Depends(get_db)):
         }
         for preset in sorted_presets
     ]
+
+@router.get("/income/salary")
+def get_salary_income(db: Session = Depends(get_db)):
+    salary_records = db.query(Income)\
+                       .filter(Income.source == "Salary")\
+                       .order_by(desc(Income.date))\
+                       .all()
+    return salary_records
