@@ -124,7 +124,7 @@ function SavingsInfo ({ type, selectedAmount, onClose }) {
 
           <div className="flex justify-center">
             <button 
-              className="income-button-background rounded-md py-1 px-5"
+              className="income-button-background rounded-md syne-heading py-1.5 px-5"
               onClick={()=> setCalculateDistribution(false)}
             >
               Back

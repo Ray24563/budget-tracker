@@ -351,7 +351,7 @@ export default function SalaryPage() {
       {(distributionModal && isMobile) && (
         <>
           <div className="fixed inset-0 z-50 backdrop-blur-md bg-black/70 flex flex-col items-center justify-center animate-backdropIn">
-            <div className="add-income-modal mx-3 w-80 sm:w-100 p-7 sm:p-8 rounded-lg animate-modalIn">
+            <div className="add-income-modal mx-3 w-85 p-7 sm:p-8 rounded-lg animate-modalIn">
               <div className="mb-5 pb-4 border-b border-[#2e2460]">
 
                   <div className="flex justify-between items-center mb-2">
@@ -378,7 +378,7 @@ export default function SalaryPage() {
                           + ₱ {Number(item.amount).toLocaleString('en-PH', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                         </p>
                       </div>
-                      <div className="w-full h-2 bg-[#2e2460] rounded-full mb-1">
+                      <div className="w-full h-2 bg-[#2e2460] rounded-full mb-2">
                         <div
                           className={`h-2 rounded-full transition-all duration-500 w-[${item.percentage}]`}
                           style={{ width: `${item.percentage}%`, background: '#6d28d9' }}
@@ -400,7 +400,7 @@ export default function SalaryPage() {
 
                <div className="flex justify-center mb-4">
                 <button 
-                  className="income-button-background syne-heading rounded-md py-1 px-4"
+                  className="income-button-background syne-heading rounded-md py-1.5 px-4"
                   onClick={()=> setDistributionModal(false)}
                 >
                   Close
