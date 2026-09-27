@@ -132,6 +132,11 @@ function TopCategories() {
             layout="vertical"
             margin={{ top: 5, right: isMobile ? 10 : 30, left: isMobile ? 30 : 40, bottom: 5 }}
           >
+            <CartesianGrid
+              strokeDasharray="3 3"
+              stroke="#2e2460"
+              vertical={false}
+            />
             <XAxis
               type="number"
               tick={{ fill: "#6b5f8a", fontSize: isMobile ? 10 : 11 }}
@@ -180,8 +185,8 @@ function TopCategories() {
                 </span>
                 <span className="text-[#e2d9f3] text-sm">{item.category}</span>
               </div>
-              <span className="text-[#c084fc] font-bold text-sm">
-                ₱{item.total.toLocaleString()}
+              <span className="text-red-400 font-bold text-sm">
+                - ₱ {item.total.toLocaleString()}
               </span>
             </div>
           ))}

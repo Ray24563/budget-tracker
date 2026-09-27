@@ -1,11 +1,13 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faM, faXmark, faWallet, faCreditCard, faBuildingColumns, faCircleQuestion } from "@fortawesome/free-solid-svg-icons";
 import Logo from '../assets/images/logo.png'
-import { useState } from "react";
+import { use, useState } from "react";
+import Maya from '../assets/images/private-images/Maya_QR.png'
 
 
 function SavingsInfo ({ type, selectedAmount, onClose }) {
   const [calculateDistribution, setCalculateDistribution] = useState(false);
+  const [showQR, setShowQR] = useState(false);
   const config = {
 
     Wallet: {
@@ -22,6 +24,7 @@ function SavingsInfo ({ type, selectedAmount, onClose }) {
       description:import.meta.env.VITE_MAYA_PURPOSE,
       percentage:import.meta.env.VITE_MAYA_PERCENTAGE,
       icon_color: "#00D3B8",
+      image: import.meta.env.VITE_MAYA_IMAGE
     },
 
     BPI: {
@@ -46,6 +49,7 @@ function SavingsInfo ({ type, selectedAmount, onClose }) {
       description:import.meta.env.VITE_MARIBANK_PURPOSE,
       percentage:import.meta.env.VITE_MARIBANK_PERCENTAGE,
       icon_color: "#EA580C",
+      image: import.meta.env.VITE_MARIBANK_IMAGE
     },
 
     GoTyme: {
@@ -54,11 +58,12 @@ function SavingsInfo ({ type, selectedAmount, onClose }) {
       description:import.meta.env.VITE_GOTYME_PURPOSE,
       percentage:import.meta.env.VITE_GOTYME_PERCENTAGE,
       icon_color: "#00D4C6",
+      image: import.meta.env.VITE_GOTYME_IMAGE
     },
 
   }
 
-  const { title, icon, description, percentage, icon_color } = config[type]
+  const { title, icon, description, percentage, icon_color, image } = config[type]
 
   return (
     <div className="add-income-modal mx-3 w-75 sm:w-100 p-7 sm:p-8 rounded-lg animate-modalIn">
@@ -155,7 +160,7 @@ function SavingsInfo ({ type, selectedAmount, onClose }) {
 
           <hr className="text-white/15 mt-3"/>
 
-           {title === "BDO" && (
+           {title === "BDO" ? (
               <>
                 <div className="text-right">
                   <button
@@ -167,12 +172,50 @@ function SavingsInfo ({ type, selectedAmount, onClose }) {
                 </div>
                 <hr className="text-white/15"/>
               </>
-            )}
+            ) : title === "Maya" || title === "MariBank" || title == "GoTyme" ? (
+              <>
+                <div className="text-right">
+                  <button
+                    className="income-button-background text-sm syne-heading font-bold rounded-md py-2 px-3 mb-4 mt-4"
+                    onClick={() => setShowQR(true)}
+                  >
+                    Show QR Code
+                  </button>
+                </div>
+                <hr className="text-white/15"/>
+              </>
+            ) : (null)}
 
             <div className="mt-8">
               <img src={Logo} className="w-10 mx-auto mb-2"/>
               <p className='text-[#c4b8e0]/80 text-center font-bold text-[0.7em] syne-heading'>WhyHub &#169; 2026</p>
             </div>
+        </>
+      )}
+
+      {showQR && (
+        <>
+          <div className="fixed inset-0 z-50 backdrop-blur-md bg-black/20 flex flex-col items-center justify-center animate-backdropIn">
+            <div className="add-income-modal mx-3 w-75 sm:w-120 p-7 sm:p-13 rounded-lg animate-modalIn">
+              <div className="text-right">
+                <FontAwesomeIcon 
+                  className="text-xl sm:text-2xl text-[#c4b8e0] cursor-pointer" 
+                  icon={faXmark}
+                  onClick={() => setShowQR(false)}
+                />
+              </div>
+              <p className="text-center syne-heading text-xl sm:text-3xl font-bold mb-3 text-[#c084fc]">{title} QR Code</p>
+              <img className="mx-auto w-70" src={image}/>
+              <div className="flex justify-center my-5">
+                <p className="syne-heading bg-[#c4b8e0]/20 text-center text-[#c4b8e0] w-40 sm:w-45 rounded-full py-1.5 text-xs sm:text-sm">Transfer fees may apply</p>
+              </div>
+              <hr className="text-white/15 mb-5"/>
+              <div className="mt-5">
+                <img src={Logo} className="w-10 mx-auto mb-2"/>
+                <p className='text-[#c4b8e0]/80 text-center font-bold text-[0.7em] syne-heading'>WhyHub &#169; 2026</p>
+              </div>
+            </div>
+          </div>
         </>
       )}
         

@@ -197,3 +197,33 @@ def get_expense_presets(db: Session = Depends(get_db)):
         }
         for preset in sorted_presets
     ]
+
+@router.get("/expenses/top-savings/{year}/{month}")
+def get_top_savings_expenses(year: int, month: int, db: Session = Depends(get_db)):
+
+    # Query expenses filtered by year and month
+    expenses = db.query(Expense).filter(
+        extract("year", Expense.date) == year,
+        extract("month", Expense.date) == month
+    ).all()
+
+    # Sum expenses per savings
+    savings_totals = {}
+    for expense in expenses:
+        savings = expense.savings
+        savings_totals[savings] = savings_totals.get(savings, 0) + expense.amount
+
+    # Sort by total descending and take top 5
+    sorted_savings = sorted(
+        savings_totals.items(),
+        key=lambda x: x[1],
+        reverse=True
+    )[:5]
+
+    return [
+        {
+            "savings": item[0],
+            "total": round(item[1], 2)
+        }
+        for item in sorted_savings
+    ]

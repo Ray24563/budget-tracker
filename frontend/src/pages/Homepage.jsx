@@ -16,6 +16,7 @@ import RecentExpenses from '../components/RecentExpenses.jsx'
 import TransferMoney from '../modals/TransferMoney.jsx'
 import TopCategories from '../components/TopCategories.jsx'
 import SavingsInfo from '../modals/SavingsInfo.jsx'
+import TopSavings from '../components/TopSavings.jsx'
 
 const DEFAULT_SUMMARY = {
   savings_breakdown: [
@@ -44,6 +45,7 @@ function Homepage ({handleLogout}){
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [modalType, setModalType] = useState(null)
   const [selectedAmount, setSelectedAmount] = useState(null);
+  const [topDashboard, setTopDashboard] = useState(false);
 
   useEffect(() => {
     const update = () => setIsMobile(window.innerWidth < 768)
@@ -331,8 +333,28 @@ function Homepage ({handleLogout}){
       </FadeIn>
 
       <FadeIn>
-        <section className='mt-10 mb-20'>
-          <TopCategories/>
+        <section className='mt-15 mb-20'>
+          <div className='mb-5'>
+            <button 
+              onClick={() => setTopDashboard(false)}
+              className={`${!topDashboard ? "bg-[#2e2460] text-[#c4b8e0]" : "text-[#6b5f8a]"} px-3 py-1 rounded-full cursor-pointer syne-heading me-2 transition-colors duration-500 text-sm sm:text-md`}
+            >
+              Top Expense
+            </button>
+            
+            <button 
+              onClick={() => setTopDashboard(true)}
+              className={`${topDashboard ? "bg-[#2e2460] text-[#c4b8e0]" : "text-[#6b5f8a]"} px-3 py-1 rounded-full cursor-pointer syne-heading transition-colors duration-500 text-sm sm:text-md`}
+            >
+              Top Savings
+            </button>
+          </div>
+          {!topDashboard ? (
+            <TopCategories/>
+          ) : (
+            <TopSavings/>
+          )}
+          
         </section>
       </FadeIn>
 

@@ -68,3 +68,17 @@ export const getExpensePresets = async () => {
   if (!response.ok) throw new Error(response.status);
   return response.json();
 };
+
+// Top Savings Expenses
+export const getTopSavingsExpenses = async (year, month) => {
+  const response = await fetch(
+    `${API_URL}/expenses/top-savings/${year}/${month}`,
+    {
+      headers: {
+        "Authorization": `Bearer ${sessionStorage.getItem("token")}`
+      }
+    }
+  );
+  if (!response.ok) throw new Error(response.status);
+  return response.json();
+};
