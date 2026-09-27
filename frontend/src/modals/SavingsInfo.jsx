@@ -2,7 +2,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faM, faXmark, faWallet, faCreditCard, faBuildingColumns, faCircleQuestion } from "@fortawesome/free-solid-svg-icons";
 import Logo from '../assets/images/logo.png'
 import { use, useState } from "react";
-import Maya from '../assets/images/private-images/Maya_QR.png'
 
 
 function SavingsInfo ({ type, selectedAmount, onClose }) {
