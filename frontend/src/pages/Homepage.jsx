@@ -17,6 +17,7 @@ import TransferMoney from '../modals/TransferMoney.jsx'
 import TopCategories from '../components/TopCategories.jsx'
 import SavingsInfo from '../modals/SavingsInfo.jsx'
 import TopSavings from '../components/TopSavings.jsx'
+import MonthlyIncomeGraph from '../components/MonthlyIncomeGraph.jsx'
 
 const DEFAULT_SUMMARY = {
   savings_breakdown: [
@@ -46,6 +47,7 @@ function Homepage ({handleLogout}){
   const [modalType, setModalType] = useState(null)
   const [selectedAmount, setSelectedAmount] = useState(null);
   const [topDashboard, setTopDashboard] = useState(false);
+  const [monthlyIncome, setMonthlyIncome] = useState(false);
 
   useEffect(() => {
     const update = () => setIsMobile(window.innerWidth < 768)
@@ -312,15 +314,32 @@ function Homepage ({handleLogout}){
       </FadeIn>
 
       <FadeIn>
-        <h2 className='text-[#6b5f8a] syne-heading mt-0 sm:mt-7 mb-3'>Dashboard</h2>
+        <div className='mb-5'>
+          <button 
+            onClick={() => setMonthlyIncome(false)}
+            className={`${!monthlyIncome ? "bg-[#2e2460] text-[#c4b8e0]" : "text-[#6b5f8a]"} px-3 py-1 rounded-full cursor-pointer syne-heading me-2 transition-colors duration-500 text-sm sm:text-md`}
+          >
+            Monthly Expenses
+          </button>
+          
+          <button 
+            onClick={() => setMonthlyIncome(true)}
+            className={`${monthlyIncome ? "bg-[#2e2460] text-[#c4b8e0]" : "text-[#6b5f8a]"} px-3 py-1 rounded-full cursor-pointer syne-heading transition-colors duration-500 text-sm sm:text-md`}
+          >
+            Monthly Income
+          </button>
+        </div>
         <section className='grid grid-cols-1 sm:grid-cols-[1.8fr_1fr] gap-x-0 gap-y-7 sm:gap-y-0 sm:gap-x-5'>
-
           <div className='bg-[#1c1640] border border-[#2e2460] rounded-lg px-7 pt-8 sm:pt-10 text-[#6b5f8a]'>
-            <MonthlyGraph/>
+            {!monthlyIncome ? (
+              <MonthlyGraph/>
+            ) : (
+              <MonthlyIncomeGraph/>
+            )}
 
             <p 
               className='text-sm text-right mt-5 underline cursor-pointer hover:text-[#c4b8e0] transition-colors duration-500 mb-5'
-              onClick={navigateToExpensePage}
+              onClick={monthlyIncome ? navigateToIncomePage : navigateToExpensePage}
             >
                 See All →
             </p>

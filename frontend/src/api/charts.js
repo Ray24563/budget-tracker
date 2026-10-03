@@ -12,6 +12,18 @@ export const getMonthlyExpenses = async (year) => {
   return response.json();
 };
 
+export const getMonthlyIncome = async (year) => {
+  const response = await fetch(`${API_URL}/income/monthly/${year}`, {
+    method: "GET",
+    headers: {
+      "Authorization": `Bearer ${sessionStorage.getItem("token")}`
+    }
+  });
+
+  if (!response.ok) throw new Error(response.status);
+  return response.json();
+};
+
 export const getMonthlyComparison = async () => {
   const response = await fetch(`${API_URL}/summary/monthly`, {
     method: "GET",
