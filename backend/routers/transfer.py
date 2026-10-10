@@ -22,29 +22,29 @@ def transfer_money(request: TransferCreate, db: Session = Depends(get_db)):
     income_records = db.query(Income)\
                        .filter(Income.savings == request.from_savings)\
                        .all()
-    total_income = sum(r.amount for r in income_records)
+    total_income = round(sum(r.amount for r in income_records),2)
 
     expense_records = db.query(Expense)\
                         .filter(Expense.savings == request.from_savings)\
                         .all()
-    total_expenses = sum(r.amount for r in expense_records)
+    total_expenses = round(sum(r.amount for r in expense_records),2)
 
     # Also account for previous outgoing transfers
     outgoing = db.query(Transfer)\
                  .filter(Transfer.from_savings == request.from_savings)\
                  .all()
-    total_outgoing = sum(r.amount for r in outgoing)
+    total_outgoing = round(sum(r.amount for r in outgoing),2)
 
     # Also account for previous incoming transfers
     incoming = db.query(Transfer)\
                  .filter(Transfer.to_savings == request.from_savings)\
                  .all()
-    total_incoming = sum(r.amount for r in incoming)
+    total_incoming = round(sum(r.amount for r in incoming),2)
 
     current_balance = total_income - total_expenses - total_outgoing + total_incoming
 
     # Step 3: Check if balance is sufficient
-    if request.amount > current_balance:
+    if round(request.amount, 2) > current_balance:
         raise HTTPException(
             status_code=400,
             detail=f"Insufficient balance. Current balance for {request.from_savings} is ₱{current_balance:,.2f}"

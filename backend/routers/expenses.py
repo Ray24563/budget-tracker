@@ -50,23 +50,23 @@ def add_expense(request: ExpenseCreate, db: Session = Depends(get_db)):
     income_records = db.query(Income)\
                        .filter(Income.savings == request.savings)\
                        .all()
-    total_income = sum(record.amount for record in income_records)
+    total_income = round(sum(record.amount for record in income_records),2)
 
     # Total expenses for this savings
     expense_records = db.query(Expense)\
                         .filter(Expense.savings == request.savings)\
                         .all()
-    total_expenses = sum(record.amount for record in expense_records)
+    total_expenses = round(sum(record.amount for record in expense_records),2)
 
     outgoing = db.query(Transfer)\
                  .filter(Transfer.from_savings == request.savings)\
                  .all()
-    total_outgoing = sum(r.amount for r in outgoing)
+    total_outgoing = round(sum(r.amount for r in outgoing),2)
 
     incoming = db.query(Transfer)\
                  .filter(Transfer.to_savings == request.savings)\
                  .all()
-    total_incoming = sum(r.amount for r in incoming)
+    total_incoming = round(sum(r.amount for r in incoming),2)
 
     current_balance = (
         total_income
@@ -76,7 +76,7 @@ def add_expense(request: ExpenseCreate, db: Session = Depends(get_db)):
     )
 
     # Check if balance is sufficient
-    if request.amount > current_balance:
+    if round(request.amount,2) > current_balance:
         raise HTTPException(
             status_code=400,
             detail=f"Insufficient balance. Current balance for {request.savings} is ₱{current_balance:,.2f}"
