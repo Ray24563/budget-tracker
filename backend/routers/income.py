@@ -170,5 +170,6 @@ def get_interest_by_year(year: int, db: Session = Depends(get_db)):
             ],
             "total_year": round(sum(months.values()), 2)
         })
+    result.sort(key=lambda x: x["total_year"], reverse=True)
 
     return result
