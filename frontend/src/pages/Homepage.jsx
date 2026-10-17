@@ -18,6 +18,7 @@ import TopCategories from '../components/TopCategories.jsx'
 import SavingsInfo from '../modals/SavingsInfo.jsx'
 import TopSavings from '../components/TopSavings.jsx'
 import MonthlyIncomeGraph from '../components/MonthlyIncomeGraph.jsx'
+import InterestChart from '../components/InterestChart.jsx'
 
 const DEFAULT_SUMMARY = {
   savings_breakdown: [
@@ -374,6 +375,12 @@ function Homepage ({handleLogout}){
             <TopSavings/>
           )}
           
+        </section>
+      </FadeIn>
+
+      <FadeIn>
+        <section className='mt-15 mb-20'>
+          <InterestChart/>
         </section>
       </FadeIn>
 

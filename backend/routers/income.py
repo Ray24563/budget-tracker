@@ -126,3 +126,49 @@ def get_monthly_income(year: int, db: Session = Depends(get_db)):
         }
         for month in range(1, 13)
     ]
+
+@router.get("/income/interest/{year}")
+def get_interest_by_year(year: int, db: Session = Depends(get_db)):
+
+    # Query all income containing "Interest" in source
+    # for the specified year
+    interest_records = db.query(Income).filter(
+        Income.source.ilike("%Interest%"),  # case-insensitive contains
+        extract("year", Income.date) == year
+    ).all()
+
+    # Group by month and savings
+    # Structure: { savings: { month: total } }
+    data = {}
+
+    for record in interest_records:
+        savings = record.savings
+        month = record.date.month
+
+        if savings not in data:
+            data[savings] = {m: 0 for m in range(1, 13)}
+
+        data[savings][month] += record.amount
+
+    # Month names
+    month_names = [
+        "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+        "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+    ]
+
+    # Format for frontend
+    result = []
+    for savings, months in data.items():
+        result.append({
+            "savings": savings,
+            "data": [
+                {
+                    "month": month_names[m - 1],
+                    "total": round(months[m], 2)
+                }
+                for m in range(1, 13)
+            ],
+            "total_year": round(sum(months.values()), 2)
+        })
+
+    return result

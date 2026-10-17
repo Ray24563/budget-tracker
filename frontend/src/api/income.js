@@ -61,3 +61,13 @@ export const getSalaryIncome = async () => {
   if (!response.ok) throw new Error(response.status);
   return response.json();
 };
+
+export const getInterestByYear = async (year) => {
+  const response = await fetch(`${API_URL}/income/interest/${year}`, {
+    headers: {
+      "Authorization": `Bearer ${sessionStorage.getItem("token")}`
+    }
+  });
+  if (!response.ok) throw new Error(response.status);
+  return response.json();
+};
